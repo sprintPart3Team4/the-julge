@@ -23,3 +23,24 @@ export const storeInfo = {
   },
   links: "https://codeit.notion.site/API-10a715ce7c2240fd9d16aa47b5a6bc34",
 };
+
+export const noticeList = {
+  offset: 1,
+  limit: 5,
+  count: 5, // 전체 개수
+  hasNext: true, // 다음 내용 존재 여부
+  items: [
+    {
+      item: {
+        id: "1",
+        hourlyPay: 15000,
+        startsAt: "2023-06-02",
+        workhour: 3,
+        description: "공고목록 디스크립션",
+        closed: "true",
+      },
+      links: "https://codeit.notion.site/API-10a715ce7c2240fd9d16aa47b5a6bc34",
+    },
+  ],
+  links: "https://codeit.notion.site/API-10a715ce7c2240fd9d16aa47b5a6bc34",
+};

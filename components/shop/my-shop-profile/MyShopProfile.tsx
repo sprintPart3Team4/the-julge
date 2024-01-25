@@ -7,8 +7,6 @@ import LocationIcon from "@/public/images/location.svg";
 
 const cn = classNames.bind(css);
 
-console.log(storeInfo.item.description.split("\n"));
-
 function MyShopProfile() {
   return (
     <div className={cn("container")}>
