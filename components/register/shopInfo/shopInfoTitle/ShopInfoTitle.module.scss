@@ -1,0 +1,25 @@
+@use "@/styles/variables.scss" as *;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  color: $color-black;
+  margin: 0;
+  font-weight: 700;
+  font-size: 2.8rem;
+  line-height: 3.3rem;
+}
+
+.buttonCancel {
+  width: 3.2rem;
+  height: 3.2rem;
+  padding: 0;
+  background: url("~/public/images/close.svg") no-repeat;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}
