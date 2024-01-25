@@ -1,9 +1,9 @@
-// 가게 정보 상세 페이지 - 지선님
+import MyShopProfile from "@/components/shop/my-shop-profile/MyShopProfile";
 
 export default function ShopPage() {
   return (
-    <>
-      <div>가게 정보 상세 페이지</div>
-    </>
+    <div>
+      <MyShopProfile />
+    </div>
   );
 }
