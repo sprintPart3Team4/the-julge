@@ -1,0 +1,54 @@
+@import './normalize.scss';
+@import './variables.scss';
+
+:root {
+  height: 100%;
+  min-height: 100vh;
+  font-size: 62.5%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Spoqa Han Sans Neo', 'Spoqa Han Sans JP', sans-serif;
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans Neo';
+  src: url('../public/fonts/SpoqaHanSansNeo-Regular.woff2') format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans Neo';
+  src: url('../public/fonts/SpoqaHanSansNeo-Medium.woff2') format('woff2');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Spoqa Han Sans Neo';
+  src: url('../public/fonts/SpoqaHanSansNeo-Bold.woff2') format('woff2');
+  font-weight: 700;
+}
+
+a {
+  cursor: pointer;
+}
+
+button {
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+}
+
+p,
+textarea {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
