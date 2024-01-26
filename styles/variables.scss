@@ -19,3 +19,25 @@ $color-green-20: #20a81e;
 $color-green-10: #d4f7d4;
 
 $color-kakao: #fee500;
+
+$breakpoint-mobile: 375px;
+$breakpoint-tablet: 744px;
+$breakpoint-pc: 1200px;
+
+@mixin mobile {
+  @media (min-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $breakpoint-tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $breakpoint-pc) {
+    @content;
+  }
+}
