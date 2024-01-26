@@ -15,6 +15,10 @@ html {
   font-family: 'Spoqa Han Sans Neo', 'Spoqa Han Sans JP', sans-serif;
 }
 
+body {
+  font-size: 1.6rem;
+}
+
 @font-face {
   font-family: 'Spoqa Han Sans Neo';
   src: url('../public/fonts/SpoqaHanSansNeo-Regular.woff2') format('woff2');
