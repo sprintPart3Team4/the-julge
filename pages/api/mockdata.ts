@@ -1,3 +1,7 @@
+// 가게 정보 상세 페이지 UI 구현을 위해 임시로 넣어둔 목데이터입니다
+// api 구현 되면 지우겠습니다
+// - 지선
+
 export const storeInfo = {
   item: {
     id: "1",

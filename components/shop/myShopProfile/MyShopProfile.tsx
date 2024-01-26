@@ -1,18 +1,18 @@
-import Image from "next/image";
-import TestImage from "@/public/images/shop-sample.png";
-import { storeInfo } from "@/pages/api/mockdata";
 import classNames from "classnames/bind";
-import css from "./MyShopProfile.module.scss";
+import Image from "next/image";
+import { storeInfo } from "@/pages/api/mockdata";
+import TestImage from "@/public/images/shop-sample.png";
 import LocationIcon from "@/public/images/location.svg";
+import styles from "./MyShopProfile.module.scss";
 
-const cn = classNames.bind(css);
+const cn = classNames.bind(styles);
 
-function MyShopProfile() {
+export default function MyShopProfile() {
   return (
     <div className={cn("container")}>
       <Image src={TestImage} className={cn("image")} alt="테스트 이미지" width={538} />
       <div className={cn("contents")}>
-        <div className={cn("shop-info")}>
+        <div className={cn("shopInfo")}>
           <span className={cn("category")}>{storeInfo.item.category}</span>
           <span className={cn("name")}>{storeInfo.item.name}</span>
 
@@ -30,12 +30,10 @@ function MyShopProfile() {
           </span>
         </div>
         <div className={cn("buttons")}>
-          <button className={cn("button", "white-button")}>편집하기</button>
-          <button className={cn("button", "primary-button")}>공고 등록하기</button>
+          <button className={cn("button", "whiteButton")}>편집하기</button>
+          <button className={cn("button", "primaryButton")}>공고 등록하기</button>
         </div>
       </div>
     </div>
   );
 }
-
-export default MyShopProfile;

@@ -1,5 +1,5 @@
-import styles from "./NoticeSuggestion.module.scss";
 import classNames from "classnames/bind";
+import styles from "./NoticeSuggestion.module.scss";
 
 const cn = classNames.bind(styles);
 

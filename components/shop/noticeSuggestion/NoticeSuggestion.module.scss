@@ -1,13 +1,15 @@
+@use "@/styles/variables.scss" as *;
+
 .container {
   display: flex;
-  width: 964px;
-  padding: 60px 24px;
+  width: 96.4rem;
+  padding: 6rem 2.4rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 24px;
-  border-radius: 12px;
-  border: 1px solid #e5e4e7;
+  gap: 2.4rem;
+  border-radius: 1.2rem;
+  border: 0.1rem solid $color-gray-20;
 
   span {
     color: #111322;
@@ -19,14 +21,14 @@
 
   button {
     display: flex;
-    width: 346px;
-    height: 47px;
+    width: 34.6rem;
+    height: 4.7rem;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    border-radius: 6px;
-    background: #ea3c12;
-    color: #fff;
+    gap: 0.8rem;
+    border-radius: 0.6rem;
+    background: $color-red-40;
+    color: $color-white;
     text-align: center;
     font-size: 1.6rem;
     font-weight: 700;

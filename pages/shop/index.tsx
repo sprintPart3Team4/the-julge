@@ -1,6 +1,6 @@
-import MyShopProfile from "@/components/shop/my-shop-profile/MyShopProfile";
-import NoticeCard from "@/components/shop/notice-card/NoticeCard";
-import NoticeSuggestion from "@/components/shop/notice-suggestion/NoticeSuggestion";
+import MyShopProfile from "@/components/shop/myShopProfile/MyShopProfile";
+import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
+import NoticeSuggestion from "@/components/shop/noticeSuggestion/NoticeSuggestion";
 
 export default function ShopPage() {
   return (
