@@ -1,0 +1,13 @@
+@use "@/styles/variables.scss" as *;
+
+.signBottonWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  padding-top: 0.2rem;
+}
+
+.signBottomLink {
+  color: var(--color-blue-20, #0090ff);
+}
