@@ -1,0 +1,11 @@
+.signButton {
+  display: inline-flex;
+  padding: 1.4rem 1.36rem;
+  border-radius: 0.6rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: var(--color-white, #fff);
+  background: var(--color-red-40, #ea3c12);
+  cursor: pointer;
+}
