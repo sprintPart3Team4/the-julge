@@ -1,0 +1,11 @@
+@use "@/styles/variables.scss" as *;
+.small {
+  width: 24.8rem;
+  height: auto;
+}
+
+.large {
+  width: 10.8rem;
+  height: auto;
+  min-width: 8.4rem;
+}
