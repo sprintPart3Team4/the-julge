@@ -1,0 +1,30 @@
+@use "@/styles/variables.scss" as *;
+
+.inputWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.inputLabel {
+  line-height: 2.6rem;
+}
+
+.input {
+  padding: 1.6rem 2rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-gray-30, #cbc9cf);
+  background: var(--color-white, #fff);
+}
+
+.input:focus-within {
+  outline: 1px solid transparent;
+  border: 1px solid var(--color-red-40, #ff4040);
+}
+
+.errorMessage {
+  color: var(--color-red-40, #ff4040);
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+}
