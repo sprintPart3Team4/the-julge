@@ -9,7 +9,7 @@ const cn = classNames.bind(styles);
 export default function ShopPageLayout() {
   return (
     <div className={cn("container")}>
-      <MyShopProfile />
+      <NoticeSuggestion />
     </div>
   );
 }
