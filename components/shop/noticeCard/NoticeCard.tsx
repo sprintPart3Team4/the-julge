@@ -11,12 +11,12 @@ import styles from "./NoticeCard.module.scss";
 const cn = classNames.bind(styles);
 
 type NoticeCardProps = {
-  closed?: boolean;
+  isClosed?: boolean;
 };
 
-export default function NoticeCard({ closed = false }: NoticeCardProps) {
+export default function NoticeCard({ isClosed = false }: NoticeCardProps) {
   return (
-    <div className={cn("container", { closed: closed })}>
+    <div className={cn("container", { closed: isClosed })}>
       {closed && <div className={cn("imgOverlay")}>마감 완료</div>}
       <Image className={cn("image")} src={TestImage} alt="테스트 이미지" width={280} />
       <div className={cn("contents")}>
