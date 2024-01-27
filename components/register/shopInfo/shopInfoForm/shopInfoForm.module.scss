@@ -1,0 +1,177 @@
+@use "@/styles/variables.scss" as *;
+
+@mixin placeholder {
+  color: $color-gray-40;
+}
+
+.container {
+  max-width: 964px;
+  margin: 0 auto;
+}
+
+.inputWrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.inputBox {
+  width: calc(50% - 20px);
+
+  &:nth-child(n + 3) {
+    margin: 2.4rem 0 0;
+  }
+
+  .title {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: $color-black;
+    line-height: 2.6rem;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 1.6rem 2rem;
+    outline: none;
+    line-height: 2.6rem;
+    color: $color-black;
+    border-radius: 0.6rem;
+    border: 1px solid $color-gray-30;
+
+    &::placeholder {
+      @include placeholder();
+    }
+  }
+
+  .wrap {
+    position: relative;
+
+    .won {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 2rem;
+
+      line-height: 2.6rem;
+      color: $color-black;
+    }
+  }
+
+  .option {
+    display: block;
+    position: relative;
+    padding: 1.6rem 2rem;
+    line-height: 2.6rem;
+    color: $color-gray-40;
+    border-radius: 0.6rem;
+    border: 1px solid $color-gray-30;
+    cursor: pointer;
+
+    .dropdownOpen {
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
+      width: 1.6rem;
+      height: 1.6rem;
+      background: url("~/public/images/dropdown_open.svg") no-repeat center;
+      overflow: hidden;
+      text-indent: 100%;
+      white-space: nowrap;
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0.8rem 0 0;
+    padding: 0;
+    height: 23rem;
+    border-radius: 0.6rem;
+    border: 1px solid $color-gray-20;
+    overflow-y: scroll;
+    box-shadow: 0px 4px 25px 0px #0000001a;
+
+    &::-webkit-scrollbar {
+      width: 0.4rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 4rem;
+      background-color: $color-gray-50;
+    }
+
+    li {
+      padding: 1.2rem 0;
+      font-size: 1.4rem;
+      line-height: 2.2rem;
+      color: $color-black;
+      text-align: center;
+      border-bottom: 1px solid $color-gray-20;
+      cursor: pointer;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .desc {
+    resize: none;
+    outline: none;
+    width: 100%;
+    height: 15.3rem;
+    padding: 1.6rem 2rem;
+    border-radius: 0.6rem;
+    border: 1px solid $color-gray-30;
+    line-height: 2.6rem;
+    color: $color-black;
+
+    &::placeholder {
+      @include placeholder();
+    }
+  }
+}
+
+.inputBox.file {
+  position: relative;
+  margin: 2.4rem 0 0;
+
+  .wrap {
+    width: 48.3rem;
+    height: 27.6rem;
+    border-radius: 0.6rem;
+    border: 1px solid $color-gray-30;
+    background-color: $color-gray-10;
+    cursor: pointer;
+
+    .label {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: calc(50% - 15rem) 0 0;
+      font-weight: 700;
+      line-height: 2rem;
+      color: $color-gray-40;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .cameraImage {
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3.2rem;
+      height: 3.2rem;
+      margin: 0 0 1.1rem;
+    }
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+}
+
+.inputBox.textarea {
+  width: 100%;
+}
