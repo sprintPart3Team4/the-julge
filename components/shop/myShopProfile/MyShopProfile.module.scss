@@ -1,0 +1,86 @@
+@use "@/styles/variables.scss" as *;
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 3.2rem;
+  padding: 2.4rem;
+  width: 96.4rem;
+  border-radius: 1.2rem;
+  background: $color-red-10;
+
+  .image {
+    border-radius: 1.2rem;
+  }
+
+  .contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .shopInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.6rem;
+  }
+
+  .category {
+    color: $color-red-40;
+    font-weight: 700;
+    margin-bottom: -0.4rem;
+  }
+
+  .name {
+    color: $color-black;
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06rem;
+  }
+
+  .location {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: $color-gray-50;
+    line-height: 2.6rem;
+  }
+
+  .description {
+    color: $color-black;
+    line-height: 2.6rem;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .button {
+    display: flex;
+    padding: 1.4rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+    width: 16.9rem;
+    border: 1px solid $color-red-40;
+    border-radius: 0.6rem;
+  }
+
+  .whiteButton {
+    background: $color-white;
+    color: $color-red-40;
+    text-align: center;
+    font-weight: 700;
+    line-height: 2rem;
+  }
+
+  .primaryButton {
+    background-color: $color-red-40;
+    color: $color-white;
+    text-align: center;
+    font-weight: 700;
+    line-height: 2rem;
+  }
+}

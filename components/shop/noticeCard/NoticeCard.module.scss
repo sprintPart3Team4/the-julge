@@ -1,0 +1,81 @@
+@use "@/styles/variables.scss" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.6rem;
+  gap: 2rem;
+  width: 31.2rem;
+  border-radius: 1.2rem;
+  border: 1px solid $color-gray-20;
+  background: $color-white;
+
+  .image {
+    border-radius: 1.2rem;
+  }
+
+  .contents {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .shopName {
+    color: $color-black;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .time,
+  .location {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: $color-gray-50;
+    line-height: 2.2rem;
+  }
+
+  .pay {
+    margin-top: 0.8rem;
+    color: $color-black;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+  }
+
+  svg {
+    fill: $color-red-30;
+  }
+}
+
+.closed {
+  position: relative;
+
+  .imgOverlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 28rem;
+    height: 16rem;
+    background-color: rgba($color: $color-black, $alpha: 0.5);
+    border-radius: 1.2rem;
+    color: $color-gray-30;
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06rem;
+  }
+
+  .shopName,
+  .time,
+  .location,
+  .pay {
+    color: $color-gray-30;
+  }
+
+  svg {
+    fill: $color-gray-30;
+  }
+}
