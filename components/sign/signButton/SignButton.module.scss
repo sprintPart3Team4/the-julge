@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  color: var(--color-white, #fff);
-  background: var(--color-red-40, #ea3c12);
+  color: $color-white;
+  background: $color-red-40;
   cursor: pointer;
 }
