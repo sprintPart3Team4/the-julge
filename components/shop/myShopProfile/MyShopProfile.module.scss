@@ -81,8 +81,6 @@
     }
   }
 
-  // TODO svg 반응형 추가
-
   .location {
     display: flex;
     align-items: center;
@@ -92,6 +90,14 @@
 
     @include tablet {
       line-height: 2.6rem;
+    }
+
+    img {
+      width: 1.6rem;
+
+      @include tablet {
+        width: 2rem;
+      }
     }
   }
 

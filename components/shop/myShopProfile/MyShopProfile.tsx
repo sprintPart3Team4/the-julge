@@ -15,7 +15,6 @@ export default function MyShopProfile() {
         <div className={cn("shopInfo")}>
           <span className={cn("category")}>{storeInfo.item.category}</span>
           <span className={cn("name")}>{storeInfo.item.name}</span>
-
           <div className={cn("location")}>
             <Image src={LocationIcon} alt="위치 아이콘" width={20} height={20} />
             <span>{storeInfo.item.address1}</span>
