@@ -1,0 +1,165 @@
+@use '@/styles/variables.scss' as *;
+
+.wrapper {
+  margin-top: 6rem;
+  min-width: 37.5rem;
+  
+  .formBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.2rem;
+    width: 96.4rem;
+    margin: 0 auto;
+
+    .titleBox {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      align-self: stretch;
+
+      .title {
+        color: $color-black;
+        font-size: 2.8rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 0.56px;
+      }
+
+      .closeButton {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .noticeData {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 2rem;
+      flex-wrap: wrap;
+
+      .noticeBox {
+        position: relative;
+        display: flex;
+        width: 30.8rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+
+        .noticeInput {
+          display: flex;
+          padding: 1.6rem 2rem;
+          justify-content: space-between;
+          align-items: center;
+          align-self: stretch;
+          border-radius: 0.6rem;
+          border: 1px solid $color-gray-30;
+          background: $color-white;
+        }
+
+        .floatingText {
+          position: absolute;
+          width: 3rem;
+          height: 2.6rem;
+          right: 1rem;
+          top: 4.2rem;
+        }
+      }
+    }
+
+    .descriptionBox {
+      display: flex;
+      width: 96.4rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+
+      .description {
+        display: flex;
+        height: 15.3rem;
+        padding: 1.6rem 2rem;
+        align-items: flex-start;
+        gap: 1rem;
+        align-self: stretch;
+        border-radius: 0.6rem;
+        border: 1px solid $color-gray-30;
+        background: $color-white;
+      }
+    }
+
+    .button {
+      display: flex;
+      width: 31.2rem;
+      padding: 1.4rem 0;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
+      border-radius: 0.6rem;
+      background: $color-red-40;
+    
+    &.obstructButton {
+      background-color: $color-gray-50;
+      cursor: not-allowed;
+    }
+
+      .buttonText {
+        color: $color-white;
+        text-align: center;
+        font-size: 1.6rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 2rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 745px) and (max-width: 1200px) {
+  .wrapper {
+    .formBox {
+      width: 80%;
+      margin: 0 auto;
+
+      .noticeData {
+        width: 100%;
+        justify-content: space-between;
+
+        .noticeBox {
+          width: 48%;
+        }
+      }
+
+      .descriptionBox {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 744px) {
+  .wrapper {
+    .formBox {
+      width: 80%;
+      margin: 0 auto;
+
+      .noticeData {
+        width: 100%;
+        justify-content: space-between;
+
+        .noticeBox {
+          width: 100%;
+        }
+      }
+
+      .descriptionBox {
+        width: 100%;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  }
+}
