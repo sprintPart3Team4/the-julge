@@ -4,13 +4,13 @@ import styles from "@/components/register/shopInfo/shopInfoForm/shopInfoForm.mod
 
 const cn = classNames.bind(styles);
 
-export default function Textarea(props: Props) {
+export default function Textarea({ label, title, textarea }: Props) {
   return (
     <div className={cn("inputBox")}>
-      <label htmlFor={props.for} className={cn("title")}>
-        {props.title}
+      <label htmlFor={label} className={cn("title")}>
+        {title}
       </label>
-      <textarea {...props.textarea} className={cn("desc")} placeholder="입력"></textarea>
+      <textarea {...textarea} className={cn("desc")} placeholder="입력"></textarea>
     </div>
   );
 }

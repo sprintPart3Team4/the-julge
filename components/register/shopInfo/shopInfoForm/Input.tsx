@@ -4,13 +4,13 @@ import styles from "@/components/register/shopInfo/shopInfoForm/shopInfoForm.mod
 
 const cn = classNames.bind(styles);
 
-export default function Input(props: Props) {
+export default function Input({ label, title, input }: Props) {
   return (
     <div className={cn("inputBox")}>
-      <label htmlFor={props.for} className={cn("title")}>
-        {props.title}*
+      <label htmlFor={label} className={cn("title")}>
+        {title}*
       </label>
-      <input {...props.input} placeholder="입력" />
+      <input {...input} placeholder="입력" />
     </div>
   );
 }

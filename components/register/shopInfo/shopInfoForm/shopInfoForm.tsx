@@ -15,7 +15,7 @@ export default function ShopInfoForm() {
       <form>
         <div className={cn("inputWrap")}>
           <Input
-            for="shopName"
+            label="shopName"
             title="가게 이름"
             input={{
               type: "text",
@@ -26,7 +26,7 @@ export default function ShopInfoForm() {
           <SelectBox title="분류*" item={FOOD_CATEGORY} />
           <SelectBox title="주소*" item={ADDRESS} />
           <Input
-            for="detailAddress"
+            label="detailAddress"
             title="상세 주소"
             input={{
               type: "text",
@@ -35,7 +35,7 @@ export default function ShopInfoForm() {
             }}
           />
           <TextInput
-            for="wage"
+            label="wage"
             title="기본 시급"
             text="원"
             input={{
@@ -47,7 +47,7 @@ export default function ShopInfoForm() {
         </div>
         <FileInput />
         <Textarea
-          for="desc"
+          label="desc"
           title="가게 설명"
           textarea={{
             id: "desc",

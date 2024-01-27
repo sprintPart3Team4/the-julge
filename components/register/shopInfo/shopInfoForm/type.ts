@@ -1,6 +1,5 @@
 export interface Props {
-  for?: string;
-  id?: string;
+  label?: string;
   title?: string;
   input?: {
     type: string;

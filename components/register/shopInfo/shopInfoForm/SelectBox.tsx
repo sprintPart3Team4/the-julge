@@ -5,12 +5,12 @@ import styles from "@/components/register/shopInfo/shopInfoForm/shopInfoForm.mod
 
 const cn = classNames.bind(styles);
 
-export default function Input(props: Props) {
-  const items = props.item || [];
+export default function Input({ title, item } : Props) {
+  const items = item || [];
 
   return (
     <div className={cn("inputBox")}>
-      <p className={cn("title")}>{props.title}</p>
+      <p className={cn("title")}>{title}</p>
       <label htmlFor="shopName" className={cn("option")}>
         선택<span className={cn("dropdownOpen")}>열기</span>
       </label>
