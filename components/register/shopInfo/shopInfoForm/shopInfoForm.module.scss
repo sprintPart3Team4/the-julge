@@ -5,8 +5,17 @@
 }
 
 .container {
-  max-width: 964px;
-  margin: 0 auto;
+  padding: 0 1.2rem;
+
+  @include tablet {
+    padding: 0 3.2rem;
+  }
+
+  @include desktop {
+    max-width: 964px;
+    margin: 0 auto;
+    padding: 0;
+  }
 }
 
 .inputWrap {
@@ -16,10 +25,24 @@
 }
 
 .inputBox {
-  width: calc(50% - 20px);
+  width: 100%;
+
+  @include tablet {
+    width: calc(50% - 20px);
+  }
+
+  & + & {
+    margin: 2rem 0 0;
+
+    @include tablet {
+      margin: 0;
+    }
+  }
 
   &:nth-child(n + 3) {
-    margin: 2.4rem 0 0;
+    @include tablet {
+      margin: 2.4rem 0 0;
+    }
   }
 
   .title {
@@ -135,26 +158,38 @@
 
 .inputBox.file {
   position: relative;
-  margin: 2.4rem 0 0;
+  margin: 2rem 0 0;
+
+  @include tablet {
+    margin: 2.4rem 0 0;
+  }
 
   .wrap {
-    width: 48.3rem;
+    width: 100%;
     height: 27.6rem;
     border-radius: 0.6rem;
     border: 1px solid $color-gray-30;
     background-color: $color-gray-10;
     cursor: pointer;
 
+    @include tablet {
+      width: 48.3rem;
+    }
+
     .label {
       display: block;
       width: 100%;
       height: 100%;
-      padding: calc(50% - 15rem) 0 0;
+      padding: 10rem;
       font-weight: 700;
       line-height: 2rem;
       color: $color-gray-40;
       cursor: pointer;
       text-align: center;
+
+      @include tablet {
+        padding: calc(50% - 15rem) 0 0;
+      }
     }
 
     .cameraImage {
@@ -174,4 +209,9 @@
 
 .inputBox.textarea {
   width: 100%;
+  margin: 2rem 0 0;
+
+  @include desktop {
+    margin: 2.4rem 0 0;
+  }
 }
