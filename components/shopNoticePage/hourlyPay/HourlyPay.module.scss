@@ -1,0 +1,10 @@
+@use "@/styles/variables.scss" as *;
+
+.hourlyPay {
+  font-size: 2.4rem;
+  font-weight: 700;
+
+  @include tablet {
+    font-size: 2.8rem;
+  }
+}
