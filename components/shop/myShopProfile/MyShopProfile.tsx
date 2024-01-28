@@ -10,12 +10,11 @@ const cn = classNames.bind(styles);
 export default function MyShopProfile() {
   return (
     <div className={cn("container")}>
-      <Image src={TestImage} className={cn("image")} alt="테스트 이미지" width={538} />
+      <Image src={TestImage} className={cn("image")} alt="테스트 이미지" objectFit="cover" />
       <div className={cn("contents")}>
         <div className={cn("shopInfo")}>
           <span className={cn("category")}>{storeInfo.item.category}</span>
           <span className={cn("name")}>{storeInfo.item.name}</span>
-
           <div className={cn("location")}>
             <Image src={LocationIcon} alt="위치 아이콘" width={20} height={20} />
             <span>{storeInfo.item.address1}</span>

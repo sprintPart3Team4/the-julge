@@ -1,17 +1,30 @@
 @use "@/styles/variables.scss" as *;
 
 .container {
+  // container의 width 값은 레이아웃 UI 작업하며 그리드에 맞게 변경할 예정입니다.
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1.6rem;
-  gap: 2rem;
-  width: 31.2rem;
+  gap: 1.2rem;
+  padding: 1.2rem;
+  width: 17.1rem;
   border-radius: 1.2rem;
-  border: 1px solid $color-gray-20;
+  border: 0.1rem solid $color-gray-20;
   background: $color-white;
 
+  @include tablet {
+    padding: 1.6rem;
+    gap: 2rem;
+    width: 33.2rem;
+  }
+
+  @include desktop {
+    width: 31.2rem;
+  }
+
   .image {
+    width: 100%;
+    height: auto;
     border-radius: 1.2rem;
   }
 
@@ -23,8 +36,13 @@
 
   .shopName {
     color: $color-black;
-    font-size: 2rem;
     font-weight: 700;
+    line-height: 2rem;
+
+    @include tablet {
+      font-size: 2rem;
+      line-height: normal;
+    }
   }
 
   .time,
@@ -33,19 +51,33 @@
     align-items: center;
     gap: 0.6rem;
     color: $color-gray-50;
-    line-height: 2.2rem;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+
+    @include tablet {
+      font-size: 1.4rem;
+      line-height: 2.2rem;
+    }
+
+    img {
+      width: 1.6rem;
+
+      @include tablet {
+        width: 2rem;
+      }
+    }
   }
 
   .pay {
     margin-top: 0.8rem;
     color: $color-black;
-    font-size: 2.4rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    letter-spacing: 0.05rem;
-  }
 
-  svg {
-    fill: $color-red-30;
+    @include tablet {
+      font-size: 2.4rem;
+      letter-spacing: 0.05rem;
+    }
   }
 }
 
@@ -57,15 +89,24 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    width: 28rem;
-    height: 16rem;
+    width: 14.5rem;
+    height: 8.3rem;
     background-color: rgba($color: $color-black, $alpha: 0.5);
     border-radius: 1.2rem;
     color: $color-gray-30;
     text-align: center;
-    font-size: 2.8rem;
+    font-size: 2rem;
     font-weight: 700;
-    letter-spacing: 0.06rem;
+
+    @include tablet {
+      width: 27.8rem;
+      height: 15.9rem;
+      font-size: 2.8rem;
+      letter-spacing: 0.06rem;
+    }
+
+    @include desktop {
+    }
   }
 
   .shopName,
@@ -73,9 +114,5 @@
   .location,
   .pay {
     color: $color-gray-30;
-  }
-
-  svg {
-    fill: $color-gray-30;
   }
 }
