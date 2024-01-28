@@ -15,7 +15,7 @@ export default function Footer() {
                     <p className={cn("faq")}>FAQ</p>
                 </div>
                 <div className={cn("sns")}>
-                    <Link href={"malito:"}><Image src="/images/envelope.svg" width={25} height={25} alt="envelope" /></Link>
+                    <Link href={"mailto:support@codeit.kr"}><Image src="/images/envelope.svg" width={25} height={25} alt="envelope" /></Link>
                     <Link href={"https://www.facebook.com/"}><Image src="/images/facebook.svg" width={25} height={25} alt="facebook" /></Link>
                     <Link href={"https://www.instagram.com/"}><Image src="/images/instagram.svg" width={25} height={25} alt="instagram" /></Link>
                 </div>
