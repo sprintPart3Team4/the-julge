@@ -1,5 +1,5 @@
-@import './normalize.scss';
-@import './variables.scss';
+@import "./normalize.scss";
+@import "./variables.scss";
 
 :root {
   height: 100%;
@@ -12,28 +12,29 @@
 }
 
 html {
-  font-family: 'Spoqa Han Sans Neo', 'Spoqa Han Sans JP', sans-serif;
+  font-family: "Spoqa Han Sans Neo", "Spoqa Han Sans JP", sans-serif;
 }
 
 body {
   font-size: 1.6rem;
+  color: $color-black;
 }
 
 @font-face {
-  font-family: 'Spoqa Han Sans Neo';
-  src: url('../public/fonts/SpoqaHanSansNeo-Regular.woff2') format('woff2');
+  font-family: "Spoqa Han Sans Neo";
+  src: url("../public/fonts/SpoqaHanSansNeo-Regular.woff2") format("woff2");
   font-weight: 400;
 }
 
 @font-face {
-  font-family: 'Spoqa Han Sans Neo';
-  src: url('../public/fonts/SpoqaHanSansNeo-Medium.woff2') format('woff2');
+  font-family: "Spoqa Han Sans Neo";
+  src: url("../public/fonts/SpoqaHanSansNeo-Medium.woff2") format("woff2");
   font-weight: 500;
 }
 
 @font-face {
-  font-family: 'Spoqa Han Sans Neo';
-  src: url('../public/fonts/SpoqaHanSansNeo-Bold.woff2') format('woff2');
+  font-family: "Spoqa Han Sans Neo";
+  src: url("../public/fonts/SpoqaHanSansNeo-Bold.woff2") format("woff2");
   font-weight: 700;
 }
 
@@ -55,4 +56,10 @@ textarea {
   border: 0;
   font-size: 100%;
   vertical-align: baseline;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
 }
