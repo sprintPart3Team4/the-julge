@@ -7,10 +7,21 @@ import styles from "./ShopPageLayout.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function ShopPageLayout() {
+type ShopPageLayoutProps = {
+  hasNotice?: boolean;
+};
+
+export default function ShopPageLayout({ hasNotice }: ShopPageLayoutProps) {
   return (
-    <div className={cn("container")}>
-      <NoticeCardList />
+    <div className={cn("wrap")}>
+      <section>
+        <h2>내 가게</h2>
+        <MyShopProfile />
+      </section>
+      <section>
+        <h2>{hasNotice ? "내가 등록한 공고" : "등록한 공고"}</h2>
+        {hasNotice ? <NoticeCardList /> : <NoticeSuggestion />}
+      </section>
     </div>
   );
 }
