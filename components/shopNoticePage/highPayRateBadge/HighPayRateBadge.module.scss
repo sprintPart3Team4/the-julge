@@ -1,0 +1,39 @@
+@use "@/styles/variables.scss" as *;
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+
+  padding: 0.4rem 0.8rem;
+  border-radius: 2rem;
+
+  background-color: $color-red-40;
+
+  @include tablet {
+    padding: 1.2rem;
+  }
+}
+
+.percentage {
+  padding-top: 0.2rem;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+
+  color: $color-white;
+
+  @include tablet {
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+}
+
+.icon {
+  width: 1.6rem;
+  height: 1.6rem;
+
+  @include tablet {
+    width: 2rem;
+    height: 2rem;
+  }
+}
