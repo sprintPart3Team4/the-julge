@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
+import Input from "../../shopInfo/shopInfoForm/Input";
 import classNames from "classnames/bind";
 import styles from "./NoticeRegister.module.scss";
 
