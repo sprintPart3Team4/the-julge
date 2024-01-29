@@ -6,22 +6,19 @@ import styles from "@/components/register/shopInfo/shopInfoForm/shopInfoForm.mod
 
 const cn = classNames.bind(styles);
 
-export default function Input({ title, item }: Props) {
+export default function SelectBox({ label, title, item }: Props) {
   const items = item || [];
   const [optionValues, setOptionValues] = useState<string>("선택");
-  const [isSelected, setIsSelected] = useState<string>("");
+  const isSelected = optionValues !== "선택";
 
   const handleOpenClick = (e: MouseEvent<HTMLDivElement>) => e.currentTarget.classList.toggle(cn("active"));
 
-  const handleOptionClick = (item: string) => {
-    setOptionValues(item);
-    setIsSelected("active");
-  };
+  const handleOptionClick = (item: string) => setOptionValues(item);
 
   return (
     <div className={cn("inputBox")} onClick={handleOpenClick}>
       <p className={cn("title")}>{title}</p>
-      <label htmlFor="shopName" className={cn("option", isSelected)}>
+      <label htmlFor={label} className={cn("option", { active: isSelected })}>
         {optionValues}
         <span className={cn("dropdownOpen")}>열기</span>
       </label>
