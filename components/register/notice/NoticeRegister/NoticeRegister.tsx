@@ -11,7 +11,6 @@ import styles from "./NoticeRegister.module.scss";
 const cn = classNames.bind(styles);
 
 export default function NoticeRegister() {
-  const [width, setWidth] = useState<number | undefined>();
   const [hourlyPay, setHourlyPay] = useState<String | undefined>();
   const [startsAt, setStartAt] = useState<String | undefined>();
   const [workhour, setWorkHour] = useState<String | undefined>();
@@ -20,19 +19,6 @@ export default function NoticeRegister() {
 
   const router = useRouter();
   const { shop_id } = router.query;
-
-  const useWidth = () => {
-    const handleResize = () => setWidth(window.innerWidth)
-    useEffect(() => {
-        handleResize()
-        window.addEventListener('resize', handleResize)
-        return () => window.removeEventListener('resize', handleResize)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-    return width
-  }
-
-  console.log(width);
 
   function pageMovement(): void {}
 
@@ -59,9 +45,6 @@ export default function NoticeRegister() {
 
   function submit(e: FormEvent): void {
     e.preventDefault();
-    console.log(hourlyPay);
-    console.log(startsAt);
-    console.log(workhour);
   }
 
   return (
