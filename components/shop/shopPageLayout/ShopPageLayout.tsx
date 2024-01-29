@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import MyShopProfile from "@/components/shop/myShopProfile/MyShopProfile";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
-import NoticeSuggestion from "@/components/shop/noticeSuggestion/NoticeSuggestion";
+import NoticeSuggestion from "@/components/shop/registerSuggestion/RegisterSuggestion";
 import NoticeCardList from "../noticeCardList/NoticeCardList";
 import styles from "./ShopPageLayout.module.scss";
 
@@ -20,7 +20,7 @@ export default function ShopPageLayout({ hasNotice }: ShopPageLayoutProps) {
       </section>
       <section>
         <h2>{hasNotice ? "내가 등록한 공고" : "등록한 공고"}</h2>
-        {hasNotice ? <NoticeCardList /> : <NoticeSuggestion />}
+        {hasNotice ? <NoticeCardList /> : <NoticeSuggestion type="notice" />}
       </section>
     </div>
   );
