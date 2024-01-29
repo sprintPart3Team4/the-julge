@@ -1,0 +1,41 @@
+@use "@/styles/variables.scss" as *;
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3.2rem;
+
+  padding: 2.4rem;
+
+  width: 29.8rem;
+  height: 18.4rem;
+
+  border-radius: 0.8rem;
+  background-color: $color-white;
+}
+
+.textWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.text {
+  color: $color-modal-text;
+  line-height: 2.6rem;
+}
+
+.buttonPosition {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+}
