@@ -44,9 +44,6 @@ export default function NoticeRegister() {
 
   function submit(e: FormEvent): void {
     e.preventDefault();
-    console.log(hourlyPay);
-    console.log(startsAt);
-    console.log(workhour);
   }
 
   return (
