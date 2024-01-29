@@ -17,7 +17,7 @@ export default function Input({
   type,
   text,
   floatingText,
-  setter
+  setter,
 }: InputProps) {
   return (
     <div className={cn("noticeData")}>
