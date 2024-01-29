@@ -28,6 +28,11 @@
     border-radius: 1.2rem;
     width: 100%;
     height: auto;
+
+    @include desktop {
+      width: 53.9rem;
+      height: 30.8rem;
+    }
   }
 
   .contents {
