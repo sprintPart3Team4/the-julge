@@ -1,0 +1,11 @@
+@use "@/styles/variables.scss" as *;
+
+.description {
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+
+  @include tablet {
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+  }
+}

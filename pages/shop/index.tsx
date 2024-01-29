@@ -6,6 +6,7 @@ export default function ShopPage() {
   return (
     <>
       <ShopPageLayout />
+      <ShopPageLayout hasNotice />
     </>
   );
 }

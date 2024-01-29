@@ -1,0 +1,38 @@
+@use "@/styles/variables.scss" as *;
+
+.container {
+  position: relative;
+}
+
+.thumbnail {
+  border-radius: 1.2rem;
+  width: 100%;
+  height: auto;
+
+  @include desktop {
+    width: 53.9rem;
+    height: 30.8rem;
+  }
+}
+
+.closed {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 1.2rem;
+
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.7) 100%);
+  color: $color-gray-30;
+
+  font-size: 2rem;
+  font-weight: 700;
+
+  @include tablet {
+    font-size: 2.8rem;
+  }
+}

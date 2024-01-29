@@ -9,7 +9,7 @@ const cn = classNames.bind(styles);
 
 export default function MyShopProfile() {
   return (
-    <div className={cn("container")}>
+    <div className={cn("wrap")}>
       <Image src={TestImage} className={cn("image")} alt="테스트 이미지" objectFit="cover" />
       <div className={cn("contents")}>
         <div className={cn("shopInfo")}>

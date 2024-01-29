@@ -2,14 +2,26 @@ import classNames from "classnames/bind";
 import MyShopProfile from "@/components/shop/myShopProfile/MyShopProfile";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
 import NoticeSuggestion from "@/components/shop/noticeSuggestion/NoticeSuggestion";
+import NoticeCardList from "../noticeCardList/NoticeCardList";
 import styles from "./ShopPageLayout.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function ShopPageLayout() {
+type ShopPageLayoutProps = {
+  hasNotice?: boolean;
+};
+
+export default function ShopPageLayout({ hasNotice }: ShopPageLayoutProps) {
   return (
-    <div className={cn("container")}>
-      <NoticeSuggestion />
+    <div className={cn("wrap")}>
+      <section>
+        <h2>내 가게</h2>
+        <MyShopProfile />
+      </section>
+      <section>
+        <h2>{hasNotice ? "내가 등록한 공고" : "등록한 공고"}</h2>
+        {hasNotice ? <NoticeCardList /> : <NoticeSuggestion />}
+      </section>
     </div>
   );
 }

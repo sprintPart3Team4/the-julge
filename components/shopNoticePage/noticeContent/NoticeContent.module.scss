@@ -1,0 +1,50 @@
+@use "@/styles/variables.scss" as *;
+
+// panel
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+
+  @include desktop {
+    justify-content: space-between;
+
+    padding-top: 1.6rem;
+
+    width: 34.6rem;
+    height: 30.8rem;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  @include tablet {
+    gap: 1.2rem;
+  }
+}
+
+.payContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  @include tablet {
+    gap: 0.8rem;
+  }
+}
+
+.editButton {
+  padding: 1rem 2rem;
+  border: 1px solid $color-red-40;
+  border-radius: 0.6rem;
+  width: 100%;
+
+  color: $color-red-40;
+
+  font-weight: 700;
+  line-height: 2rem;
+}

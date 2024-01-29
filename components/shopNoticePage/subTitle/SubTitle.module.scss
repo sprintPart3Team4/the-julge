@@ -1,0 +1,13 @@
+@use "@/styles/variables.scss" as *;
+
+.subTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+
+  color: $color-red-40;
+
+  @include tablet {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
