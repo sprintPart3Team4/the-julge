@@ -62,43 +62,10 @@
         background: $color-white;
       }
     }
-
-    .button {
-      display: flex;
-      width: 100%;
-      padding: 1.4rem 10rem;
-      justify-content: center;
-      align-items: center;
-      gap: 0.8rem;
-      border-radius: 0.6rem;
-      background: $color-red-40;
-
-      &.obstructButton {
-        background-color: $color-gray-50;
-        cursor: not-allowed;
-      }
-
-      .buttonText {
-        color: $color-white;
-        text-align: center;
-        font-size: 1.6rem;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 2rem;
-      }
-    }
   }
 }
 
-@include tablet {
-  .wrapper {
-    .formBox {
-      .button {
-        width: 50%;
-      }
-    }
-  }
-}
+@include tablet {}
 
 @include desktop {
   .wrapper {
@@ -111,11 +78,6 @@
         gap: 2rem;
         flex-wrap: wrap;
       }
-
-      .button {
-        width: 31.2rem;
-      }
     }
   }
 }
-

@@ -5,11 +5,13 @@ import Image from "next/image";
 import axios from "axios";
 import classNames from "classnames/bind";
 import Input from "./Input";
+import Button from "@/components/common/button/Button";
 import styles from "./NoticeRegister.module.scss";
 
 const cn = classNames.bind(styles);
 
 export default function NoticeRegister() {
+  const [width, setWidth] = useState<number | undefined>();
   const [hourlyPay, setHourlyPay] = useState<String | undefined>();
   const [startsAt, setStartAt] = useState<String | undefined>();
   const [workhour, setWorkHour] = useState<String | undefined>();
@@ -18,6 +20,19 @@ export default function NoticeRegister() {
 
   const router = useRouter();
   const { shop_id } = router.query;
+
+  const useWidth = () => {
+    const handleResize = () => setWidth(window.innerWidth)
+    useEffect(() => {
+        handleResize()
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    return width
+  }
+
+  console.log(width);
 
   function pageMovement(): void {}
 
@@ -44,6 +59,9 @@ export default function NoticeRegister() {
 
   function submit(e: FormEvent): void {
     e.preventDefault();
+    console.log(hourlyPay);
+    console.log(startsAt);
+    console.log(workhour);
   }
 
   return (
@@ -72,7 +90,7 @@ export default function NoticeRegister() {
           />
           <Input
             id="startsAt"
-            type="date"
+            type="datetime-local"
             text="시작 일시*"
             setter={setState}
           />
@@ -95,13 +113,7 @@ export default function NoticeRegister() {
             onChange={setState}
           ></textarea>
         </div>
-        <button
-          className={cn(styles.button, {
-            obstructButton: !hourlyPay || !startsAt || !workhour,
-          })}
-        >
-          <span className={cn("buttonText")}>등록하기</span>
-        </button>
+        <Button text="등록하기" size="fixed" color="primary" handleButtonClick={submit}/>
       </form>
     </div>
   );
