@@ -1,13 +1,13 @@
 @use "@/styles/variables.scss" as *;
 
-.container {
-  // container의 width 값은 레이아웃 UI 작업하며 그리드에 맞게 변경할 예정입니다.
+.wrap {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 1.2rem;
   padding: 1.2rem;
-  width: 17.1rem;
+  width: 100%;
+  height: auto;
   border-radius: 1.2rem;
   border: 0.1rem solid $color-gray-20;
   background: $color-white;
@@ -15,11 +15,6 @@
   @include tablet {
     padding: 1.6rem;
     gap: 2rem;
-    width: 33.2rem;
-  }
-
-  @include desktop {
-    width: 31.2rem;
   }
 
   .image {

@@ -1,15 +1,13 @@
 @use "@/styles/variables.scss" as *;
 
-// 모바일 사이즈를 디폴트로
-.container {
+.wrap {
   position: relative;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   padding: 2rem;
   gap: 1.2rem;
-  max-width: 68rem;
-  width: calc(100% - 2.4rem);
+  width: 100%;
   border-radius: 1.2rem;
   background: $color-red-10;
   font-size: 1.4rem;
@@ -17,19 +15,24 @@
   @include tablet {
     gap: 1.6rem;
     padding: 2.4rem;
-    width: calc(100% - 6.4rem);
+    width: 100%;
   }
 
   @include desktop {
     flex-direction: row;
     gap: 2.8rem;
-    max-width: 96.4rem;
+    min-width: 100%;
   }
 
   .image {
     border-radius: 1.2rem;
     width: 100%;
     height: auto;
+
+    @include desktop {
+      width: 53.9rem;
+      height: 30.8rem;
+    }
   }
 
   .contents {

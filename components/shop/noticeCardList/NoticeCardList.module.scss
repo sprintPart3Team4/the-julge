@@ -1,0 +1,16 @@
+@use "@/styles/variables.scss" as *;
+
+.wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6rem 0.9rem;
+  width: 100%;
+
+  @include tablet {
+    gap: 3.2rem 1.4rem;
+  }
+
+  @include desktop {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
