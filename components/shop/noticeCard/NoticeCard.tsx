@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
+import HighPayRateBadge from "@/components/shopNoticePage/highPayRateBadge/HighPayRateBadge";
 import { storeInfo, noticeList } from "@/pages/api/mockdata";
 import TestImage from "@/public/images/shop-sample.png";
 import LocationIcon from "@/public/images/location.svg";
@@ -31,7 +32,10 @@ export default function NoticeCard({ isClosed = false }: NoticeCardProps) {
           <Image src={isClosed ? GreyLocationIcon : LocationIcon} alt="장소 아이콘" />
           <span>{storeInfo.item.address1}</span>
         </div>
-        <span className={cn("pay")}>{noticeList.items[0].item.hourlyPay.toLocaleString()}원</span>
+        <div className={cn("pays")}>
+          <span className={cn("pay")}>{noticeList.items[0].item.hourlyPay.toLocaleString()}원</span>
+          <HighPayRateBadge hourlyPay={10000} originalHourlyPay={150000} />
+        </div>
       </div>
     </div>
   );

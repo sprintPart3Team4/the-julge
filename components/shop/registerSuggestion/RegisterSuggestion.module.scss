@@ -26,25 +26,4 @@
       line-height: 2.6rem;
     }
   }
-
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 2rem;
-    height: 3.7rem;
-    border-radius: 0.6rem;
-    background: $color-red-40;
-    color: $color-white;
-    font-size: 1.4rem;
-    text-align: center;
-    font-weight: 700;
-
-    @include tablet {
-      width: 34.6rem;
-      height: 4.7rem;
-      font-size: 1.6rem;
-      line-height: 2rem;
-    }
-  }
 }

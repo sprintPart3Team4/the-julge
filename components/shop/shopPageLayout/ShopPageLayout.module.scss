@@ -17,7 +17,6 @@
     @include tablet {
       gap: 3.2rem;
       padding: 6rem 3.2rem;
-      // max-width: 68rem; - 이렇게 하는 게 좋을지?
     }
 
     @include desktop {
