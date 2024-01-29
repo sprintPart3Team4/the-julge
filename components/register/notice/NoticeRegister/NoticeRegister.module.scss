@@ -34,41 +34,13 @@
       }
     }
 
-    .noticeData {
+    .noticeBox {
       display: inline-flex;
       align-items: flex-start;
       gap: 2rem;
       flex-wrap: wrap;
       width: 100%;
       justify-content: space-between;
-
-      .noticeBox {
-        position: relative;
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.8rem;
-
-        .noticeInput {
-          display: flex;
-          padding: 1.6rem 2rem;
-          justify-content: space-between;
-          align-items: center;
-          align-self: stretch;
-          border-radius: 0.6rem;
-          border: 1px solid $color-gray-30;
-          background: $color-white;
-        }
-
-        .floatingText {
-          position: absolute;
-          width: 3rem;
-          height: 2.6rem;
-          right: 1rem;
-          top: 4rem;
-        }
-      }
     }
 
     .descriptionBox {
@@ -121,12 +93,6 @@
 @include tablet {
   .wrapper {
     .formBox {
-      .noticeData {
-        .noticeBox {
-          width: 48%;
-        }
-      }
-
       .button {
         width: 50%;
       }
@@ -139,15 +105,11 @@
     .formBox {
       width: 96.4rem;
 
-      .noticeData {
+      .noticeBox {
         display: inline-flex;
         align-items: flex-start;
         gap: 2rem;
         flex-wrap: wrap;
-
-        .noticeBox {
-          width: 30.8rem;
-        }
       }
 
       .button {

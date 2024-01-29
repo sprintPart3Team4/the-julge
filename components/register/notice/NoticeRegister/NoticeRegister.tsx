@@ -3,17 +3,17 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
-import Input from "../../shopInfo/shopInfoForm/Input";
 import classNames from "classnames/bind";
+import Input from "./Input";
 import styles from "./NoticeRegister.module.scss";
 
 const cn = classNames.bind(styles);
 
 export default function NoticeRegister() {
-  const [hourlyPay, setHourlyPay] = useState<string | undefined>();
+  const [hourlyPay, setHourlyPay] = useState<String | undefined>();
   const [startsAt, setStartAt] = useState<String | undefined>();
-  const [workhour, setWorkHour] = useState<string | undefined>();
-  const [description, setDescription] = useState<string | undefined>();
+  const [workhour, setWorkHour] = useState<String | undefined>();
+  const [description, setDescription] = useState<String | undefined>();
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
 
   const router = useRouter();
@@ -44,6 +44,9 @@ export default function NoticeRegister() {
 
   function submit(e: FormEvent): void {
     e.preventDefault();
+    console.log(hourlyPay);
+    console.log(startsAt);
+    console.log(workhour);
   }
 
   return (
@@ -62,44 +65,27 @@ export default function NoticeRegister() {
             />
           </Link>
         </div>
-        <div className={cn("noticeData")}>
-          <div className={cn("noticeBox")}>
-            <label htmlFor="hourlyPay" className={cn("explan")}>
-              시급*
-            </label>
-            <input
-              id="hourlyPay"
-              className={cn("noticeInput")}
-              type="number"
-              placeholder="입력"
-              onChange={setState}
-            ></input>
-            <div className={cn("floatingText")}>원</div>
-          </div>
-          <div className={cn("noticeBox")}>
-            <label htmlFor="startsAt" className={cn("explan")}>
-              시작 일시*
-            </label>
-            <input
-              id="startsAt"
-              className={cn("noticeInput")}
-              type="date"
-              onChange={setState}
-            ></input>
-          </div>
-          <div className={cn("noticeBox")}>
-            <label htmlFor="workhour" className={cn("explan")}>
-              업무 시간*
-            </label>
-            <input
-              id="workhour"
-              className={cn("noticeInput")}
-              type="number"
-              placeholder="입력"
-              onChange={setState}
-            ></input>
-            <div className={cn("floatingText")}>시간</div>
-          </div>
+        <div className={cn("noticeBox")}>
+          <Input
+            id="hourlyPay"
+            type="number"
+            text="시급*"
+            floatingText="원"
+            setter={setState}
+          />
+          <Input
+            id="startsAt"
+            type="date"
+            text="시작 일시*"
+            setter={setState}
+          />
+          <Input
+            id="workhour"
+            type="number"
+            text="업무 시간*"
+            floatingText="시간"
+            setter={setState}
+          />
         </div>
         <div className={cn("descriptionBox")}>
           <label htmlFor="description" className={cn("explan")}>
