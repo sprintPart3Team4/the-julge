@@ -1,21 +1,24 @@
 @use "@/styles/variables.scss" as *;
 
 .wrap {
-  margin: 0rem;
+  margin: 0 auto;
 
   section {
     display: flex;
     flex-direction: column;
     gap: 1.6rem;
-    padding: 4rem 1.2rem;
+    box-sizing: content-box;
+    margin: 4rem 1.2rem;
 
     @include tablet {
       gap: 3.2rem;
-      padding: 6rem 3.2rem;
+      margin: 6rem 3.2rem;
+      // max-width: 68rem; - 이렇게 하는 게 좋을지?
     }
 
     @include desktop {
-      padding: 6rem 23.8rem;
+      margin: 6rem auto;
+      width: 96.4rem;
     }
   }
 
