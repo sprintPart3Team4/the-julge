@@ -1,3 +1,4 @@
+import { useState, useEffect, ChangeEvent } from "react";
 import Image from "next/image";
 import CarmeraIcon from "@/public/images/camera.svg";
 import classNames from "classnames/bind";
@@ -6,18 +7,48 @@ import styles from "@/components/register/shopInfo/shopInfoForm/shopInfoForm.mod
 const cn = classNames.bind(styles);
 
 export default function FileInput() {
+  const [preview, setPreview] = useState<string>(CarmeraIcon);
+  const [fileValue, setFileValue] = useState<File | null>(null);
+  const [fileName, setFileName] = useState<string>("");
+
+  const isAddImage = fileValue ? 'active' : '';
+  const alt = preview ? fileName : "카메라 아이콘";
+
+  const handlePreview = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+
+    if (target.files) {
+      const file = target.files[0];
+      const name = file.name.slice(0, file.name.indexOf("."));
+
+      setFileValue(file);
+      setFileName(name);
+    }
+  };
+
+  useEffect(() => {
+    if (!fileValue) return;
+    const nextPreview = URL.createObjectURL(fileValue);
+    setPreview(nextPreview);
+
+    return () => {
+      setPreview("");
+      URL.revokeObjectURL(nextPreview);
+    };
+  }, [fileValue]);
+
   return (
     <div className={cn("inputBox", "file")}>
       <p className={cn("title")}>가게 이미지</p>
-      <div className={cn("wrap")}>
+      <div className={cn("wrap", isAddImage )}>
         <label htmlFor="file" className={cn("label")}>
           <div className={cn("cameraImage")}>
-            <Image fill src={CarmeraIcon} alt="카메라 아이콘" object-fit="cover" />
+            <Image fill src={preview} alt={alt} object-fit="cover" />
           </div>
           이미지 추가하기
         </label>
       </div>
-      <input type="file" id="file" name="file" />
+      <input type="file" id="file" name="file" onChange={handlePreview}/>
     </div>
   );
 }
