@@ -1,0 +1,27 @@
+@use "@/styles/variables.scss" as *;
+
+.address {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  color: $color-gray-50;
+
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+
+  @include tablet {
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+  }
+}
+
+.icon {
+  width: 1.6rem;
+  height: 1.6rem;
+
+  @include tablet {
+    width: 2rem;
+    height: 2rem;
+  }
+}

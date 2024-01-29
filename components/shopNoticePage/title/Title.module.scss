@@ -1,0 +1,20 @@
+@use "@/styles/variables.scss" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  margin: auto;
+
+  max-width: 96.4rem;
+  width: calc(100% - $mobile-safezone * 2);
+
+  @include tablet {
+    width: calc(100% - $tablet-safezone * 2);
+  }
+
+  @include desktop {
+    width: 96.4rem;
+  }
+}

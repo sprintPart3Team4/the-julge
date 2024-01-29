@@ -1,0 +1,29 @@
+@use "@/styles/variables.scss" as *;
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  margin: auto;
+  padding: 2rem;
+  border: 1px solid $color-gray-20;
+  border-radius: 1.2rem;
+
+  max-width: 96.4rem;
+  width: calc(100% - $mobile-safezone * 2);
+
+  @include tablet {
+    gap: 1.6rem;
+    padding: 2.4rem;
+    width: calc(100% - $tablet-safezone * 2);
+  }
+
+  @include desktop {
+    flex-direction: row;
+    justify-content: space-between;
+
+    width: 96.4rem;
+  }
+}
