@@ -1,0 +1,93 @@
+@use "@/styles/variables.scss" as *;
+
+@mixin textWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin text {
+  text-align: center;
+  color: $color-modal-text;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  border-radius: 0.8rem;
+  background-color: $color-white;
+}
+
+.normal {
+  padding: 2.8rem;
+
+  width: 32.7rem;
+  height: 22rem;
+
+  @include tablet {
+    width: 54rem;
+    height: 25rem;
+  }
+
+  .textWrap {
+    @include textWrap;
+    gap: 1.6rem;
+    padding-top: 2.4rem;
+
+    @include tablet {
+      padding-top: 4rem;
+    }
+  }
+
+  .text {
+    @include text;
+    font-size: 1.6rem;
+    font-weight: 500;
+
+    @include tablet {
+      font-size: 1.8rem;
+    }
+  }
+
+  .buttonPosition {
+    display: flex;
+    justify-content: center;
+
+    @include tablet {
+      justify-content: flex-end;
+    }
+  }
+}
+
+.small {
+  align-items: center;
+  padding: 2.4rem;
+
+  width: 29.8rem;
+  height: 18.4rem;
+
+  font-weight: 400;
+  line-height: 2.6rem;
+
+  .textWrap {
+    @include textWrap;
+    gap: 1.6rem;
+  }
+
+  .text {
+    @include text;
+    line-height: 2.6rem;
+  }
+
+  .buttonPosition {
+    width: 8rem;
+  }
+}
