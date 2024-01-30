@@ -6,19 +6,33 @@ import axios from "axios";
 import classNames from "classnames/bind";
 import Input from "./Input";
 import Button from "@/components/common/button/Button";
+import instance from "@/pages/api/axios";
 import styles from "./NoticeRegister.module.scss";
 
 const cn = classNames.bind(styles);
 
 export default function NoticeRegister() {
-  const [hourlyPay, setHourlyPay] = useState<String | undefined>();
-  const [startsAt, setStartAt] = useState<String | undefined>();
-  const [workhour, setWorkHour] = useState<String | undefined>();
-  const [description, setDescription] = useState<String | undefined>();
+  const [hourlyPay, setHourlyPay] = useState<number>();
+  const [startsAt, setStartAt] = useState<string>("");
+  const [workhour, setWorkHour] = useState<number>();
+  const [description, setDescription] = useState<string>("");
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
 
   const router = useRouter();
   const { shop_id } = router.query;
+  const { notice_id } = router.query;
+
+  useEffect((): void => {
+    (async function getData() {
+      const response = await instance.get(`/shops/${shop_id}/notices/${notice_id}`);
+      const data = await response.data.item;
+      const { hourlyPay, startsAt, workhour, description } = data;
+      setHourlyPay(hourlyPay);
+      setStartAt(startsAt);
+      setWorkHour(workhour);
+      setDescription(description);
+    })
+  }, [])
 
   function pageMovement(): void {}
 
@@ -29,13 +43,13 @@ export default function NoticeRegister() {
 
     switch (e.target.id) {
       case "hourlyPay":
-        setHourlyPay(String(value));
+        setHourlyPay(Number(value));
         break;
       case "startsAt":
         setStartAt(String(value));
         break;
       case "workhour":
-        setWorkHour(String(value));
+        setWorkHour(Number(value));
         break;
       case "description":
         setDescription(String(value));
@@ -45,6 +59,18 @@ export default function NoticeRegister() {
 
   function submit(e: FormEvent): void {
     e.preventDefault();
+
+    // const body = {
+    //   hourlyPay: hourlyPay,
+    //   startsAt: startsAt,
+    //   workhour: workhour,
+    //   description: description,
+    // };
+
+    // async function postData() {
+    //   const response = await instance.post(`https://bootcamp-api.codeit.kr/api/2-4/the-julge`, body);
+    //   const data = response.data;
+    // }
   }
 
   return (
@@ -69,12 +95,14 @@ export default function NoticeRegister() {
             type="number"
             text="시급*"
             floatingText="원"
+            value={hourlyPay}
             setter={setState}
           />
           <Input
             id="startsAt"
             type="datetime-local"
             text="시작 일시*"
+            value={startsAt}
             setter={setState}
           />
           <Input
@@ -82,6 +110,7 @@ export default function NoticeRegister() {
             type="number"
             text="업무 시간*"
             floatingText="시간"
+            value={workhour}
             setter={setState}
           />
         </div>
@@ -93,12 +122,17 @@ export default function NoticeRegister() {
             id="description"
             className={cn("description")}
             placeholder="입력"
+            value={description}
             onChange={setState}
           ></textarea>
         </div>
-        <Button text="등록하기" size="fixed" color="primary" handleButtonClick={submit}/>
+        <Button
+          text="등록하기"
+          size="fixed"
+          color="primary"
+          handleButtonClick={submit}
+        />
       </form>
     </div>
   );
 }
-

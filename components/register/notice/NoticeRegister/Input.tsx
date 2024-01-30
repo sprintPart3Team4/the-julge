@@ -9,6 +9,7 @@ interface InputProps {
   type: string;
   text: string;
   floatingText?: string;
+  value: string | number
   setter: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
@@ -17,6 +18,7 @@ export default function Input({
   type,
   text,
   floatingText,
+  value,
   setter,
 }: InputProps) {
   return (
@@ -29,6 +31,7 @@ export default function Input({
         className={cn("noticeInput")}
         type={type}
         placeholder="입력"
+        value={value}
         onChange={setter}
         autoComplete="off"
       />
