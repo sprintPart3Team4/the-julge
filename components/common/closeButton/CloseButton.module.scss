@@ -1,0 +1,9 @@
+@use "@/styles/variables.scss" as *;
+
+.closeButton {
+  width: 3.2rem;
+  height: 3.2rem;
+  &:hover {
+    cursor: pointer;
+  }
+}
