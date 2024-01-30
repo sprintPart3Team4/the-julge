@@ -1,0 +1,74 @@
+@use "@/styles/variables.scss" as *;
+.signLayoutWrap {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signWrap {
+  width: 35rem;
+  padding: 1.2rem;
+}
+.logoWarp {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4rem;
+}
+
+.formWrap {
+  width: 35rem;
+}
+
+.inputWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.inputLabel {
+  line-height: 2.6rem;
+}
+
+.inputWrap > div {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.inputWrap > div button {
+  position: absolute;
+  right: 1.6rem;
+  top: 1.7rem;
+}
+
+.input {
+  width: 100%;
+  padding: 1.6rem 2rem;
+  border-radius: 6px;
+  border: 1px solid $color-gray-30;
+  background: $color-white;
+}
+
+.input:focus-within {
+  outline: 1px solid transparent;
+  border: 1px solid $color-red-40;
+}
+
+.errorMessage {
+  color: $color-red-40;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+}
+
+.signBtn {
+  background-color: aqua;
+}
+.buttonWrap {
+  margin-top: 2.8rem;
+}
+.signBottomWrap {
+  margin-top: 2rem;
+}
