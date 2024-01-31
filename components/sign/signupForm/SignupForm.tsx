@@ -28,9 +28,6 @@ export interface FormValue {
 }
 
 export default function SignupForm() {
-  const router = useRouter();
-
-  // 모달 상태 및 열고 닫는 함수
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -43,21 +40,15 @@ export default function SignupForm() {
 
   async function onSubmit(data: FormValue) {
     try {
-      console.log(data);
       const { email, password, type } = data;
-      const res = await axios.post("users", {
+      await axios.post("users", {
         email,
         password,
         type,
       });
-      // 성공적으로 회원가입
-      console.log("회원가입이 성공적으로 완료되었습니다.");
       openModal("success");
     } catch (error) {
-      // 회원가입이 실패
-      if (error.response.status === 400) {
-        console.error("잘못된 형식의 요청입니다.");
-      } else if (error.response.status === 409) {
+      if (error.response.status === 409) {
         openModal("error");
       }
     }
@@ -67,7 +58,6 @@ export default function SignupForm() {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-    getValues,
     watch,
   } = useForm<FormValue>({
     mode: "onBlur",
@@ -166,7 +156,7 @@ export default function SignupForm() {
                   required: "비밀번호를 입력해주세요.",
                   validate: {
                     check: (value) => {
-                      if (getValues("password") !== value) {
+                      if (userInfo.password !== value) {
                         return "비밀번호가 일치하지 않습니다";
                       }
                     },
@@ -192,12 +182,12 @@ export default function SignupForm() {
                   type="radio"
                   value="employee"
                   id="employee"
-                  checked={getValues("type") === "employee"}
+                  checked={userInfo.type === "employee"}
                   {...register("type")}
                 />
                 <label htmlFor="employee">
                   <Image
-                    src={getValues("type") === "employee" ? checkedButton : uncheckedButton}
+                    src={userInfo.type === "employee" ? checkedButton : uncheckedButton}
                     alt="체크이미지"
                     width={20}
                     height={20}
@@ -210,12 +200,12 @@ export default function SignupForm() {
                   type="radio"
                   value="employer"
                   id="employer"
-                  checked={getValues("type") === "employer"}
+                  checked={userInfo.type === "employer"}
                   {...register("type")}
                 />
                 <label htmlFor="employer">
                   <Image
-                    src={getValues("type") === "employer" ? checkedButton : uncheckedButton}
+                    src={userInfo.type === "employer" ? checkedButton : uncheckedButton}
                     alt="체크이미지"
                     width={20}
                     height={20}
@@ -226,7 +216,7 @@ export default function SignupForm() {
             </div>
           </div>
           <div className={cn("buttonWrap")}>
-            <Button text="회원가입 하기" size="fixed" color="primary" type="submit" />
+            <Button text="회원가입 하기" size="fixed" color="primary" />
           </div>
         </form>
         <div className={cn("signBottomWrap")}>
@@ -237,7 +227,7 @@ export default function SignupForm() {
         <Modal>
           <Modal.Confirm
             text={isError ? "이미 사용 중인 이메일입니다." : "가입이 완료되었습니다!"}
-            url={isError ? "/signup" : "/"} // 에러인 경우는 /signup, 성공인 경우는 /signin으로 이동할 URL
+            url={isError ? "/signup" : "/signin"} // 에러인 경우는 /signup, 성공인 경우는 /signin으로 이동할 URL
             setIsModalOpen={closeModal} // 모달 닫기 함수 전달
           />
         </Modal>
