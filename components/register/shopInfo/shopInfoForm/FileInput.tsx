@@ -7,7 +7,7 @@ import styles from "@/components/register/shopInfo/shopInfoForm/shopInfoForm.mod
 
 const cn = classNames.bind(styles);
 
-export default function FileInput() {
+export default function FileInput({ setFormValues }) {
   const [preview, setPreview] = useState<string>(CarmeraIcon);
   const [fileValue, setFileValue] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string>("");
@@ -15,28 +15,35 @@ export default function FileInput() {
   const isAddImage = fileValue ? "active" : "";
   const alt = preview ? fileName : "카메라 아이콘";
 
-  const handlePreview = (e: ChangeEvent<HTMLInputElement>) => {
+  const getImgUrl = async (file) => {
+    const imgUrl = await createPresinedURL(file);
+    return imgUrl.split("?")[0];
+  };
+
+  const handleImgChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
+    let file;
 
     if (target.files) {
-      const file = target.files[0];
+      file = target.files[0];
       const name = file.name.slice(0, file.name.indexOf("."));
 
       setFileValue(file);
       setFileName(name);
     }
+    const imgUrl = await getImgUrl(file);
+    console.log(imgUrl)
+    setFormValues((prev) => ({
+      ...prev,
+      imageUrl: imgUrl,
+    }));
   };
 
   useEffect(() => {
-    if (fileValue) {
-      createPresinedURL(fileValue);
-    }else{
-      return;
-    }
-    
+    if (!fileValue) return;
     const nextPreview = URL.createObjectURL(fileValue);
     setPreview(nextPreview);
- 
+
     return () => {
       setPreview("");
       URL.revokeObjectURL(nextPreview);
@@ -55,7 +62,7 @@ export default function FileInput() {
             이미지 추가하기
           </label>
         </div>
-        <input type="file" id="file" name="file" onChange={handlePreview} />
+        <input type="file" id="file" name="file" onChange={handleImgChange} />
       </div>
     </>
   );

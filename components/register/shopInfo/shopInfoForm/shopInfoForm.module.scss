@@ -61,7 +61,8 @@
     line-height: 2.6rem;
   }
 
-  input[type="text"] {
+  input[type="text"],
+  input[type="number"] {
     width: 100%;
     padding: 1.6rem 2rem;
     outline: none;
@@ -72,6 +73,12 @@
 
     &::placeholder {
       @include placeholder();
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
   }
 
@@ -250,4 +257,8 @@
   @include desktop {
     margin: 2.4rem 0 0;
   }
+}
+
+.buttonWrap {
+  margin: 0 auto;
 }

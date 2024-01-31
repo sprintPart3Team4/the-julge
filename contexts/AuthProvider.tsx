@@ -104,7 +104,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       shop: res.data.item,
     }));
   };
-
+  
   // 새로 고침했을 때, 로그인이 풀리지 않도록 ??
   useEffect(() => {
     if (values?.user?.id) {
