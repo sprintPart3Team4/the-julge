@@ -183,13 +183,33 @@
   .wrap {
     width: 100%;
     height: 27.6rem;
-    border-radius: 0.6rem;
+    border-radius: 1.2rem;
     border: 1px solid $color-gray-30;
     background-color: $color-gray-10;
     cursor: pointer;
 
     @include tablet {
       width: 48.3rem;
+    }
+
+    &.active {
+      border: none;
+      background-color: transparent;
+    }
+
+    &.active .label {
+      overflow: hidden;
+      text-indent: 100%;
+      white-space: nowrap;
+      padding: 0;
+    }
+
+    &.active .cameraImage {
+      position: static;
+      width: 100%;
+      height: 100%;
+      transform: translateX(0);
+      margin: 0;
     }
 
     .label {
