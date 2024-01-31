@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
+import Button from "@/components/common/button/Button";
 import { storeInfo } from "@/pages/api/mockdata";
 import TestImage from "@/public/images/shop-sample.png";
 import LocationIcon from "@/public/images/location.svg";
@@ -29,8 +30,8 @@ export default function MyShopProfile() {
           </span>
         </div>
         <div className={cn("buttons")}>
-          <button className={cn("button", "whiteButton")}>편집하기</button>
-          <button className={cn("button", "primaryButton")}>공고 등록하기</button>
+          <Button text="편집하기" size="flexible" color="secondary"></Button>
+          <Button text="공고 등록하기" size="flexible" color="primary"></Button>
         </div>
       </div>
     </div>

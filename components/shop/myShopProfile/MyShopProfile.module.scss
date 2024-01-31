@@ -117,33 +117,4 @@
     display: flex;
     gap: 0.8rem;
   }
-
-  .button {
-    display: flex;
-    flex-grow: 1;
-    padding: 1rem;
-    justify-content: center;
-    align-items: center;
-    width: 15.1rem;
-    border: 1px solid $color-red-40;
-    border-radius: 0.6rem;
-    text-align: center;
-    font-weight: 700;
-
-    @include tablet {
-      padding: 1.4rem;
-      width: 16.9rem;
-      line-height: 2rem;
-    }
-  }
-
-  .whiteButton {
-    background: $color-white;
-    color: $color-red-40;
-  }
-
-  .primaryButton {
-    background-color: $color-red-40;
-    color: $color-white;
-  }
 }

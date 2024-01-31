@@ -1,0 +1,49 @@
+@use "@/styles/variables.scss" as *;
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 0 2.8rem 2.8rem;
+
+  width: 32.7rem;
+  height: 22rem;
+
+  border-radius: 0.8rem;
+  background-color: $color-white;
+
+  @include tablet {
+    width: 54rem;
+    height: 25rem;
+  }
+}
+
+.text {
+  padding-top: 8.1rem;
+  text-align: center;
+
+  color: $color-modal-text;
+
+  font-size: 1.6rem;
+  font-weight: 500;
+
+  @include tablet {
+    padding-top: 10.8rem;
+    font-size: 1.8rem;
+  }
+}
+
+.buttonPosition {
+  display: flex;
+  justify-content: center;
+
+  @include tablet {
+    justify-content: flex-end;
+  }
+}
