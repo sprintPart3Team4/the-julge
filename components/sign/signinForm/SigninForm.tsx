@@ -113,7 +113,7 @@ export default function SigninForm() {
             {errors.password && <small className={cn("errorMessage")}>{errors.password.message}</small>}
           </div>
           <div className={cn("buttonWrap")}>
-            <Button text="로그인 하기" size="fixed" color="primary" type="submit" />
+            <Button text="로그인 하기" size="fixed" color="primary" />
           </div>
         </form>
         <div className={cn("signBottomWrap")}>
