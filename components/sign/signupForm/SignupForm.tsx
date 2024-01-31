@@ -32,7 +32,13 @@ export default function SignupForm() {
 
   // 모달 상태 및 열고 닫는 함수
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
+  const [isError, setIsError] = useState(false);
+
+  const openModal = (type: string) => {
+    setIsError(type === "error");
+    setIsModalOpen(true);
+  };
+
   const closeModal = () => setIsModalOpen(false);
 
   async function onSubmit(data: FormValue) {
@@ -44,19 +50,15 @@ export default function SignupForm() {
         password,
         type,
       });
-
       // 성공적으로 회원가입
       console.log("회원가입이 성공적으로 완료되었습니다.");
-
-      // 추가로 필요한 처리 (예: 회원가입 완료 후 홈페이지로 이동)
-      // router.push("/");
+      openModal("success");
     } catch (error) {
       // 회원가입이 실패
-      console.error("회원가입 중 오류가 발생했습니다:", error);
       if (error.response.status === 400) {
         console.error("잘못된 형식의 요청입니다.");
       } else if (error.response.status === 409) {
-        openModal();
+        openModal("error");
       }
     }
   }
@@ -234,8 +236,8 @@ export default function SignupForm() {
       {isModalOpen && (
         <Modal>
           <Modal.Confirm
-            text="이미 사용 중인 이메일입니다."
-            url="/signup" // 혹은 다른 필요한 페이지로 이동할 URL
+            text={isError ? "이미 사용 중인 이메일입니다." : "가입이 완료되었습니다!"}
+            url={isError ? "/signup" : "/"} // 에러인 경우는 /signup, 성공인 경우는 /signin으로 이동할 URL
             setIsModalOpen={closeModal} // 모달 닫기 함수 전달
           />
         </Modal>
