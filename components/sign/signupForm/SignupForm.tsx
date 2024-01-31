@@ -2,17 +2,21 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import classNames from "classnames/bind";
 import axios from "@/pages/api/axios";
 import Logo from "@/components/common/logo/Logo";
 import Button from "@/components/common/button/Button";
 import SignBottom from "@/components/sign/signBotton/SignBotton";
-import styles from "./SignupForm.module.scss";
-import classNames from "classnames/bind";
+
 import Image from "next/image";
 import EyeOn from "@/public/images/ico-eye-on.svg";
 import EyeOff from "@/public/images/ico-eye-off.svg";
 import uncheckedButton from "@/public/images/unCheck.svg";
 import checkedButton from "@/public/images/check.svg";
+
+import styles from "./SignupForm.module.scss";
+
+import Modal from "@/components/common/modal/Modal";
 
 const cn = classNames.bind(styles);
 
@@ -25,8 +29,36 @@ export interface FormValue {
 
 export default function SignupForm() {
   const router = useRouter();
+
+  // 모달 상태 및 열고 닫는 함수
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   async function onSubmit(data: FormValue) {
-    console.log(data);
+    try {
+      console.log(data);
+      const { email, password, type } = data;
+      const res = await axios.post("users", {
+        email,
+        password,
+        type,
+      });
+
+      // 성공적으로 회원가입
+      console.log("회원가입이 성공적으로 완료되었습니다.");
+
+      // 추가로 필요한 처리 (예: 회원가입 완료 후 홈페이지로 이동)
+      // router.push("/");
+    } catch (error) {
+      // 회원가입이 실패
+      console.error("회원가입 중 오류가 발생했습니다:", error);
+      if (error.response.status === 400) {
+        console.error("잘못된 형식의 요청입니다.");
+      } else if (error.response.status === 409) {
+        openModal();
+      }
+    }
   }
 
   const {
@@ -199,6 +231,15 @@ export default function SignupForm() {
           <SignBottom text="이미 가입하셨나요?" href="/signin" textLink="로그인하기" />
         </div>
       </div>
+      {isModalOpen && (
+        <Modal>
+          <Modal.Confirm
+            text="이미 사용 중인 이메일입니다."
+            url="/signup" // 혹은 다른 필요한 페이지로 이동할 URL
+            setIsModalOpen={closeModal} // 모달 닫기 함수 전달
+          />
+        </Modal>
+      )}
     </div>
   );
 }
