@@ -1,4 +1,5 @@
 import React from "react";
+
 import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -17,6 +18,7 @@ import checkedButton from "@/public/images/check.svg";
 import styles from "./SignupForm.module.scss";
 
 import Modal from "@/components/common/modal/Modal";
+
 
 const cn = classNames.bind(styles);
 
@@ -77,10 +79,12 @@ export default function SignupForm() {
 
   const [togglePassword, setTogglePassword] = useState<boolean>(false);
   const [togglePasswordCheck, setTogglePasswordCheck] = useState<boolean>(false);
+
   const handleClickTogglePassword = () => {
     setTogglePassword((prev) => !prev);
     setTogglePasswordCheck((prev) => !prev);
   };
+
 
   const source = togglePasswordCheck ? EyeOn : EyeOff;
 
@@ -233,5 +237,6 @@ export default function SignupForm() {
         </Modal>
       )}
     </div>
+
   );
 }
