@@ -44,7 +44,7 @@ export type User = {
 };
 
 export type Shop = {
-  id: string;
+  id?: string;
   name: string;
   category: string;
   address1: string;
@@ -61,5 +61,6 @@ export type AuthContextType = {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   updateMe: (formData: UpdateUser) => Promise<void>;
-  updateShop: (method: any, formData: any) => Promise<void>;
+  registerShop: (FormData: Shop) => Promise<void>;
+  updateShop: (formData: Shop) => Promise<void>;
 };

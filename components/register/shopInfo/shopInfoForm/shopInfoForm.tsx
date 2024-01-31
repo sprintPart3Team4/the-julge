@@ -25,7 +25,7 @@ export default function ShopInfoForm() {
   });
   const wage = formValues.originalHourlyPay !== 0 ? formValues.originalHourlyPay : "";
 
-  const { updateShop, shop } = useAuth();
+  const { registerShop, shop } = useAuth();
 
   const handleValueChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -39,8 +39,8 @@ export default function ShopInfoForm() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    updateShop("post", formValues);
-  }
+    registerShop(formValues);
+  };
 
   useEffect(() => {
     console.log(shop);
