@@ -63,6 +63,17 @@
     }
   }
 
+  .pays {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.2rem;
+
+    @include tablet {
+      flex-direction: row;
+    }
+  }
+
   .pay {
     margin-top: 0.8rem;
     color: $color-black;

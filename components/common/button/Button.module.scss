@@ -19,7 +19,15 @@
 }
 
 .flexible {
-  @include basic;
+  width: 100%;
+  height: 3.8rem;
+  border-radius: 0.6rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+
+  @include tablet {
+    @include basic;
+  }
 }
 
 .fixed {
@@ -28,7 +36,7 @@
 }
 
 .reactive {
-  padding: 1rem 2rem;
+  // padding: 1rem 2rem;
   width: fit-content;
   height: 3.7rem;
   border-radius: 0.6rem;

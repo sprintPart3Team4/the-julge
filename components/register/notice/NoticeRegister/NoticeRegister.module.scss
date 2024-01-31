@@ -1,0 +1,83 @@
+@use "@/styles/variables.scss" as *;
+
+.wrapper {
+  margin-top: 6rem;
+  min-width: 37.5rem;
+
+  .formBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.2rem;
+    width: 80%;
+    margin: 0 auto;
+
+    .titleBox {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      align-self: stretch;
+
+      .title {
+        color: $color-black;
+        font-size: 2.8rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 0.56px;
+      }
+
+      .closeButton {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .noticeBox {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 2rem;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .descriptionBox {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+
+      .description {
+        display: flex;
+        height: 15.3rem;
+        padding: 1.6rem 2rem;
+        align-items: flex-start;
+        gap: 1rem;
+        align-self: stretch;
+        border-radius: 0.6rem;
+        border: 1px solid $color-gray-30;
+        background: $color-white;
+      }
+    }
+  }
+}
+
+@include tablet {}
+
+@include desktop {
+  .wrapper {
+    .formBox {
+      width: 96.4rem;
+
+      .noticeBox {
+        display: inline-flex;
+        align-items: flex-start;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}
