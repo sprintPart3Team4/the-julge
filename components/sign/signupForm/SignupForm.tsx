@@ -1,5 +1,4 @@
 import React from "react";
-
 import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -8,6 +7,7 @@ import axios from "@/pages/api/axios";
 import Logo from "@/components/common/logo/Logo";
 import Button from "@/components/common/button/Button";
 import SignBottom from "@/components/sign/signBotton/SignBotton";
+import Modal from "@/components/common/modal/Modal";
 
 import Image from "next/image";
 import EyeOn from "@/public/images/ico-eye-on.svg";
@@ -16,9 +16,6 @@ import uncheckedButton from "@/public/images/unCheck.svg";
 import checkedButton from "@/public/images/check.svg";
 
 import styles from "./SignupForm.module.scss";
-
-import Modal from "@/components/common/modal/Modal";
-
 
 const cn = classNames.bind(styles);
 
@@ -84,7 +81,6 @@ export default function SignupForm() {
     setTogglePassword((prev) => !prev);
     setTogglePasswordCheck((prev) => !prev);
   };
-
 
   const source = togglePasswordCheck ? EyeOn : EyeOff;
 
@@ -237,6 +233,5 @@ export default function SignupForm() {
         </Modal>
       )}
     </div>
-
   );
 }
