@@ -1,4 +1,5 @@
 import React from "react";
+
 import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -6,13 +7,16 @@ import axios from "@/pages/api/axios";
 import Logo from "@/components/common/logo/Logo";
 import Button from "@/components/common/button/Button";
 import SignBottom from "@/components/sign/signBotton/SignBotton";
+
 import styles from "./SignupForm.module.scss";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import EyeOn from "@/public/images/ico-eye-on.svg";
 import EyeOff from "@/public/images/ico-eye-off.svg";
+
 import uncheckedButton from "@/public/images/unCheck.svg";
 import checkedButton from "@/public/images/check.svg";
+
 
 const cn = classNames.bind(styles);
 
@@ -24,6 +28,7 @@ export interface FormValue {
 }
 
 export default function SignupForm() {
+
   const router = useRouter();
   async function onSubmit(data: FormValue) {
     console.log(data);
@@ -53,6 +58,7 @@ export default function SignupForm() {
 
   const [togglePassword, setTogglePassword] = useState<boolean>(false);
   const [togglePasswordCheck, setTogglePasswordCheck] = useState<boolean>(false);
+
   const handleClickTogglePassword = () => {
     setTogglePassword((prev) => !prev);
     setTogglePasswordCheck((prev) => !prev);
