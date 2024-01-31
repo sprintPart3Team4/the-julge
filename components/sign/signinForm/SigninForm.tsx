@@ -47,8 +47,10 @@ export default function SigninForm() {
 
   const [togglePassword, setTogglePassword] = useState<boolean>(false);
   const [togglePasswordCheck, setTogglePasswordCheck] = useState<boolean>(false);
-  const handleClickTogglePassword = () => setTogglePassword((prev) => !prev);
-  const handleClickTogglePasswordCheck = () => setTogglePasswordCheck((prev) => !prev);
+  const handleClickTogglePassword = () => {
+    setTogglePassword((prev) => !prev);
+    setTogglePasswordCheck((prev) => !prev);
+  };
 
   const source = togglePasswordCheck ? EyeOn : EyeOff;
 
@@ -70,7 +72,7 @@ export default function SigninForm() {
                 type="text"
                 placeholder="입력"
                 {...register("email", {
-                  required: true,
+                  required: "이메일을 입력해주세요.",
                   pattern: {
                     value: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
                     message: "이메일 형식에 맞지 않습니다.",
@@ -91,7 +93,7 @@ export default function SigninForm() {
                 type={togglePassword ? "text" : "password"}
                 placeholder="입력"
                 {...register("password", {
-                  required: true,
+                  required: "비밀번호를 입력해주세요.",
                   minLength: {
                     value: 8,
                     message: "8자 이상 입력해주세요.",
@@ -102,7 +104,6 @@ export default function SigninForm() {
                 type="button"
                 onClick={() => {
                   handleClickTogglePassword();
-                  handleClickTogglePasswordCheck();
                 }}
               >
                 <Image src={source} alt="비밀번호 숨김 표시" width={16} height={16} />
