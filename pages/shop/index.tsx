@@ -1,12 +1,13 @@
+import Footer from "@/components/common/footer/Footer";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
-import NoticeSuggestion from "@/components/shop/noticeSuggestion/NoticeSuggestion";
+import RegisterSuggestion from "@/components/shop/registerSuggestion/RegisterSuggestion";
 import ShopPageLayout from "@/components/shop/shopPageLayout/ShopPageLayout";
 
 export default function ShopPage() {
   return (
     <>
-      <ShopPageLayout />
-      <ShopPageLayout hasNotice />
+      <ShopPageLayout hasShop hasNotice />
+      <Footer />
     </>
   );
 }
