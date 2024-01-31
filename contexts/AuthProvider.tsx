@@ -101,7 +101,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }));
   };
 
-  // 가게 정보 등록일 때는 method = post, 수정일 때는 put
   const updateShop = async (formData: Shop) => {
     const { token, shopId } = getCookies();
 

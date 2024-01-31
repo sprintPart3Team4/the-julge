@@ -1,13 +1,14 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, Dispatch, SetStateAction } from "react";
 import Image from "next/image";
-import { createPresinedURL } from "@/components/register/shopInfo/shopInfoForm/api";
+import { createPresinedURL } from "./api";
+import { FormValues } from "./type";
 import CarmeraIcon from "@/public/images/camera.svg";
 import classNames from "classnames/bind";
-import styles from "@/components/register/shopInfo/shopInfoForm/shopInfoForm.module.scss";
+import styles from "./ShopInfoForm.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function FileInput() {
+export default function FileInput({ setFormValues }: { setFormValues: Dispatch<SetStateAction<FormValues>> }) {
   const [preview, setPreview] = useState<string>(CarmeraIcon);
   const [fileValue, setFileValue] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string>("");
@@ -15,28 +16,34 @@ export default function FileInput() {
   const isAddImage = fileValue ? "active" : "";
   const alt = preview ? fileName : "카메라 아이콘";
 
-  const handlePreview = (e: ChangeEvent<HTMLInputElement>) => {
+  const getImgUrl = async (file: File) => {
+    const imgUrl = await createPresinedURL(file);
+    return imgUrl.split("?")[0];
+  };
+
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
 
     if (target.files) {
       const file = target.files[0];
       const name = file.name.slice(0, file.name.indexOf("."));
-
+      const imgUrl = await getImgUrl(file);
+      console.log(fileName)
       setFileValue(file);
       setFileName(name);
+
+      setFormValues((prev) => ({
+        ...prev,
+        imageUrl: imgUrl,
+      }));
     }
   };
 
   useEffect(() => {
-    if (fileValue) {
-      createPresinedURL(fileValue);
-    }else{
-      return;
-    }
-    
+    if (!fileValue) return;
     const nextPreview = URL.createObjectURL(fileValue);
     setPreview(nextPreview);
- 
+
     return () => {
       setPreview("");
       URL.revokeObjectURL(nextPreview);
@@ -55,7 +62,7 @@ export default function FileInput() {
             이미지 추가하기
           </label>
         </div>
-        <input type="file" id="file" name="file" onChange={handlePreview} />
+        <input type="file" id="file" name="file" onChange={handleImageChange} />
       </div>
     </>
   );
