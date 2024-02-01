@@ -21,12 +21,10 @@ const cn = classNames.bind(styles);
 export interface FormValue {
   email: string;
   password: string;
-  passwordConfirm?: string;
-  type?: "employee" | "employer";
 }
 
 export default function SigninForm() {
-  const { login, isPending } = useAuth();
+  const { login } = useAuth();
   const router = useRouter();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,15 +54,13 @@ export default function SigninForm() {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, errors },
-    getValues,
+    formState: { errors },
     watch,
   } = useForm<FormValue>({
     mode: "onBlur",
     defaultValues: {
       email: "",
       password: "",
-      passwordConfirm: "",
     },
   });
 
