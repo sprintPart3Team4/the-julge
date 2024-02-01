@@ -35,6 +35,12 @@ export interface Textarea extends CommonProps {
   };
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
+
+export interface FileInput {
+  id: string | string[] | undefined;
+  defaultValue: string;
+  setFormValues: Dispatch<SetStateAction<FormValues>>;
+}
 export interface Item {
   id: string;
   name: string;
