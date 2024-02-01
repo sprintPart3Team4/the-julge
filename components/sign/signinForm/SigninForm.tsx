@@ -6,11 +6,15 @@ import { useAuth } from "@/contexts/AuthProvider";
 import Logo from "@/components/common/logo/Logo";
 import Button from "@/components/common/button/Button";
 import SignBottom from "@/components/sign/signBotton/SignBotton";
-import styles from "./SigninForm.module.scss";
+
 import classNames from "classnames/bind";
+import Modal from "@/components/common/modal/Modal";
+
 import Image from "next/image";
 import EyeOn from "@/public/images/ico-eye-on.svg";
 import EyeOff from "@/public/images/ico-eye-off.svg";
+
+import styles from "./SigninForm.module.scss";
 
 const cn = classNames.bind(styles);
 
@@ -22,18 +26,19 @@ export interface FormValue {
 }
 
 export default function SigninForm() {
-  const { login } = useAuth();
   const router = useRouter();
 
   async function onSubmit(data: FormValue) {
+    // console.log(data);
     try {
       const { email, password } = data;
       await login(email, password);
-      console.log("로그인이 성공적으로 완료되었습니다.");
       router.push("/");
     } catch (error) {
       // 로그인 실패
-      console.error("로그인 중 오류가 발생했습니다:");
+      if (error.response.status === 404) {
+        console.log("비밀번호가 일치하지 않습니다.");
+      }
     }
   }
 
@@ -41,7 +46,6 @@ export default function SigninForm() {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-    getValues,
     watch,
   } = useForm<FormValue>({
     mode: "onBlur",
@@ -92,7 +96,7 @@ export default function SigninForm() {
                 })}
               />
             </div>
-            {errors.email && <small className={cn("errorMessage")}>{errors.email.message}</small>}
+            <small className={cn("errorMessage")}>{errors.email?.message}</small>
           </div>
           <div className={cn("inputWrap")}>
             <label htmlFor="password" className={cn("inputLabel")}>
@@ -122,7 +126,7 @@ export default function SigninForm() {
               </button>
             </div>
 
-            {errors.password && <small className={cn("errorMessage")}>{errors.password.message}</small>}
+            <small className={cn("errorMessage")}>{errors.password?.message}</small>
           </div>
           <div className={cn("buttonWrap")}>
             <Button text="로그인 하기" size="fixed" color="primary" />
