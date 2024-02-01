@@ -114,7 +114,7 @@ export default function SignupForm() {
                 })}
               />
             </div>
-            {errors.email && <small className={cn("errorMessage")}>{errors.email.message}</small>}
+            <small className={cn("errorMessage")}>{errors.email?.message}</small>
           </div>
           <div className={cn("inputWrap")}>
             <label htmlFor="password" className={cn("inputLabel")}>
@@ -144,7 +144,7 @@ export default function SignupForm() {
               </button>
             </div>
 
-            {errors.password && <small className={cn("errorMessage")}>{errors.password.message}</small>}
+            <small className={cn("errorMessage")}>{errors.password?.message}</small>
           </div>
           <div className={cn("inputWrap")}>
             <label htmlFor="confirmPassword" className={cn("inputLabel")}>
@@ -176,7 +176,7 @@ export default function SignupForm() {
                 <Image src={source} alt="비밀번호 숨김 표시" width={16} height={16} />
               </button>
             </div>
-            {errors.passwordConfirm && <small className={cn("errorMessage")}>{errors.passwordConfirm.message}</small>}
+            <small className={cn("errorMessage")}>{errors.passwordConfirm?.message}</small>
           </div>
           <div className={cn("userTypeWrap")}>
             <div className={cn("userType")}>회원 유형</div>
