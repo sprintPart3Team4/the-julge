@@ -115,11 +115,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   // 새로 고침했을 때, 로그인이 풀리지 않도록 ??
-  useEffect(() => {
-    if (values?.user?.id) {
-      getMe(values.user.id);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (values?.user?.id) {
+  //     getMe(values.user.id);
+  //   }
+  // }, []);
 
   return (
     <AuthContext.Provider

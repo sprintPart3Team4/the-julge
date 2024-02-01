@@ -23,12 +23,13 @@ export default function FileInput({ setFormValues }: { setFormValues: Dispatch<S
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
+    let file;
 
     if (target.files) {
-      const file = target.files[0];
+      file = target.files[0];
       const name = file.name.slice(0, file.name.indexOf("."));
       const imgUrl = await getImgUrl(file);
-      console.log(fileName)
+
       setFileValue(file);
       setFileName(name);
 
@@ -43,6 +44,7 @@ export default function FileInput({ setFormValues }: { setFormValues: Dispatch<S
     if (!fileValue) return;
     const nextPreview = URL.createObjectURL(fileValue);
     setPreview(nextPreview);
+
 
     return () => {
       setPreview("");

@@ -82,6 +82,20 @@ export default function ShopInfoForm() {
             value={formValues.address1}
             setFormValues={setFormValues}
           />
+          <SelectBox
+            label="category"
+            title="분류*"
+            item={FOOD_CATEGORY}
+            value={formValues.category}
+            setFormValues={setFormValues}
+          />
+          <SelectBox
+            label="address1"
+            title="주소*"
+            item={ADDRESS}
+            value={formValues.address1}
+            setFormValues={setFormValues}
+          />
           <Input
             label="address2"
             title="상세 주소"
