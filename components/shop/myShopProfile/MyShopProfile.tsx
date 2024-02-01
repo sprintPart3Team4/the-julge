@@ -8,7 +8,11 @@ import styles from "./MyShopProfile.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function MyShopProfile() {
+type Prop = {
+  setIsRegisterOpen: () => void;
+};
+
+export default function MyShopProfile({ setIsRegisterOpen }: Prop) {
   return (
     <div className={cn("wrap")}>
       <Image src={TestImage} className={cn("image")} alt="테스트 이미지" objectFit="cover" />
@@ -31,7 +35,7 @@ export default function MyShopProfile() {
         </div>
         <div className={cn("buttons")}>
           <Button text="편집하기" size="flexible" color="secondary"></Button>
-          <Button text="공고 등록하기" size="flexible" color="primary"></Button>
+          <Button text="공고 등록하기" size="flexible" color="primary" handleButtonClick={setIsRegisterOpen}></Button>
         </div>
       </div>
     </div>

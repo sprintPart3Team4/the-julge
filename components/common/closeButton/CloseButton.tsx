@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useState } from "react";
 import Image from "next/image";
 import classNames from "classnames/bind";
 import styles from "./CloseButton.module.scss";
@@ -6,18 +6,17 @@ import styles from "./CloseButton.module.scss";
 const cn = classNames.bind(styles);
 
 interface Props {
-  url: string;
+  setIsRegisterOpen: (setIsRegisterOpen: boolean)=> void;
 }
 
-export default function CloseButton({ url }: Props) {
-  const router = useRouter();
+export default function CloseButton({ setIsRegisterOpen }: Props) {
 
-  function pageMovement(): void {
-    router.push(`${url}`);
+  function judgeRender() {
+    setIsRegisterOpen(false);
   }
 
   return (
-    <div className={cn("closeButton")} onClick={pageMovement}>
+    <div className={cn("closeButton")} onClick={judgeRender}>
       <Image
         src="/images/close.svg"
         alt="closeButton"

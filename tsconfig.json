@@ -16,6 +16,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/register/notice/NoticeRegister/NoticeRegister.tsx", "hooks/usePostNotice.ts"],
   "exclude": ["node_modules"]
 }

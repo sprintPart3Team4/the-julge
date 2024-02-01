@@ -9,14 +9,15 @@ const cn = classNames.bind(styles);
 type ShopPageLayoutProps = {
   hasShop?: boolean;
   hasNotice?: boolean;
+  setIsRegisterOpen: ()=> void;
 };
 
-export default function ShopPageLayout({ hasShop, hasNotice }: ShopPageLayoutProps) {
+export default function ShopPageLayout({ hasShop, hasNotice, setIsRegisterOpen }: ShopPageLayoutProps) {
   return (
     <div className={cn("wrap")}>
       <section>
         <h2>내 가게</h2>
-        {hasShop ? <MyShopProfile /> : <RegisterSuggestion type="shop" />}
+        {hasShop ? <MyShopProfile setIsRegisterOpen={setIsRegisterOpen}/> : <RegisterSuggestion type="shop" />}
       </section>
       {hasShop && (
         <section>
