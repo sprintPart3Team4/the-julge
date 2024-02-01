@@ -6,6 +6,7 @@ import FileInput from "./FileInput";
 import TextInput from "./TextInput";
 import Button from "@/components/common/button/Button";
 import { useAuth } from "@/contexts/AuthProvider";
+import Modal from "@/components/common/modal/Modal";
 import { FOOD_CATEGORY, ADDRESS } from "./constants";
 import { FormValues } from "./type";
 import classNames from "classnames/bind";
@@ -23,6 +24,8 @@ export default function ShopInfoForm() {
     imageUrl: "",
     originalHourlyPay: 0,
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const wage = formValues.originalHourlyPay !== 0 ? formValues.originalHourlyPay : "";
 
   const { registerShop } = useAuth();
@@ -40,6 +43,14 @@ export default function ShopInfoForm() {
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     registerShop(formValues);
+  };
+
+  const handleButtonClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -106,10 +117,17 @@ export default function ShopInfoForm() {
           value={formValues.description}
           onChange={handleValueChange}
         />
-        <div className={cn("buttonWrap")}>
+        <div className={cn("buttonWrap")} onClick={handleButtonClick}>
           <Button text="등록하기" size="reactive" color="primary" />
         </div>
       </form>
+      <div>
+        {isModalOpen && (
+          <Modal>
+            <Modal.Confirm text="등록이 완료되었습니다." handleButtonClick={handleCloseModal} />
+          </Modal>
+        )}
+      </div>
     </div>
   );
 }
