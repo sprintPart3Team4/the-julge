@@ -6,20 +6,21 @@ import GreyLocationIcon from "@/public/images/location_grey.svg";
 import ClockIcon from "@/public/images/clock.svg";
 import GreyClockIcon from "@/public/images/clock_grey.svg";
 import styles from "./NoticeCard.module.scss";
-import { useAuth } from "@/contexts/AuthProvider";
+// import { useAuth } from "@/contexts/AuthProvider";
+import React, { forwardRef } from "react";
 
 const cn = classNames.bind(styles);
 
-type NoticeCardProps = {
-  key: string;
-  startsAt: string;
-  workhour: number;
-  hourlyPay: number;
-  closed?: boolean;
-};
+// type NoticeCardProps = {
+//   key: string;
+//   startsAt: string;
+//   workhour: number;
+//   hourlyPay: number;
+//   closed?: boolean;
+// };
 
 // api 에 맞게 isClosed -> closed
-export default function NoticeCard({ startsAt, workhour, hourlyPay, closed = false }: NoticeCardProps) {
+const NoticeCard = React.forwardRef(({ startsAt, workhour, hourlyPay, closed = false }, ref) => {
   // const shopInfo = useAuth().shop;
   // 로그인 기능 만들어지기 전 임시로 만들어놓은 데이터
   const shopInfo = {
@@ -48,7 +49,7 @@ export default function NoticeCard({ startsAt, workhour, hourlyPay, closed = fal
   const originalHourlyPay = shopInfo?.originalHourlyPay;
 
   return (
-    <div className={cn("wrap", { closed })}>
+    <div className={cn("wrap", { closed })} ref={ref}>
       <div className={cn("imageWidth")}>
         <div className={cn("imageHeight")}>
           {closed && <div className={cn("imgOverlay")}>마감 완료</div>}
@@ -75,4 +76,7 @@ export default function NoticeCard({ startsAt, workhour, hourlyPay, closed = fal
       </div>
     </div>
   );
-}
+});
+
+NoticeCard.displayName = "NoticeCard";
+export default NoticeCard;
