@@ -29,13 +29,17 @@ export interface FormValue {
 export default function SignupForm() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isError, setIsError] = useState(false);
+  const router = useRouter();
 
   const openModal = (type: string) => {
     setIsError(type === "error");
     setIsModalOpen(true);
   };
 
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    isError ? router.push("/signup") : router.push("/signin");
+  };
 
   async function onSubmit(data: FormValue) {
     try {
@@ -227,8 +231,7 @@ export default function SignupForm() {
         <Modal>
           <Modal.Confirm
             text={isError ? "이미 사용 중인 이메일입니다." : "가입이 완료되었습니다!"}
-            url={isError ? "/signup" : "/signin"} // 에러인 경우는 /signup, 성공인 경우는 /signin으로 이동할 URL
-            setIsModalOpen={closeModal} // 모달 닫기 함수 전달
+            handleButtonClick={closeModal}
           />
         </Modal>
       )}
