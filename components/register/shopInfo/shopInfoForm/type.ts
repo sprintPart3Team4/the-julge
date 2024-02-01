@@ -3,7 +3,7 @@ import { ChangeEvent, Dispatch, SetStateAction } from "react";
 export interface CommonProps {
   label: string;
   title: string;
-  value: string | number;
+  defaultValue: string | number;
 }
 export interface Input extends CommonProps {
   input?: {

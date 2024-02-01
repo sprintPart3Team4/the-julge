@@ -8,13 +8,20 @@ import styles from "./ShopInfoForm.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function FileInput({ setFormValues }: { setFormValues: Dispatch<SetStateAction<FormValues>> }) {
+export default function FileInput({
+  setFormValues,
+  id,
+  defaultValue,
+}: {
+  setFormValues: Dispatch<SetStateAction<FormValues>>;
+}) {
   const [preview, setPreview] = useState<string>(CarmeraIcon);
   const [fileValue, setFileValue] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string>("");
 
   const isAddImage = fileValue ? "active" : "";
   const alt = preview ? fileName : "카메라 아이콘";
+  const imageChange = id ? "edit" : "";
 
   const getImgUrl = async (file: File) => {
     const imgUrl = await createPresinedURL(file);
@@ -40,11 +47,12 @@ export default function FileInput({ setFormValues }: { setFormValues: Dispatch<S
     }
   };
 
+  console.log(defaultValue);
+
   useEffect(() => {
     if (!fileValue) return;
     const nextPreview = URL.createObjectURL(fileValue);
     setPreview(nextPreview);
-
 
     return () => {
       setPreview("");
@@ -56,12 +64,17 @@ export default function FileInput({ setFormValues }: { setFormValues: Dispatch<S
     <>
       <div className={cn("inputBox", "file")}>
         <p className={cn("title")}>가게 이미지</p>
-        <div className={cn("wrap", isAddImage)}>
+        <div className={cn("wrap", isAddImage, imageChange)}>
           <label htmlFor="file" className={cn("label")}>
             <div className={cn("cameraImage")}>
-              <Image fill src={preview} alt={alt} object-fit="cover" />
+              {/* {id ? (
+                <Image fill src={d} alt={defaultValue} object-fit="cover" />
+              ) : (
+                <Image fill src={preview} alt={alt} object-fit="cover" />
+              )} */}
+                  <Image fill src={preview} alt={alt} object-fit="cover" />
             </div>
-            이미지 추가하기
+            <span>이미지 추가하기</span>
           </label>
         </div>
         <input type="file" id="file" name="file" onChange={handleImageChange} />
