@@ -88,7 +88,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }));
   };
 
-  const regitsterShop = async (formData: Shop) => {
+  const registerShop = async (formData: Shop) => {
     const { token } = getCookies();
 
     const res = await axios.post("shops", formData, {
@@ -131,7 +131,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         login,
         logout,
         updateMe,
-        regitsterShop,
+        registerShop,
         updateShop,
       }}
     >
