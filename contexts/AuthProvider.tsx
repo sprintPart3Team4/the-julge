@@ -88,14 +88,24 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }));
   };
 
+  const registerShop = async (formData: Shop) => {
+    const { token } = getCookies();
+
+    const res = await axios.post("shops", formData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    setValues((prev) => ({
+      ...prev,
+      shop: res.data.item,
+    }));
+  };
+
   // 가게 정보 등록일 때는 method = post, 수정일 때는 put
-  const updateShop = async (method: string, formData: {}) => {
+  const updateShop = async (formData: Shop) => {
     const { token, shopId } = getCookies();
 
-    const res = await axios({
-      method: method,
-      url: `shops/${shopId}`,
-      data: formData,
+    const res = await axios.put(`shops/${shopId}`, formData, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -121,6 +131,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         login,
         logout,
         updateMe,
+        registerShop,
         updateShop,
       }}
     >
