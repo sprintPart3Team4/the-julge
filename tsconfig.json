@@ -16,15 +16,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "components/shop/noticeCardList/FeatureNoticeCardList.jsx",
-    "components/shop/noticeCardList/NoticeCardList.jsx",
-    "pages/shop/index.tsx",
-    "hooks/useLoadCardList.jsx",
-    "components/shop/noticeCard/NoticeCard.jsx"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

@@ -1,0 +1,106 @@
+import { useCallback, useEffect, useRef, useState } from "react";
+import classNames from "classnames/bind";
+import axios from "axios";
+import NoticeCard from "../noticeCard/NoticeCard";
+import getCookies from "@/lib/getCookies";
+import styles from "./NoticeCardList.module.scss";
+
+const cn = classNames.bind(styles);
+
+type Props = {
+  offset: number;
+  limit: number;
+};
+
+type Card = {
+  item: {
+    id: string;
+    hourlyPay: number;
+    startsAt: string;
+    workhour: number;
+    description: string;
+    closed: boolean;
+  };
+  links: string[];
+};
+
+type NoticeListResponse = {
+  items: Card[];
+  hasNext: boolean;
+};
+
+const LIMIT = 10;
+
+async function getNoticeList({ offset = 0, limit = LIMIT }: Props): Promise<NoticeListResponse> {
+  const { shopId } = getCookies();
+  const query = `offset=${offset}&limit=${limit}`;
+  const res = await axios.get<NoticeListResponse>(`shops/${shopId}/notices?${query}`);
+  return res.data;
+}
+
+export default function FeatureNoticeCardList() {
+  const [cardList, setCardList] = useState<Card[]>([]);
+  const [offset, setOffset] = useState<number>(0);
+  const [hasNext, setHasNext] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
+
+  const observer = useRef<IntersectionObserver>();
+  const lastCardRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (isLoading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNext) {
+          handleLoadMore();
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, hasNext]
+  );
+
+  const handleLoad = async (options: Props) => {
+    const { items, hasNext } = await getNoticeList(options);
+    try {
+      if (options.offset === 0) {
+        // 하나로 합칠 수 있을 듯
+        setCardList(items);
+      } else {
+        setCardList((prevList) => [...prevList, ...items]);
+      }
+      setOffset(options.offset + items.length);
+      setHasNext(hasNext);
+      setIsLoading(false);
+    } catch (error) {
+      setIsError(true);
+    }
+  };
+
+  const handleLoadMore = () => {
+    handleLoad({ offset, limit: LIMIT });
+  }; // 하나로 합칠 수 있을 듯
+
+  useEffect(() => {
+    handleLoad({ offset: 0, limit: LIMIT });
+  }, []);
+
+  return (
+    <>
+      <div className={cn("wrap")}>
+        {cardList.map((card, index) => {
+          return (
+            <NoticeCard
+              key={card.item.id}
+              ref={index === cardList.length - 1 ? lastCardRef : undefined}
+              startsAt={card.item.startsAt}
+              workhour={card.item.workhour}
+              hourlyPay={card.item.hourlyPay}
+              closed={card.item.closed}
+            />
+          );
+        })}
+      </div>
+    </>
+  );
+}
