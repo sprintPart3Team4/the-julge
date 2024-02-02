@@ -1,33 +1,25 @@
-import { useEffect } from "react";
-import instance from "@/pages/api/axios";
 import getCookies from "@/lib/getCookies";
+import axios from "@/pages/api/axios";
 
-export default function useReloadNotice() {
-  const reloadData = async function () {
-    const { token, shopId, noticeId } = getCookies();
+// interface Prop {
+//   hourlyPay: number | undefined;
+//   startsAt: string;
+//   workhour: number;
+//   description: string;
+// }
 
-    const res = await instance.get(`shops/${shopId}/notices/${noticeId}`, {
+export default async function useReloadNotice() {
+  const { token, shopId } = getCookies();
+  const noticeId = `0f4c29d7-5427-4d01-bebd-068256476bb1`;
+
+  try {
+    const res = await axios.get(`shops/${shopId}/notices/${noticeId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-
     const data = res.data.item;
-
-    const reload: {
-      getHourlyPay: number;
-      getStartsAt: string;
-      getWorkhour: number;
-      getDescription: string;
-    } = {
-      getHourlyPay: data.hourlyPay,
-      getStartsAt: data.startsAt,
-      getWorkhour: data.workhour,
-      getDescription: data.description,
-    };
-
-    console.log("공고 조회 완료");
-
-    return reload;
-  };
-
-  return reloadData();
+    return [data.hourlyPay, data.startsAt, data.workhour, data.description];
+  } catch (error) {
+    console.error("API 응답 오류 발생", error);
+  } finally {
+  }
 }

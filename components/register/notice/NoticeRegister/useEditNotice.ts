@@ -14,18 +14,19 @@ export default async function usePostNotice(
   setModalText: any
 ) {
   const { token, shopId } = getCookies();
+  const noticeId = `0f4c29d7-5427-4d01-bebd-068256476bb1`;
 
   try {
-    const res = await axios.post(`shops/${shopId}/notices`, body, {
+    const res = await axios.put(`shops/${shopId}/notices/${noticeId}`, body, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("API 등록 완료");
+    console.log("API 수정 완료");
     console.log(res.data);
-    setModalText("등록되었습니다.");
+    setModalText("수정되었습니다.");
     setShowModal(true);
   } catch (error) {
-    console.error("API 등록 중 오류 발생", error);
-    setModalText("등록에 실패했습니다.");
+    console.error("API 수정 중 오류 발생", error);
+    setModalText("수정에 실패했습니다.");
     setShowModal(true);
   } finally {
   }
