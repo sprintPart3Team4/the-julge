@@ -52,7 +52,7 @@ export default function FeatureNoticeCardList() {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasNext) {
-          handleLoadMore();
+          handleLoad({ offset, limit: LIMIT });
         }
       });
       if (node) observer.current.observe(node);
@@ -63,12 +63,7 @@ export default function FeatureNoticeCardList() {
   const handleLoad = async (options: Props) => {
     const { items, hasNext } = await getNoticeList(options);
     try {
-      if (options.offset === 0) {
-        // 하나로 합칠 수 있을 듯
-        setCardList(items);
-      } else {
-        setCardList((prevList) => [...prevList, ...items]);
-      }
+      setCardList((prevList) => [...prevList, ...items]);
       setOffset(options.offset + items.length);
       setHasNext(hasNext);
       setIsLoading(false);
@@ -77,13 +72,9 @@ export default function FeatureNoticeCardList() {
     }
   };
 
-  const handleLoadMore = () => {
-    handleLoad({ offset, limit: LIMIT });
-  }; // 하나로 합칠 수 있을 듯
-
   useEffect(() => {
-    handleLoad({ offset: 0, limit: LIMIT });
-  }, []);
+    handleLoad({ offset, limit: LIMIT });
+  });
 
   return (
     <>
