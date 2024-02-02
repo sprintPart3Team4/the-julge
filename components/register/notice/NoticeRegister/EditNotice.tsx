@@ -66,7 +66,7 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
   }
 
   const handleConfirmButtonClick: MouseEventHandler<HTMLButtonElement> = () => {
-    setShowModal(false);
+    setIsRegisterOpen(false);
   };
 
   function submit(e: FormEvent): void {

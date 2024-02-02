@@ -24,7 +24,8 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
   const [startsAt, setStartAt] = useState<string>("");
   const [workhour, setWorkHour] = useState<number>();
   const [description, setDescription] = useState<string>("");
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [okModal, setOkModal] = useState<boolean>(false);
+  const [falseModal, setFalseModal] = useState<boolean>(false);
   const [ModalText, setModalText] = useState<string>("");
 
   const formatDate = (original: string) => {
@@ -52,8 +53,12 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
     }
   }
 
-  const handleConfirmButtonClick: MouseEventHandler<HTMLButtonElement> = () => {
-    setIsRegisterOpen(false)
+  const postSuccess: MouseEventHandler<HTMLButtonElement> = () => {
+    setIsRegisterOpen(false);
+  };
+
+  const postFail: MouseEventHandler<HTMLButtonElement> = () => {
+    setFalseModal(false);
   };
 
   function submit(e: FormEvent): void {
@@ -66,17 +71,19 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
       description,
     };
 
-    usePostNotice(body, setShowModal, setModalText);
+    usePostNotice(body, setOkModal, setFalseModal, setModalText);
   }
 
   return (
     <div className={cn("wrapper")}>
-      {showModal && (
+      {okModal && (
         <Modal>
-          <Modal.Confirm
-            text={ModalText}
-            handleButtonClick={handleConfirmButtonClick}
-          />
+          <Modal.Confirm text={ModalText} handleButtonClick={postSuccess} />
+        </Modal>
+      )}
+      {falseModal && (
+        <Modal>
+          <Modal.Confirm text={ModalText} handleButtonClick={postFail} />
         </Modal>
       )}
       <form onSubmit={submit} className={cn("formBox")}>
