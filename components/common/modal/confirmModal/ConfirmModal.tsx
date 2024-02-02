@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { MouseEventHandler } from "react";
 import classNames from "classnames/bind";
 
 import Button from "../../button/Button";
@@ -9,18 +9,10 @@ const cn = classNames.bind(styles);
 
 type Props = {
   text: string;
-  url: string;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleButtonClick: MouseEventHandler<HTMLButtonElement>;
 };
 
-export default function ConfirmModal({ text, url, setIsModalOpen }: Props) {
-  const router = useRouter();
-
-  const handleButtonClick = () => {
-    setIsModalOpen(false);
-    router.push(url);
-  };
-
+export default function ConfirmModal({ text, handleButtonClick }: Props) {
   return (
     <div className={cn("modal")}>
       <p className={cn("text")}>{text}</p>

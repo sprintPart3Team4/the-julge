@@ -1,0 +1,113 @@
+@use "@/styles/variables.scss" as *;
+.signLayoutWrap {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signWrap {
+  width: 35rem;
+  padding: 1.3rem;
+}
+.logoWarp {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4rem;
+}
+
+.formWrap {
+  display: flex;
+  flex-direction: column;
+  
+.inputWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.inputLabel {
+  line-height: 2.6rem;
+}
+
+.inputWrap > div {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.inputWrap > div button {
+  position: absolute;
+  right: 1.6rem;
+  top: 1.7rem;
+}
+
+.input {
+  width: 100%;
+  padding: 1.6rem 2rem;
+  border-radius: 6px;
+  border: 1px solid $color-gray-30;
+  background: $color-white;
+}
+
+.input:focus-within {
+  outline: 1px solid transparent;
+  border: 1px solid $color-red-40;
+}
+
+.errorMessage {
+  height: 1.7rem;
+  color: $color-red-40;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+}
+
+.buttonWrap {
+  margin-top: 1.6rem;
+}
+.signBottomWrap {
+  margin-top: 2rem;
+}
+
+.signBottomWrap {
+  margin-top: 2rem;
+}
+
+// 회원유형
+.userType {
+  margin-bottom: 0.8rem;
+}
+.userTypeRadioBox {
+  display: flex;
+  justify-content: space-between;
+
+  .userTypeRadioBoxs {
+    position: relative;
+
+    input[type="radio"] {
+      opacity: 0;
+      position: absolute;
+
+      & + label {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.9rem;
+        cursor: pointer;
+        padding: 1.3rem 4.1rem;
+        border-radius: 3rem;
+        background-color: $color-white;
+        border: 1px solid $color-gray-30;
+      }
+
+      &:checked + label {
+        border: 1px solid $color-red-40;
+      }
+    }
+    span {
+      font-size: 1.4rem;
+    }
+  }
+}

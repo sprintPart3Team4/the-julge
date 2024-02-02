@@ -1,3 +1,5 @@
+export type Category = "한식" | "중식" | "일식" | "양식" | "분식" | "카페" | "편의점" | "기타";
+
 export type Address =
   | "서울시 종로구"
   | "서울시 중구"
@@ -44,7 +46,7 @@ export type User = {
 };
 
 export type Shop = {
-  id: string;
+  id?: string;
   name: string;
   category: string;
   address1: string;
@@ -61,5 +63,6 @@ export type AuthContextType = {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   updateMe: (formData: UpdateUser) => Promise<void>;
-  updateShop: (method: any, formData: any) => Promise<void>;
+  registerShop: (formData: Shop) => Promise<void>;
+  updateShop: (formData: Shop) => Promise<void>;
 };
