@@ -1,24 +1,25 @@
 import axios from "@/pages/api/axios";
+import getCookies from "@/lib/getCookies";
 
 export async function createPresinedURL(file: File) {
   try {
-    const accessToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyNDE0NzE1Ni0yYTI4LTRmZTYtOTAzMS0zNzMyMmQ1NDExMmQiLCJpYXQiOjE3MDY1OTMwNTV9.ReFSPDwGt4z7zCBMR3XCE2Q6k1pCy8ygMa6jYqu0Kxo";
-
+    const { token } = getCookies();
     const res = await axios.post(
       "images",
       {
-        name: file.name
+        name: file.name,
       },
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
 
-    const presignedUrl = res.data;
-    uploadImageToS3(presignedUrl.item.url, file);
+    const data = res.data;
+    const presignedUrl = data.item.url;
+    uploadImageToS3(presignedUrl, file);
+    return presignedUrl;
   } catch (error) {
     console.log(error);
   }

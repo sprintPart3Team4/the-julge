@@ -63,6 +63,6 @@ export type AuthContextType = {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   updateMe: (formData: UpdateUser) => Promise<void>;
-  registerShop: (formData: Shop) => Promise<void>;
+  registerShop: (FormData: Shop) => Promise<void>;
   updateShop: (formData: Shop) => Promise<void>;
 };

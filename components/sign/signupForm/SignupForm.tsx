@@ -17,10 +17,6 @@ import checkedButton from "@/public/images/check.svg";
 
 import styles from "./SignupForm.module.scss";
 
-import uncheckedButton from "@/public/images/unCheck.svg";
-import checkedButton from "@/public/images/check.svg";
-
-
 const cn = classNames.bind(styles);
 
 export interface FormValue {
@@ -55,9 +51,7 @@ export default function SignupForm() {
       });
       openModal("success");
     } catch (error) {
-      if (error.response.status === 409) {
-        openModal("error");
-      }
+      openModal("error");
     }
   }
 
@@ -148,7 +142,6 @@ export default function SignupForm() {
               </button>
             </div>
             <small className={cn("errorMessage")}>{errors.password?.message}</small>
-
           </div>
           <div className={cn("inputWrap")}>
             <label htmlFor="confirmPassword" className={cn("inputLabel")}>
@@ -196,7 +189,7 @@ export default function SignupForm() {
                 <label htmlFor="employee">
                   <Image
                     src={userInfo.type === "employee" ? checkedButton : uncheckedButton}
-                   alt="체크이미지"
+                    alt="체크이미지"
                     width={20}
                     height={20}
                   />
