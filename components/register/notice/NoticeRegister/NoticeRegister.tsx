@@ -12,7 +12,6 @@ import Button from "@/components/common/button/Button";
 import Modal from "@/components/common/modal/Modal";
 import usePostNotice from "@/components/register/notice/NoticeRegister/usePostNotice";
 import styles from "./NoticeRegister.module.scss";
-import { useRouter } from "next/router";
 
 const cn = classNames.bind(styles);
 
@@ -27,8 +26,6 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
   const [description, setDescription] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
   const [ModalText, setModalText] = useState<string>("");
-
-  const router = useRouter();
 
   const formatDate = (original: string) => {
     return `${original}:00Z`;
