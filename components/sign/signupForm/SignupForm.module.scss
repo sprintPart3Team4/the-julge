@@ -20,9 +20,7 @@
 .formWrap {
   display: flex;
   flex-direction: column;
-  gap: 2.8rem;
-}
-
+  
 .inputWrap {
   display: flex;
   flex-direction: column;
@@ -60,13 +58,17 @@
 }
 
 .errorMessage {
+  height: 1.7rem;
   color: $color-red-40;
   font-size: 1.2rem;
   line-height: 1.6rem;
 }
 
-.signBtn {
-  background-color: aqua;
+.buttonWrap {
+  margin-top: 1.6rem;
+}
+.signBottomWrap {
+  margin-top: 2rem;
 }
 
 .signBottomWrap {
@@ -79,7 +81,6 @@
 }
 .userTypeRadioBox {
   display: flex;
-
   justify-content: space-between;
 
   .userTypeRadioBoxs {
