@@ -1,13 +1,12 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import Image from "next/image";
 import axios from "axios";
 import classNames from "classnames/bind";
 import CloseButton from "@/components/common/closeButton/CloseButton";
 import Input from "./Input";
 import Button from "@/components/common/button/Button";
-import usePostNotice from "@/hooks/usePostNotice";
+import useReloadNotice from "./useReloadNotice";
+import usePostNotice from "@/components/register/notice/NoticeRegister/usePostNotice";
 import instance from "@/pages/api/axios";
 import styles from "./NoticeRegister.module.scss";
 
@@ -47,6 +46,14 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
         break;
     }
   }
+
+  useEffect(() => {
+    const {getHourlyPay, getStartsAt, getWorkhour, getDescription } = useReloadNotice()
+    setHourlyPay(getHourlyPay);
+    setStartAt(getStartsAt);
+    setWorkHour(getWorkhour);
+    setDescription(getDescription);
+  }, []);
 
   function submit(e: FormEvent): void {
     e.preventDefault();
