@@ -38,7 +38,7 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
     setStartsAt(reloadData[1]);
     setWorkHour(reloadData[2]);
     setDescription(reloadData[3]);
-  }, [])
+  }, []);
 
   const formatDate = (original: string) => {
     return `${original}:00Z`;
@@ -94,7 +94,7 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
       )}
       <form onSubmit={submit} className={cn("formBox")}>
         <div className={cn("titleBox")}>
-          <h1 className={cn("title")}>공고 등록</h1>
+          <h1 className={cn("title")}>공고 편집</h1>
           <CloseButton setIsRegisterOpen={setIsRegisterOpen} />
         </div>
         <div className={cn("noticeBox")}>
