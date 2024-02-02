@@ -14,6 +14,7 @@ import { FOOD_CATEGORY, ADDRESS } from "./constants";
 import { FormValues } from "./type";
 import classNames from "classnames/bind";
 import styles from "./ShopInfoForm.module.scss";
+import ShopPageLayout from "@/components/shop/shopPageLayout/ShopPageLayout";
 
 const cn = classNames.bind(styles);
 
@@ -31,6 +32,7 @@ export default function ShopInfoForm() {
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
   const [registerData, setRegisterData] = useState<FormValues>(initialFormValues);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isPageOpen, setIsPageOpen] = useState<boolean>(false);
 
   const router = useRouter();
   const { id } = router.query;
@@ -71,6 +73,7 @@ export default function ShopInfoForm() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setIsPageOpen(true);
   };
 
   const getRegisterData = async () => {
@@ -87,87 +90,93 @@ export default function ShopInfoForm() {
   }, []);
 
   return (
-    <div className={cn("container")}>
-      <form
-        onSubmit={(e) => {
-          id ? handleEditForm(e) : handleRegisterForm(e);
-        }}
-      >
-        <div className={cn("inputWrap")}>
-          <Input
-            label="name"
-            title="가게 이름"
-            input={{
-              type: "text",
-              id: "name",
-              name: "name",
+    <>
+      {isPageOpen ? (
+        <ShopPageLayout hasShop hasNotice />
+      ) : (
+        <div className={cn("container")}>
+          <form
+            onSubmit={(e) => {
+              id ? handleEditForm(e) : handleRegisterForm(e);
             }}
-            defaultValue={id ? registerData.name : formValues.name}
-            onChange={handleValueChange}
-          />
-          <SelectBox
-            label="category"
-            title="분류*"
-            item={FOOD_CATEGORY}
-            defaultValue={id ? registerData.category : formValues.category}
-            setFormValues={setFormValues}
-          />
-          <SelectBox
-            label="address1"
-            title="주소*"
-            item={ADDRESS}
-            defaultValue={id ? registerData.address1 : formValues.address1}
-            setFormValues={setFormValues}
-          />
-          <Input
-            label="address2"
-            title="상세 주소"
-            input={{
-              type: "text",
-              id: "address2",
-              name: "address2",
-            }}
-            defaultValue={id ? registerData.address2 : formValues.address2}
-            onChange={handleValueChange}
-          />
-          <TextInput
-            label="originalHourlyPay"
-            title="기본 시급"
-            text="원"
-            input={{
-              type: "number",
-              id: "originalHourlyPay",
-              name: "originalHourlyPay",
-            }}
-            defaultValue={id ? registerData.originalHourlyPay : wage}
-            onChange={handleValueChange}
-          />
-        </div>
-        <FileInput setFormValues={setFormValues} defaultValue={registerData.imageUrl} id={id} />
-        <Textarea
-          label="description"
-          title="가게 설명"
-          textarea={{
-            id: "description",
-            name: "description",
-          }}
-          defaultValue={id ? registerData.description : formValues.description}
-          onChange={handleValueChange}
-        />
-        <div className={cn("buttonWrap")} onClick={handleButtonClick}>
-          <Button text={id ? "완료하기" : "등록하기"} size="reactive" color={isRequired ? "primary" : "disabled"} />
-        </div>
-      </form>
-      <div>
-        {isModalOpen && (
-          <Modal>
-            <Modal.Confirm
-              text={id ? "수정이 완료되었습니다." : "등록이 완료되었습니다."}
-              handleButtonClick={handleCloseModal}
+          >
+            <div className={cn("inputWrap")}>
+              <Input
+                label="name"
+                title="가게 이름"
+                input={{
+                  type: "text",
+                  id: "name",
+                  name: "name",
+                }}
+                defaultValue={id ? registerData.name : formValues.name}
+                onChange={handleValueChange}
+              />
+              <SelectBox
+                label="category"
+                title="분류*"
+                item={FOOD_CATEGORY}
+                defaultValue={id ? registerData.category : formValues.category}
+                setFormValues={setFormValues}
+              />
+              <SelectBox
+                label="address1"
+                title="주소*"
+                item={ADDRESS}
+                defaultValue={id ? registerData.address1 : formValues.address1}
+                setFormValues={setFormValues}
+              />
+              <Input
+                label="address2"
+                title="상세 주소"
+                input={{
+                  type: "text",
+                  id: "address2",
+                  name: "address2",
+                }}
+                defaultValue={id ? registerData.address2 : formValues.address2}
+                onChange={handleValueChange}
+              />
+              <TextInput
+                label="originalHourlyPay"
+                title="기본 시급"
+                text="원"
+                input={{
+                  type: "number",
+                  id: "originalHourlyPay",
+                  name: "originalHourlyPay",
+                }}
+                defaultValue={id ? registerData.originalHourlyPay : wage}
+                onChange={handleValueChange}
+              />
+            </div>
+            <FileInput setFormValues={setFormValues} defaultValue={registerData.imageUrl} id={id} />
+            <Textarea
+              label="description"
+              title="가게 설명"
+              textarea={{
+                id: "description",
+                name: "description",
+              }}
+              defaultValue={id ? registerData.description : formValues.description}
+              onChange={handleValueChange}
             />
-          </Modal>
-        )}
-      </div>
-    </div>
+            <div className={cn("buttonWrap")} onClick={handleButtonClick}>
+              <Button text={id ? "완료하기" : "등록하기"} size="reactive" color={isRequired ? "primary" : "disabled"} />
+            </div>
+          </form>
+          <div>
+            {isModalOpen && (
+              <Modal>
+                <Modal.Confirm
+                  text={id ? "수정이 완료되었습니다." : "등록이 완료되었습니다."}
+                  handleButtonClick={handleCloseModal}
+                />
+              </Modal>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

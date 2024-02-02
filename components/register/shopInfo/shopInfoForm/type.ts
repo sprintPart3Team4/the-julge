@@ -21,7 +21,7 @@ export interface Input extends CommonProps {
 }
 
 export interface SelectBox extends CommonProps {
-  item: {
+  item?: {
     id: string;
     name: string;
   }[];
