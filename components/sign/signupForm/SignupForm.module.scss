@@ -20,6 +20,7 @@
 .formWrap {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 .inputWrap {
@@ -68,10 +69,6 @@
 .buttonWrap {
   margin-top: 1.6rem;
 }
-.signBottomWrap {
-  margin-top: 2rem;
-}
-
 .signBottomWrap {
   margin-top: 2rem;
 }
