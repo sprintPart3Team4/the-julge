@@ -29,7 +29,8 @@ const NoticeCard = React.forwardRef(
       address1: "서울시 도봉구",
       address2: "쌍문동",
       description: "막퍼줄게 정말로 진짜진짜로 시급도 간식도 주휴수당도 전부전부",
-      imageUrl: "https://picsum.photos/200/300",
+      imageUrl:
+        "https://bootcamp-project-api.s3.ap-northeast-2.amazonaws.com/2-4/the-julge/35fec78b-1191-4a39-8368-cf5b3f025ca1-food.png",
       originalHourlyPay: 9860,
       user: {
         item: {
