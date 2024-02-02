@@ -5,13 +5,11 @@ import {
   FormEvent,
   MouseEventHandler,
 } from "react";
-import { useRouter } from "next/router";
 import classNames from "classnames/bind";
 import CloseButton from "@/components/common/closeButton/CloseButton";
 import Input from "../../../common/input/registerInput/Input";
 import Button from "@/components/common/button/Button";
 import Modal from "@/components/common/modal/Modal";
-// import useReloadNotice from "./useReloadNotice";
 import usePostNotice from "@/components/register/notice/NoticeRegister/usePostNotice";
 import styles from "./NoticeRegister.module.scss";
 
@@ -29,12 +27,6 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [ModalText, setModalText] = useState<string>("");
 
-  const router = useRouter();
-  // useEffect(() => {
-  //   const { token, shopId } = getCookies();
-  //   tokenData = token;
-  //   shopIdData = shopId;
-  // }, []);
   const formatDate = (original: string) => {
     return `${original}:00Z`;
   };
