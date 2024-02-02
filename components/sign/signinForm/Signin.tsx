@@ -21,12 +21,20 @@ const cn = classNames.bind(styles);
 export interface FormValue {
   email: string;
   password: string;
-  passwordConfirm?: string;
-  type?: "employee" | "employer";
 }
 
 export default function SigninForm() {
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const router = useRouter();
+  const { login, isPending } = useAuth();
+
+  const openModal = () => {
+    setIsErrorModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsErrorModalOpen(false);
+  };
 
   async function onSubmit(data: FormValue) {
     // console.log(data);
@@ -36,9 +44,7 @@ export default function SigninForm() {
       router.push("/");
     } catch (error) {
       // 로그인 실패
-      if (error.response.status === 404) {
-        console.log("비밀번호가 일치하지 않습니다.");
-      }
+      openModal();
     }
   }
 
@@ -52,7 +58,6 @@ export default function SigninForm() {
     defaultValues: {
       email: "",
       password: "",
-      passwordConfirm: "",
     },
   });
 
@@ -135,6 +140,11 @@ export default function SigninForm() {
           <SignBottom text="회원이 아니신가요?" href="/signup" textLink="회원가입하기" />
         </div>
       </div>
+      {isErrorModalOpen && (
+        <Modal>
+          <Modal.Confirm text={"비밀번호가 일치하지 않습니다."} handleButtonClick={closeModal} />
+        </Modal>
+      )}
     </div>
   );
 }
