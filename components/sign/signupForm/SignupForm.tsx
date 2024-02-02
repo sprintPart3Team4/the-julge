@@ -17,6 +17,10 @@ import checkedButton from "@/public/images/check.svg";
 
 import styles from "./SignupForm.module.scss";
 
+import uncheckedButton from "@/public/images/unCheck.svg";
+import checkedButton from "@/public/images/check.svg";
+
+
 const cn = classNames.bind(styles);
 
 export interface FormValue {
@@ -143,8 +147,8 @@ export default function SignupForm() {
                 <Image src={source} alt="비밀번호 숨김 표시" width={16} height={16} />
               </button>
             </div>
-
             <small className={cn("errorMessage")}>{errors.password?.message}</small>
+
           </div>
           <div className={cn("inputWrap")}>
             <label htmlFor="confirmPassword" className={cn("inputLabel")}>
@@ -192,7 +196,7 @@ export default function SignupForm() {
                 <label htmlFor="employee">
                   <Image
                     src={userInfo.type === "employee" ? checkedButton : uncheckedButton}
-                    alt="체크이미지"
+                   alt="체크이미지"
                     width={20}
                     height={20}
                   />

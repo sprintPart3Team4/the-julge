@@ -48,7 +48,7 @@ export type User = {
 export type Shop = {
   id?: string;
   name: string;
-  category: Category;
+  category: string;
   address1: string;
   address2: string;
   description: string;
