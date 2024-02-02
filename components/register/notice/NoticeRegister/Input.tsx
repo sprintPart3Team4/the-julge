@@ -8,31 +8,37 @@ interface InputProps {
   id: string;
   type: string;
   text: string;
-  floatingText?: string;
   setter: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  floatingText?: string;
+  placeholder?: string;
 }
 
 export default function Input({
   id,
   type,
   text,
-  floatingText,
   setter,
+  floatingText,
+  placeholder,
 }: InputProps) {
   return (
     <div className={cn("noticeData")}>
       <label htmlFor={id} className={cn("explan")}>
         {text}
       </label>
-      <input
-        id={id}
-        className={cn("noticeInput")}
-        type={type}
-        placeholder="입력"
-        onChange={setter}
-        autoComplete="off"
-      />
-      {floatingText && <div className={cn("floatingText")}>{floatingText}</div>}
+      <div className={cn("InputBox")}>
+        <input
+          id={id}
+          className={cn("noticeInput")}
+          type={type}
+          placeholder={placeholder}
+          onChange={setter}
+          autoComplete="off"
+        />
+        {floatingText && (
+          <div className={cn("floatingText")}>{floatingText}</div>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,13 +1,18 @@
-import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import {
+  useState,
+  useEffect,
+  ChangeEvent,
+  FormEvent,
+  MouseEventHandler,
+} from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
 import classNames from "classnames/bind";
 import CloseButton from "@/components/common/closeButton/CloseButton";
 import Input from "./Input";
 import Button from "@/components/common/button/Button";
-import useReloadNotice from "./useReloadNotice";
+import Modal from "@/components/common/modal/Modal";
+// import useReloadNotice from "./useReloadNotice";
 import usePostNotice from "@/components/register/notice/NoticeRegister/usePostNotice";
-import instance from "@/pages/api/axios";
 import styles from "./NoticeRegister.module.scss";
 
 const cn = classNames.bind(styles);
@@ -21,10 +26,18 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
   const [startsAt, setStartAt] = useState<string>("");
   const [workhour, setWorkHour] = useState<number>();
   const [description, setDescription] = useState<string>("");
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [ModalText, setModalText] = useState<string>("");
 
   const router = useRouter();
-  const { shop_id } = router.query;
-  const { notice_id } = router.query;
+  // useEffect(() => {
+  //   const { token, shopId } = getCookies();
+  //   tokenData = token;
+  //   shopIdData = shopId;
+  // }, []);
+  const formatDate = (original: string) => {
+    return `${original}:00Z`;
+  };
 
   function setState(
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -36,7 +49,7 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
         setHourlyPay(Number(value));
         break;
       case "startsAt":
-        setStartAt(String(value));
+        setStartAt(formatDate(String(value)));
         break;
       case "workhour":
         setWorkHour(Number(value));
@@ -47,29 +60,33 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
     }
   }
 
-  useEffect(() => {
-    const {getHourlyPay, getStartsAt, getWorkhour, getDescription } = useReloadNotice()
-    setHourlyPay(getHourlyPay);
-    setStartAt(getStartsAt);
-    setWorkHour(getWorkhour);
-    setDescription(getDescription);
-  }, []);
+  const handleConfirmButtonClick: MouseEventHandler<HTMLButtonElement> = () => {
+    setShowModal(false);
+  };
 
   function submit(e: FormEvent): void {
     e.preventDefault();
 
     const body = {
-      hourlyPay: hourlyPay,
-      startsAt: startsAt,
-      workhour: workhour,
-      description: description,
+      hourlyPay,
+      startsAt,
+      workhour,
+      description,
     };
 
-    usePostNotice(body);
+    usePostNotice(body, setShowModal, setModalText);
   }
 
   return (
     <div className={cn("wrapper")}>
+      {showModal && (
+        <Modal>
+          <Modal.Confirm
+            text={ModalText}
+            handleButtonClick={handleConfirmButtonClick}
+          />
+        </Modal>
+      )}
       <form onSubmit={submit} className={cn("formBox")}>
         <div className={cn("titleBox")}>
           <h1 className={cn("title")}>공고 등록</h1>
@@ -80,8 +97,9 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
             id="hourlyPay"
             type="number"
             text="시급*"
-            floatingText="원"
             setter={setState}
+            placeholder="입력"
+            floatingText="원"
           />
           <Input
             id="startsAt"
@@ -93,8 +111,9 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
             id="workhour"
             type="number"
             text="업무 시간*"
-            floatingText="시간"
             setter={setState}
+            floatingText="시간"
+            placeholder="입력"
           />
         </div>
         <div className={cn("descriptionBox")}>
