@@ -68,8 +68,12 @@ const NoticeCard = React.forwardRef(
           </div>
           <div className={cn("pays")}>
             <span className={cn("pay")}>{hourlyPay.toLocaleString("ko-KR")}원</span>
-            <HighPayRateBadge hourlyPay={hourlyPay} originalHourlyPay={originalHourlyPay || 0} />{" "}
-            {/* TODO 배지 색깔 바꾸기 / 모바일 UI */}
+            <HighPayRateBadge
+              isListedCard
+              closed={closed}
+              hourlyPay={hourlyPay}
+              originalHourlyPay={originalHourlyPay || 0}
+            />
           </div>
         </div>
       </div>

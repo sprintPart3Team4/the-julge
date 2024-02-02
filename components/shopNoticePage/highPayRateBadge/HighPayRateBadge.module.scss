@@ -37,3 +37,34 @@
     height: 2rem;
   }
 }
+
+.mobileBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  background-color: none;
+
+  .percentage {
+    color: $color-red-40;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+
+  .icon {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+}
+
+.closed {
+  .percentage {
+    color: $color-gray-20;
+  }
+
+  @include tablet {
+    background-color: $color-gray-20;
+    .percentage {
+      color: $color-white;
+    }
+  }
+}
