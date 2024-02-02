@@ -101,7 +101,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }));
   };
 
-  // 가게 정보 등록일 때는 method = post, 수정일 때는 put
   const updateShop = async (formData: Shop) => {
     const { token, shopId } = getCookies();
 
@@ -116,11 +115,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   // 새로 고침했을 때, 로그인이 풀리지 않도록 ??
-  useEffect(() => {
-    if (values?.user?.id) {
-      getMe(values.user.id);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (values?.user?.id) {
+  //     getMe(values.user.id);
+  //   }
+  // }, []);
 
   return (
     <AuthContext.Provider
