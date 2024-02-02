@@ -21,7 +21,6 @@ export default function useGetNoticeList() {
 
   useEffect(() => {
     getNoticeList();
-    console.log(data);
   }, [isLoading]);
 
   return [isLoading, error, data];
