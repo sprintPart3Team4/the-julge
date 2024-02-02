@@ -8,7 +8,7 @@ import {
 import { useRouter } from "next/router";
 import classNames from "classnames/bind";
 import CloseButton from "@/components/common/closeButton/CloseButton";
-import Input from "./Input";
+import Input from "../../../common/input/registerInput/Input";
 import Button from "@/components/common/button/Button";
 import Modal from "@/components/common/modal/Modal";
 // import useReloadNotice from "./useReloadNotice";
