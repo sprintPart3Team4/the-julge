@@ -24,15 +24,24 @@
     min-width: 100%;
   }
 
-  .image {
-    border-radius: 1.2rem;
+  .imageWidth {
+    position: relative;
     width: 100%;
-    height: auto;
 
     @include desktop {
       width: 53.9rem;
-      height: 30.8rem;
     }
+  }
+
+  .imageHeight {
+    padding-top: calc(100% / 16 * 9);
+    @include desktop {
+      padding-top: 30.8rem;
+    }
+  }
+
+  .image {
+    border-radius: 1.2rem;
   }
 
   .contents {
