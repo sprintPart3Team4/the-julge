@@ -26,11 +26,26 @@ export interface FormValue {
 }
 
 export default function SigninForm() {
+  const router = useRouter();
+
+  async function onSubmit(data: FormValue) {
+    // console.log(data);
+    try {
+      const { email, password } = data;
+      await login(email, password);
+      router.push("/");
+    } catch (error) {
+      // 로그인 실패
+      if (error.response.status === 404) {
+        console.log("비밀번호가 일치하지 않습니다.");
+      }
+    }
+  }
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
-    getValues,
     watch,
   } = useForm<FormValue>({
     mode: "onBlur",
