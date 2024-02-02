@@ -21,21 +21,12 @@ const cn = classNames.bind(styles);
 export interface FormValue {
   email: string;
   password: string;
+  passwordConfirm?: string;
+  type?: "employee" | "employer";
 }
 
 export default function SigninForm() {
-  const { login } = useAuth();
   const router = useRouter();
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   async function onSubmit(data: FormValue) {
     // console.log(data);
@@ -46,7 +37,7 @@ export default function SigninForm() {
     } catch (error) {
       // 로그인 실패
       if (error.response.status === 404) {
-        openModal();
+        console.log("비밀번호가 일치하지 않습니다.");
       }
     }
   }
@@ -54,13 +45,14 @@ export default function SigninForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { isSubmitting, errors },
     watch,
   } = useForm<FormValue>({
     mode: "onBlur",
     defaultValues: {
       email: "",
       password: "",
+      passwordConfirm: "",
     },
   });
 
@@ -133,7 +125,6 @@ export default function SigninForm() {
                 <Image src={source} alt="비밀번호 숨김 표시" width={16} height={16} />
               </button>
             </div>
-
             <small className={cn("errorMessage")}>{errors.password?.message}</small>
           </div>
           <div className={cn("buttonWrap")}>
@@ -144,11 +135,6 @@ export default function SigninForm() {
           <SignBottom text="회원이 아니신가요?" href="/signup" textLink="회원가입하기" />
         </div>
       </div>
-      {isModalOpen && (
-        <Modal>
-          <Modal.Confirm text={"비밀번호가 일치하지 않습니다."} handleButtonClick={closeModal} />
-        </Modal>
-      )}
     </div>
   );
 }
