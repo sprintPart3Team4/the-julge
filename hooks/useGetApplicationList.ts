@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 
 export default function useGetApplicationList(noticeId: string) {
@@ -10,7 +10,7 @@ export default function useGetApplicationList(noticeId: string) {
   const getApplicationList = async () => {
     const { shopId } = getCookies();
     try {
-      const res = await axios.get(`shops/${shopId}/notices/${noticeId}/applications`);
+      const res = await instance.get(`shops/${shopId}/notices/${noticeId}/applications`);
       setData(res.data);
     } catch (error) {
       setError("404 not found");

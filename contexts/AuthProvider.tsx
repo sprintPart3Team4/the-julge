@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
+import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 import { AuthContextType, Shop, UpdateUser, User } from "@/types/apiTypes";
 
@@ -24,9 +24,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isPending, setIsPending] = useState(true);
 
   const getMe = async (userId: string) => {
-    setIsPending(true);
-
-    const res = await axios.get(`users/${userId}`);
+    const res = await instance.get(`users/${userId}`);
     const nextUser = res.data.item;
     const nextShop = res.data.item.shop === null ? null : res.data.item.shop.item;
 
@@ -42,7 +40,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // 로그인 후, 유저 정보까지 한꺼번에 저장
   const login = async (email: string, password: string) => {
-    const res = await axios.post("token", {
+    const res = await instance.post("token", {
       email,
       password,
     });
@@ -70,7 +68,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const updateMe = async (formData: UpdateUser) => {
     const { token } = getCookies();
 
-    const res = await axios.put(`users/${values?.user?.id}`, formData, {
+    const res = await instance.put(`users/${values?.user?.id}`, formData, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -83,7 +81,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const registerShop = async (formData: Shop) => {
     const { token } = getCookies();
 
-    const res = await axios.post("shops", formData, {
+    const res = await instance.post("shops", formData, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -96,7 +94,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const updateShop = async (formData: Shop) => {
     const { token, shopId } = getCookies();
 
-    const res = await axios.put(`shops/${shopId}`, formData, {
+    const res = await instance.put(`shops/${shopId}`, formData, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -108,8 +106,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // 새로 고침했을 때, 로그인이 풀리지 않도록 ??
   useEffect(() => {
-    if (values?.user?.id) {
-      getMe(values.user.id);
+    const { userId, token } = getCookies();
+
+    if (userId && token) {
+      getMe(userId);
     }
   }, []);
 
