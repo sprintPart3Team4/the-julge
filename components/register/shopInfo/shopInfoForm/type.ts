@@ -3,7 +3,7 @@ import { ChangeEvent, Dispatch, SetStateAction } from "react";
 export interface CommonProps {
   label: string;
   title: string;
-  defaultValue: string | number;
+  value: string | number;
 }
 export interface Input extends CommonProps {
   input?: {
@@ -16,7 +16,7 @@ export interface Input extends CommonProps {
     id: string;
     name: string;
   };
-  text?: string;
+  floatingText?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -37,8 +37,6 @@ export interface Textarea extends CommonProps {
 }
 
 export interface FileInput {
-  id: string | string[] | undefined;
-  defaultValue: string;
   setFormValues: Dispatch<SetStateAction<FormValues>>;
 }
 export interface Item {

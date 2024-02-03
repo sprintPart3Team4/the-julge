@@ -1,20 +1,16 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { ChangeEvent, FormEvent, useState } from "react";
 import Input from "./Input";
 import SelectBox from "./SelectBox";
 import Textarea from "./Textarea";
 import FileInput from "./FileInput";
-import TextInput from "./TextInput";
 import Button from "@/components/common/button/Button";
 import { useAuth } from "@/contexts/AuthProvider";
 import Modal from "@/components/common/modal/Modal";
-import instance from "@/lib/axiosInstance";
-import getCookies from "@/lib/getCookies";
 import { FOOD_CATEGORY, ADDRESS } from "./constants";
 import { FormValues } from "./type";
 import classNames from "classnames/bind";
 import styles from "./ShopInfoForm.module.scss";
-import ShopPageLayout from "@/components/shop/shopPageLayout/ShopPageLayout";
 
 const cn = classNames.bind(styles);
 
@@ -30,12 +26,9 @@ const initialFormValues = {
 
 export default function ShopInfoForm() {
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
-  const [registerData, setRegisterData] = useState<FormValues>(initialFormValues);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isPageOpen, setIsPageOpen] = useState<boolean>(false);
 
   const router = useRouter();
-  const { id } = router.query;
 
   const wage = formValues.originalHourlyPay !== 0 ? formValues.originalHourlyPay : "";
   const isRequired =
@@ -45,7 +38,7 @@ export default function ShopInfoForm() {
     formValues.category !== "선택" &&
     formValues.originalHourlyPay !== 0;
 
-  const { registerShop, updateShop } = useAuth();
+  const { registerShop } = useAuth();
 
   const handleValueChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -62,121 +55,90 @@ export default function ShopInfoForm() {
     registerShop(formValues);
   };
 
-  const handleEditForm = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    updateShop(formValues);
-  };
-
-  const handleButtonClick = () => {
+  const handleModalOpen = () => {
     setIsModalOpen(true);
   };
 
-  const handleCloseModal = () => {
+  const handleButtonClick = () => {
+    router.push("/shop");
     setIsModalOpen(false);
-    setIsPageOpen(true);
   };
-
-  const getRegisterData = async () => {
-    const { token, shopId } = getCookies();
-
-    const res = await instance.get(`shops/${shopId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setRegisterData(res.data.item);
-  };
-
-  useEffect(() => {
-    getRegisterData();
-  }, []);
 
   return (
-    <>
-      {isPageOpen ? (
-        <ShopPageLayout hasShop hasNotice />
-      ) : (
-        <div className={cn("container")}>
-          <form
-            onSubmit={(e) => {
-              id ? handleEditForm(e) : handleRegisterForm(e);
+    <div className={cn("container")}>
+      <form onSubmit={handleRegisterForm}>
+        <div className={cn("inputWrap")}>
+          <Input
+            label="name"
+            title="가게 이름"
+            input={{
+              type: "text",
+              id: "name",
+              name: "name",
             }}
-          >
-            <div className={cn("inputWrap")}>
-              <Input
-                label="name"
-                title="가게 이름"
-                input={{
-                  type: "text",
-                  id: "name",
-                  name: "name",
-                }}
-                defaultValue={id ? registerData.name : formValues.name}
-                onChange={handleValueChange}
-              />
-              <SelectBox
-                label="category"
-                title="분류*"
-                item={FOOD_CATEGORY}
-                defaultValue={id ? registerData.category : formValues.category}
-                setFormValues={setFormValues}
-              />
-              <SelectBox
-                label="address1"
-                title="주소*"
-                item={ADDRESS}
-                defaultValue={id ? registerData.address1 : formValues.address1}
-                setFormValues={setFormValues}
-              />
-              <Input
-                label="address2"
-                title="상세 주소"
-                input={{
-                  type: "text",
-                  id: "address2",
-                  name: "address2",
-                }}
-                defaultValue={id ? registerData.address2 : formValues.address2}
-                onChange={handleValueChange}
-              />
-              <TextInput
-                label="originalHourlyPay"
-                title="기본 시급"
-                text="원"
-                input={{
-                  type: "number",
-                  id: "originalHourlyPay",
-                  name: "originalHourlyPay",
-                }}
-                defaultValue={id ? registerData.originalHourlyPay : wage}
-                onChange={handleValueChange}
-              />
-            </div>
-            <FileInput setFormValues={setFormValues} defaultValue={registerData.imageUrl} id={id} />
-            <Textarea
-              label="description"
-              title="가게 설명"
-              textarea={{
-                id: "description",
-                name: "description",
-              }}
-              defaultValue={id ? registerData.description : formValues.description}
-              onChange={handleValueChange}
-            />
-            <div className={cn("buttonWrap")} onClick={handleButtonClick}>
-              <Button text={id ? "완료하기" : "등록하기"} size="reactive" color={isRequired ? "primary" : "disabled"} />
-            </div>
-          </form>
-          <div>
-            {isModalOpen && (
-              <Modal>
-                <Modal.Confirm
-                  text={id ? "수정이 완료되었습니다." : "등록이 완료되었습니다."}
-                  handleButtonClick={handleCloseModal}
-                />
-              </Modal>
-            )}
-          </div>
+            value={formValues.name}
+            onChange={handleValueChange}
+          />
+          <SelectBox
+            label="category"
+            title="분류*"
+            item={FOOD_CATEGORY}
+            value={formValues.category}
+            setFormValues={setFormValues}
+          />
+          <SelectBox
+            label="address1"
+            title="주소*"
+            item={ADDRESS}
+            value={formValues.address1}
+            setFormValues={setFormValues}
+          />
+          <Input
+            label="address2"
+            title="상세 주소"
+            input={{
+              type: "text",
+              id: "address2",
+              name: "address2",
+            }}
+            value={formValues.address2}
+            onChange={handleValueChange}
+          />
+          <Input
+            label="originalHourlyPay"
+            title="기본 시급"
+            floatingText="원"
+            input={{
+              type: "number",
+              id: "originalHourlyPay",
+              name: "originalHourlyPay",
+            }}
+            value={wage}
+            onChange={handleValueChange}
+          />
         </div>
-      )}
-    </>
+        <FileInput setFormValues={setFormValues} />
+        <Textarea
+          label="description"
+          title="가게 설명"
+          textarea={{
+            id: "description",
+            name: "description",
+          }}
+          value={formValues.description}
+          onChange={handleValueChange}
+        />
+        <div className={cn("buttonWrap")} onClick={handleModalOpen}>
+          <Button text="등록하기" size="reactive" color={isRequired ? "primary" : "disabled"} />
+        </div>
+      </form>
+      <div>
+        {isModalOpen && (
+          <Modal>
+            <Modal.Confirm text="등록이 완료되었습니다." handleButtonClick={handleButtonClick} />
+          </Modal>
+        )}
+      </div>
+    </div>
   );
 }
