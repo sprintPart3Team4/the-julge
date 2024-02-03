@@ -1,0 +1,107 @@
+@use "@/styles/variables.scss" as *;
+
+.wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-areas:
+    "logo buttons"
+    "search search";
+  grid-template-rows: 3rem;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 1rem 2rem;
+  background-color: $color-white;
+  z-index: 1;
+
+  @include tablet {
+    grid-template-areas: "logo search buttons";
+    grid-template-columns: 10.8rem auto 17rem;
+    gap: 2.2rem;
+    padding: 1.5rem 3.2rem;
+  }
+
+  @include desktop {
+    grid-template-columns: 10.8rem auto 22.6rem;
+    gap: 5.3rem;
+    padding: 1.5rem calc((100% - 102.4rem) / 2);
+    box-sizing: content-box;
+    width: 102.4rem;
+  }
+}
+
+.logo {
+  grid-area: logo;
+  display: flex;
+  align-items: center;
+}
+
+.buttons {
+  grid-area: buttons;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  @include tablet {
+    gap: 1.2rem;
+  }
+  @include desktop {
+    gap: 4rem;
+  }
+
+  .button {
+    color: $color-black;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-decoration: none;
+    @include tablet {
+      font-size: 1.6rem;
+      line-height: 2rem;
+    }
+  }
+  .icon {
+    @include tablet {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
+}
+
+.searchBar {
+  grid-area: search;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  width: 100%;
+  height: 3.6rem;
+  border-radius: 10px;
+  background: $color-gray-10;
+  @include tablet {
+    height: 4rem;
+  }
+  @include desktop {
+    width: 45rem;
+  }
+
+  input {
+    flex-direction: column;
+    flex-grow: 1;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: $color-black;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    @include tablet {
+      font-size: 1.4rem;
+      line-height: 2.2rem;
+    }
+
+    &::placeholder {
+      color: $color-gray-40;
+    }
+  }
+}
