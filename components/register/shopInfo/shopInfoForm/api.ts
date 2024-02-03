@@ -1,10 +1,10 @@
-import axios from "@/pages/api/axios";
+import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 
 export async function createPresinedURL(file: File) {
   try {
     const { token } = getCookies();
-    const res = await axios.post(
+    const res = await instance.post(
       "images",
       {
         name: file.name,
@@ -27,7 +27,7 @@ export async function createPresinedURL(file: File) {
 
 function uploadImageToS3(url: string, file: File) {
   try {
-    axios.put(url, file);
+    instance.put(url, file);
   } catch (error) {
     console.error(error);
   }
