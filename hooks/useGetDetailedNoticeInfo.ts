@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 
 export default function useGetDetailedNoticeInfo(noticeId: string) {
@@ -11,7 +11,7 @@ export default function useGetDetailedNoticeInfo(noticeId: string) {
     const { shopId } = getCookies();
 
     try {
-      const res = await axios.get(`shops/${shopId}/notices/${noticeId}`);
+      const res = await instance.get(`shops/${shopId}/notices/${noticeId}`);
       setData(res.data);
     } catch (error) {
       if (!shopId) setError("존재하지 않는 가게입니다");

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 
 export default function useChangeStatus(noticeId: string, application_id: string, status: string) {
@@ -10,7 +10,7 @@ export default function useChangeStatus(noticeId: string, application_id: string
   const changeStatus = async () => {
     const { shopId, token } = getCookies();
     try {
-      const res = await axios.put(
+      const res = await instance.put(
         `shops/${shopId}/notices/${noticeId}/applications/${application_id}`,
         {
           status: status,

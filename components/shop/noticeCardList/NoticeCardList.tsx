@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
-import axios from "axios";
+import instance from "@/lib/axiosInstance";
 import NoticeCard from "../noticeCard/NoticeCard";
 import getCookies from "@/lib/getCookies";
 import styles from "./NoticeCardList.module.scss";
@@ -34,7 +34,7 @@ const LIMIT = 10;
 async function getNoticeList({ offset = 0, limit = LIMIT }: Props): Promise<NoticeListResponse> {
   const { shopId } = getCookies();
   const query = `offset=${offset}&limit=${limit}`;
-  const res = await axios.get<NoticeListResponse>(`shops/${shopId}/notices?${query}`);
+  const res = await instance.get<NoticeListResponse>(`shops/${shopId}/notices?${query}`);
   return res.data;
 }
 

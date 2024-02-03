@@ -8,7 +8,7 @@ import TextInput from "./TextInput";
 import Button from "@/components/common/button/Button";
 import { useAuth } from "@/contexts/AuthProvider";
 import Modal from "@/components/common/modal/Modal";
-import axios from "@/pages/api/axios";
+import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 import { FOOD_CATEGORY, ADDRESS } from "./constants";
 import { FormValues } from "./type";
@@ -76,7 +76,7 @@ export default function ShopInfoForm() {
   const getRegisterData = async () => {
     const { token, shopId } = getCookies();
 
-    const res = await axios.get(`shops/${shopId}`, {
+    const res = await instance.get(`shops/${shopId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setRegisterData(res.data.item);
