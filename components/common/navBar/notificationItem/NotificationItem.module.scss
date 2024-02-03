@@ -1,0 +1,33 @@
+@use "@/styles/variables.scss" as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.6rem 1.2rem;
+  width: 100%;
+  gap: 0.4rem;
+  border-radius: 0.5rem;
+  border: 1px solid $color-gray-20;
+  background: $color-white;
+}
+
+.message {
+  color: $color-black;
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+
+  .approved {
+    color: $color-blue-20;
+  }
+
+  .rejected {
+    color: $color-red-40;
+  }
+}
+
+.timeAgo {
+  color: $color-gray-40;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+}
