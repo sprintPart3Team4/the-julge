@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Input from "./Input";
+import Input from "@/components/common/input/Input";
 import SelectBox from "./SelectBox";
 import Textarea from "./Textarea";
 import FileInput from "./FileInput";

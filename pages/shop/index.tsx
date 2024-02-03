@@ -1,19 +1,40 @@
 import Footer from "@/components/common/footer/Footer";
 import NoticeRegister from "@/components/register/notice/NoticeRegister/NoticeRegister";
+import ShopInfoForm from "@/components/register/shopInfo/shopInfoForm/shopInfoForm";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
 import RegisterSuggestion from "@/components/shop/registerSuggestion/RegisterSuggestion";
 import ShopPageLayout from "@/components/shop/shopPageLayout/ShopPageLayout";
 import { useState } from "react";
 
 export default function ShopPage() {
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isInfoRegisterOpen, setIsInfoRegisterOpen] = useState<boolean>(false);
+  const [isNoticeRegisterOpen, setIsNoticeRegisterOpen] = useState<boolean>(false);
 
-  return isRegisterOpen ? (
-    <NoticeRegister setIsRegisterOpen={setIsRegisterOpen} />
-  ) : (
+  const toggleInfoOpen = () => {
+    setIsInfoRegisterOpen(!isInfoRegisterOpen);
+  };
+
+  const toggleNoticeOpen = () => {
+    setIsNoticeRegisterOpen(!isNoticeRegisterOpen);
+  };
+
+  return (
     <>
-      <ShopPageLayout hasShop hasNotice setIsRegisterOpen={setIsRegisterOpen} />
-      <Footer />
+      {isInfoRegisterOpen ? (
+        <ShopInfoForm toggleInfoOpen={toggleInfoOpen} />
+      ) : isNoticeRegisterOpen ? (
+        <NoticeRegister toggleNoticeOpen={toggleNoticeOpen} />
+      ) : (
+        <>
+          <ShopPageLayout
+            hasShop
+            hasNotice
+            toggleInfoOpen={toggleInfoOpen}
+            toggleNoticeOpen={toggleNoticeOpen}
+          />
+          <Footer />
+        </>
+      )}
     </>
   );
 }

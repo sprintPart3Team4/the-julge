@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import classNames from "classnames/bind";
 import useReloadNotice from "./useReloadNotice";
 import CloseButton from "@/components/common/closeButton/CloseButton";
-import Input from "../../../common/input/registerInput/Input";
+import Input from "../../../common/input/inputWithSubtitle/Input";
 import Button from "@/components/common/button/Button";
 import Modal from "@/components/common/modal/Modal";
 // import useReloadNotice from "./useReloadNotice";
@@ -31,9 +31,10 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
   const [ModalText, setModalText] = useState<string>("");
 
   const router = useRouter();
+  const { noticeId } = router.query;
 
   useEffect(() => {
-    const reloadData = useReloadNotice();
+    const reloadData = useReloadNotice(noticeId);
     setHourlyPay(reloadData[0]);
     setStartsAt(reloadData[1]);
     setWorkHour(reloadData[2]);

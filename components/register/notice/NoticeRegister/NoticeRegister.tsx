@@ -1,13 +1,12 @@
 import {
   useState,
-  useEffect,
   ChangeEvent,
   FormEvent,
   MouseEventHandler,
 } from "react";
 import classNames from "classnames/bind";
 import CloseButton from "@/components/common/closeButton/CloseButton";
-import Input from "../../../common/input/registerInput/Input";
+import Input from "../../../common/input/Input";
 import Button from "@/components/common/button/Button";
 import Modal from "@/components/common/modal/Modal";
 import usePostNotice from "@/components/register/notice/NoticeRegister/usePostNotice";
@@ -16,10 +15,10 @@ import styles from "./NoticeRegister.module.scss";
 const cn = classNames.bind(styles);
 
 interface Props {
-  setIsRegisterOpen: (setIsRegisterOpen: boolean) => void;
+  toggleNoticeOpen: (toggleNoticeOpen: boolean) => void;
 }
 
-export default function NoticeRegister({ setIsRegisterOpen }: Props) {
+export default function NoticeRegister({ toggleNoticeOpen }: Props) {
   const [hourlyPay, setHourlyPay] = useState<number>();
   const [startsAt, setStartAt] = useState<string>("");
   const [workhour, setWorkHour] = useState<number>();
@@ -54,7 +53,7 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
   }
 
   const postSuccess: MouseEventHandler<HTMLButtonElement> = () => {
-    setIsRegisterOpen(false);
+    toggleNoticeOpen(false);
   };
 
   const postFail: MouseEventHandler<HTMLButtonElement> = () => {
@@ -89,28 +88,40 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
       <form onSubmit={submit} className={cn("formBox")}>
         <div className={cn("titleBox")}>
           <h1 className={cn("title")}>공고 등록</h1>
-          <CloseButton setIsRegisterOpen={setIsRegisterOpen} />
+          <CloseButton stateToggleState={toggleNoticeOpen} />
         </div>
         <div className={cn("noticeBox")}>
           <Input
-            id="hourlyPay"
-            type="number"
-            text="시급*"
-            setter={setState}
-            placeholder="입력"
+            label="hourlyPay"
+            title="시급*"
+            input={{
+              type: "number",
+              id: "hourlyPay",
+              name: "hourlyPay"
+            }}
+            placeholder="0"
+            onChange={setState}
             floatingText="원"
           />
           <Input
-            id="startsAt"
-            type="datetime-local"
-            text="시작 일시*"
-            setter={setState}
+            label="startsAt"
+            title="시작 일시*"
+            input={{
+              type: "datetime-local",
+              id: "startsAt",
+              name: "startsAt"
+            }}
+            onChange={setState}
           />
           <Input
-            id="workhour"
-            type="number"
-            text="업무 시간*"
-            setter={setState}
+            label="workhour"
+            title="업무 시간*"
+            input={{
+              type: "number",
+              id: "workhour",
+              name: "workhour"
+            }}
+            onChange={setState}
             floatingText="시간"
             placeholder="입력"
           />

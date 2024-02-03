@@ -5,13 +5,13 @@ import styles from "./CloseButton.module.scss";
 const cn = classNames.bind(styles);
 
 interface Props {
-  setIsRegisterOpen: (setIsRegisterOpen: boolean)=> void;
+  stateToggleState: (setIsRegisterOpen: boolean)=> void;
 }
 
-export default function CloseButton({ setIsRegisterOpen }: Props) {
+export default function CloseButton({ stateToggleState }: Props) {
 
   function judgeRender() {
-    setIsRegisterOpen(false);
+    stateToggleState(false);
   }
 
   return (

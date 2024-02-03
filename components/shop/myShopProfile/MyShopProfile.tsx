@@ -9,19 +9,33 @@ import styles from "./MyShopProfile.module.scss";
 const cn = classNames.bind(styles);
 
 type Prop = {
-  setIsRegisterOpen: () => void;
+  toggleInfoOpen: () => void;
+  toggleNoticeOpen: () => void;
 };
 
-export default function MyShopProfile({ setIsRegisterOpen }: Prop) {
+export default function MyShopProfile({
+  toggleInfoOpen,
+  toggleNoticeOpen,
+}: Prop) {
   return (
     <div className={cn("wrap")}>
-      <Image src={TestImage} className={cn("image")} alt="테스트 이미지" objectFit="cover" />
+      <Image
+        src={TestImage}
+        className={cn("image")}
+        alt="테스트 이미지"
+        objectFit="cover"
+      />
       <div className={cn("contents")}>
         <div className={cn("shopInfo")}>
           <span className={cn("category")}>{storeInfo.item.category}</span>
           <span className={cn("name")}>{storeInfo.item.name}</span>
           <div className={cn("location")}>
-            <Image src={LocationIcon} alt="위치 아이콘" width={20} height={20} />
+            <Image
+              src={LocationIcon}
+              alt="위치 아이콘"
+              width={20}
+              height={20}
+            />
             <span>{storeInfo.item.address1}</span>
           </div>
           <span className={cn("description")}>
@@ -34,8 +48,18 @@ export default function MyShopProfile({ setIsRegisterOpen }: Prop) {
           </span>
         </div>
         <div className={cn("buttons")}>
-          <Button text="편집하기" size="flexible" color="secondary"></Button>
-          <Button text="공고 등록하기" size="flexible" color="primary" handleButtonClick={setIsRegisterOpen}></Button>
+          <Button
+            text="편집하기"
+            size="flexible"
+            color="secondary"
+            handleButtonClick={toggleInfoOpen}
+          ></Button>
+          <Button
+            text="공고 등록하기"
+            size="flexible"
+            color="primary"
+            handleButtonClick={toggleNoticeOpen}
+          ></Button>
         </div>
       </div>
     </div>

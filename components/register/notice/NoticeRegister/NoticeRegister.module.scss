@@ -52,6 +52,7 @@
 
       .description {
         display: flex;
+        resize: none;
         height: 15.3rem;
         padding: 1.6rem 2rem;
         align-items: flex-start;
@@ -66,7 +67,8 @@
   }
 }
 
-@include tablet {}
+@include tablet {
+}
 
 @include desktop {
   .wrapper {

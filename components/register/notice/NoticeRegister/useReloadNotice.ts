@@ -8,9 +8,8 @@ import axios from "@/pages/api/axios";
 //   description: string;
 // }
 
-export default async function useReloadNotice() {
+export default async function useReloadNotice(noticeId: any) {
   const { token, shopId } = getCookies();
-  const noticeId = `0f4c29d7-5427-4d01-bebd-068256476bb1`;
 
   try {
     const res = await axios.get(`shops/${shopId}/notices/${noticeId}`, {
