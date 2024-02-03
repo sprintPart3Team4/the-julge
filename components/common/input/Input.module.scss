@@ -1,6 +1,6 @@
 @use "@/styles/variables.scss" as *;
 
-.noticeData {
+.box {
   position: relative;
   display: flex;
   width: 100%;
@@ -13,7 +13,7 @@
     margin: 0;
   }
 
-  .noticeInput {
+  .dataInput {
     outline: none;
     width: 100%;
     height: 6rem;

@@ -1,12 +1,5 @@
 import getCookies from "@/lib/getCookies";
-import axios from "@/pages/api/axios";
-
-// interface Prop {
-//   hourlyPay: number | undefined;
-//   startsAt: string;
-//   workhour: number;
-//   description: string;
-// }
+import instance from "@/lib/axiosInstance";
 
 export default async function usePostNotice(
   body: any,
@@ -17,7 +10,7 @@ export default async function usePostNotice(
   const { token, shopId } = getCookies();
 
   try {
-    const res = await axios.post(`shops/${shopId}/notices`, body, {
+    const res = await instance.post(`shops/${shopId}/notices`, body, {
       headers: { Authorization: `Bearer ${token}` },
     });
     console.log("API 등록 완료");

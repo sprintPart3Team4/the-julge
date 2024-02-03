@@ -14,17 +14,17 @@ export interface InputProps {
   }
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   floatingText?: string;
-  placeholder: string;
+  placeholder?: string;
 }
 
 export default function Input({ label, title, input, onChange, floatingText, placeholder }: InputProps) {
   return (
-    <div className={cn("noticeData")}>
-      <label htmlFor={label} className={cn("explan")}>
+    <div className={cn("box")}>
+      <label htmlFor={label} className={cn("title")}>
         {title}*
       </label>
       <input
-        className={cn("noticeInput")}
+        className={cn("dataInput")}
         placeholder={placeholder}
         {...input}
         onChange={onChange}

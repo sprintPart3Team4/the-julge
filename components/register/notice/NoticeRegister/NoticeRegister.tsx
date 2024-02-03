@@ -93,7 +93,7 @@ export default function NoticeRegister({ toggleNoticeOpen }: Props) {
         <div className={cn("noticeBox")}>
           <Input
             label="hourlyPay"
-            title="시급*"
+            title="시급"
             input={{
               type: "number",
               id: "hourlyPay",
@@ -105,7 +105,7 @@ export default function NoticeRegister({ toggleNoticeOpen }: Props) {
           />
           <Input
             label="startsAt"
-            title="시작 일시*"
+            title="시작 일시"
             input={{
               type: "datetime-local",
               id: "startsAt",
@@ -115,7 +115,7 @@ export default function NoticeRegister({ toggleNoticeOpen }: Props) {
           />
           <Input
             label="workhour"
-            title="업무 시간*"
+            title="업무 시간"
             input={{
               type: "number",
               id: "workhour",

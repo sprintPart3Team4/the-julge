@@ -68,6 +68,16 @@
 }
 
 @include tablet {
+  .noticeBox {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+
+    > div {
+      flex: 0 1 calc(50% - 1rem);
+    }
+  }
 }
 
 @include desktop {
@@ -80,6 +90,10 @@
         align-items: flex-start;
         gap: 2rem;
         flex-wrap: wrap;
+
+        > div {
+          flex: 0 1 calc(31.9%);
+        }
       }
     }
   }
