@@ -1,12 +1,12 @@
 import React from "react";
-import Logo from "../logo/Logo";
-import styles from "./NavBar.module.scss";
 import classNames from "classnames/bind";
-import Link from "next/link";
-import SearchIcon from "@/public/images/search.svg";
 import Image from "next/image";
+import Link from "next/link";
+import Logo from "../logo/Logo";
+import SearchIcon from "@/public/images/search.svg";
 import ActiveNotificationIcon from "@/public/images/notification_active.svg";
 import InactiveNotificationIcon from "@/public/images/notification_inactive.svg";
+import styles from "./NavBar.module.scss";
 
 const cn = classNames.bind(styles);
 
