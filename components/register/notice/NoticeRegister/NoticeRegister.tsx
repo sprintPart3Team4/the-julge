@@ -88,7 +88,7 @@ export default function NoticeRegister({ toggleNoticeOpen }: Props) {
       <form onSubmit={submit} className={cn("formBox")}>
         <div className={cn("titleBox")}>
           <h1 className={cn("title")}>공고 등록</h1>
-          <CloseButton stateToggleState={toggleNoticeOpen} />
+          <CloseButton stateToggle={toggleNoticeOpen} />
         </div>
         <div className={cn("noticeBox")}>
           <Input
