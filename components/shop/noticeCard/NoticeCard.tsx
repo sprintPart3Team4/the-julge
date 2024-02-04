@@ -20,29 +20,9 @@ type NoticeCardProps = {
 
 const NoticeCard = React.forwardRef(
   ({ startsAt, workhour, hourlyPay, closed = false }: NoticeCardProps, ref: Ref<HTMLDivElement>) => {
-    // const { shop } = useAuth();
-    // 로그인 기능 만들어지기 전 임시로 만들어놓은 데이터
-    const shop = {
-      id: "2fd3b8d8-cda3-4e83-a6ff-b6d177437a2b",
-      name: "더줄게",
-      category: "한식",
-      address1: "서울시 도봉구",
-      address2: "쌍문동",
-      description: "막퍼줄게 정말로 진짜진짜로 시급도 간식도 주휴수당도 전부전부",
-      imageUrl: "https://picsum.photos/200/300",
-      originalHourlyPay: 9860,
-      user: {
-        item: {
-          id: "d8ec5811-0da2-4caa-8ac6-d09de8ae4b25",
-          email: "thejulge@codeit.com",
-          type: "employer",
-        },
-        href: "/api/2-4/the-julge/users/d8ec5811-0da2-4caa-8ac6-d09de8ae4b25",
-      },
-    };
+    const { shop } = useAuth();
 
     if (!shop) return;
-
     const { imageUrl, name, address1, originalHourlyPay } = shop;
 
     return (
