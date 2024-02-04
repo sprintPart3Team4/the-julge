@@ -1,0 +1,3 @@
+POST https://bootcamp-api.codeit.kr/api/2-4/the-julge/shops/2fd3b8d8-cda3-4e83-a6ff-b6d177437a2b/notices/419641b4-989f-4c31-94c5-515c72c90ef3/applications
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1MGI3NDBiZC1lZTc2LTRjZTctYmUwZC1hMDcwYTEyMWVkYWYiLCJpYXQiOjE3MDY3ODc1Njd9.BuqeEjM_pJ5qFtlGiRF7wrwhiSRaCOhkb-OEBKuWrsA

@@ -8,12 +8,12 @@ import styles from "./MyShopProfile.module.scss";
 const cn = classNames.bind(styles);
 
 type Prop = {
-  toggleInfoOpen: () => void;
+  handleEditClick: () => void;
   toggleNoticeOpen: () => void;
 };
 
 export default function MyShopProfile({
-  toggleInfoOpen,
+  handleEditClick,
   toggleNoticeOpen,
 }: Prop) {
         
@@ -56,7 +56,7 @@ export default function MyShopProfile({
             text="편집하기"
             size="flexible"
             color="secondary"
-            handleButtonClick={toggleInfoOpen}
+            handleButtonClick={handleEditClick}
           ></Button>
           <Button
             text="공고 등록하기"

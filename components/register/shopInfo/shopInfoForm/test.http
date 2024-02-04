@@ -1,7 +1,0 @@
-POST https://bootcamp-api.codeit.kr/api/2-4/the-julge/token
-Content-Type: application/json
-
-{
-  "email": "thejulge17@codeit.com",
-  "password": "thejulge17",
-}
