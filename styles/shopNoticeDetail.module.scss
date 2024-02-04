@@ -1,0 +1,67 @@
+@use "@/styles/variables.scss" as *;
+
+.noticeWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 4rem 0;
+
+  @include tablet {
+    gap: 2.4rem;
+    padding: 6rem 0;
+  }
+}
+
+.noticeTitle {
+  padding-bottom: 0.4rem;
+  @include tablet {
+    padding-bottom: 0;
+  }
+}
+
+.applicationWrap {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.6rem;
+
+  margin: auto;
+  padding: 4rem 0 8rem;
+
+  @include tablet {
+    gap: 3.2rem;
+    padding: 6rem 0;
+  }
+}
+
+.pagenationWrap {
+  margin: auto;
+  border: 1px solid $color-gray-20;
+  border-radius: 1rem;
+
+  max-width: 96.4rem;
+  width: calc(100% - $mobile-safezone * 2);
+
+  @include tablet {
+    width: calc(100% - $tablet-safezone * 2);
+    height: 6.4rem;
+  }
+
+  @include desktop {
+    width: 96.4rem;
+  }
+}
+
+.pagenation {
+  padding: 1.2rem;
+}
+
+.noApplication {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 20rem;
+  color: $color-gray-50;
+  font-size: 2rem;
+}

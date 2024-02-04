@@ -12,7 +12,7 @@ const cn = classNames.bind(styles);
 
 type Props = {
   text: string;
-  yesButtonText: "취소하기" | "거절하기";
+  yesButtonText: "취소하기" | "거절하기" | "승인하기";
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleYesButtonClick: MouseEventHandler<HTMLButtonElement>;
 };
@@ -24,7 +24,7 @@ export default function YesOrNoModal({ text, yesButtonText, setIsModalOpen, hand
   return (
     <div className={cn("modal")}>
       <div className={cn("textWrap")}>
-        <Image src={Check} alt="경고" width={24} height={24} />
+        <Image src={Check} alt="체크" width={24} height={24} />
         <p className={cn("text")}>{text}</p>
       </div>
       <div className={cn("buttonPosition")}>

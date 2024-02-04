@@ -17,7 +17,14 @@ export default function Thumbnail({ src, alt, isClosed = false }: Props) {
   return (
     <div className={cn("container")}>
       {isClosed && <div className={cn("closed")}>마감 완료</div>}
-      <Image className={cn("thumbnail")} src={src} alt={`${alt} 미리보기 이미지`} objectFit="cover" />
+      <Image
+        className={cn("thumbnail")}
+        src={src}
+        alt={`${alt} 미리보기 이미지`}
+        objectFit="cover"
+        width={539}
+        height={308}
+      />
     </div>
   );
 }
