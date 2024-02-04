@@ -1,0 +1,124 @@
+@use "@/styles/variables.scss" as *;
+
+.wrap {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  gap: 1.2rem;
+  width: 100%;
+  border-radius: 1.2rem;
+  background: $color-red-10;
+  font-size: 1.4rem;
+
+  @include tablet {
+    gap: 1.6rem;
+    padding: 2.4rem;
+    width: 100%;
+  }
+
+  @include desktop {
+    flex-direction: row;
+    gap: 2.8rem;
+    min-width: 100%;
+  }
+
+  .image {
+    border-radius: 1.2rem;
+    width: 100%;
+    height: auto;
+
+    @include desktop {
+      width: 53.9rem;
+      height: 30.8rem;
+    }
+  }
+
+  .contents {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    @include tablet {
+      gap: 2.8rem;
+    }
+
+    @include desktop {
+      justify-content: space-between;
+    }
+  }
+
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    @include tablet {
+      gap: 1.2rem;
+    }
+
+    @include desktop {
+      margin-top: 1.6rem;
+    }
+  }
+
+  .title {
+    color: $color-red-40;
+    font-weight: 700;
+    margin-bottom: 0;
+
+    @include tablet {
+      margin-bottom: -0.4rem;
+    }
+  }
+
+  .name {
+    color: $color-black;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 0.06rem;
+
+    @include tablet {
+      font-size: 2.8rem;
+    }
+  }
+
+  .location {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: $color-gray-50;
+    line-height: 2.2rem;
+
+    @include tablet {
+      line-height: 2.6rem;
+    }
+
+    img {
+      width: 1.6rem;
+
+      @include tablet {
+        width: 2rem;
+      }
+    }
+  }
+
+  .description {
+    color: $color-black;
+    line-height: 2.2rem;
+
+    @include tablet {
+      line-height: 2.6rem;
+    }
+  }
+
+  .buttons {
+    width: 10.8rem;
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    @include tablet {
+      width: 16.9rem;
+    }
+  }
+}
