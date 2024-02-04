@@ -7,7 +7,16 @@ import styles from "./MyShopProfile.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function MyShopProfile() {
+type Prop = {
+  toggleInfoOpen: () => void;
+  toggleNoticeOpen: () => void;
+};
+
+export default function MyShopProfile({
+  toggleInfoOpen,
+  toggleNoticeOpen,
+}: Prop) {
+        
   const { shop } = useAuth();
 
   if (!shop) return;
@@ -25,7 +34,12 @@ export default function MyShopProfile() {
           <span className={cn("category")}>{category}</span>
           <span className={cn("name")}>{name}</span>
           <div className={cn("location")}>
-            <Image src={LocationIcon} alt="위치 아이콘" width={20} height={20} />
+            <Image
+              src={LocationIcon}
+              alt="위치 아이콘"
+              width={20}
+              height={20}
+            />
             <span>{address1}</span>
           </div>
           <span className={cn("description")}>
@@ -38,8 +52,18 @@ export default function MyShopProfile() {
           </span>
         </div>
         <div className={cn("buttons")}>
-          <Button text="편집하기" size="flexible" color="secondary"></Button>
-          <Button text="공고 등록하기" size="flexible" color="primary"></Button>
+          <Button
+            text="편집하기"
+            size="flexible"
+            color="secondary"
+            handleButtonClick={toggleInfoOpen}
+          ></Button>
+          <Button
+            text="공고 등록하기"
+            size="flexible"
+            color="primary"
+            handleButtonClick={toggleNoticeOpen}
+          ></Button>
         </div>
       </div>
     </div>

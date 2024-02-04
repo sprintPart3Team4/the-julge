@@ -4,6 +4,11 @@
   color: $color-gray-40;
 }
 
+.wrapper { 
+  padding: 6rem 0;
+  background-color: $color-gray-5;
+}
+
 .container {
   padding: 0 1.2rem;
 
@@ -61,7 +66,8 @@
     line-height: 2.6rem;
   }
 
-  input[type="text"] {
+  input[type="text"],
+  input[type="number"] {
     width: 100%;
     padding: 1.6rem 2rem;
     outline: none;
@@ -73,12 +79,18 @@
     &::placeholder {
       @include placeholder();
     }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 
   .wrap {
     position: relative;
 
-    .won {
+    .floatingText {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -98,6 +110,7 @@
     border-radius: 0.6rem;
     border: 1px solid $color-gray-30;
     cursor: pointer;
+    background-color: $color-white;
 
     &.active {
       color: $color-black;
@@ -130,6 +143,7 @@
     box-shadow: 0px 4px 25px 0px #0000001a;
     visibility: hidden;
     transition: visibility 0.5s, height 0.5s;
+    background-color: $color-white;
 
     &::-webkit-scrollbar {
       width: 0.4rem;
@@ -194,37 +208,38 @@
 
     &.active {
       border: none;
-      background-color: transparent;
     }
 
-    &.active .label {
-      overflow: hidden;
-      text-indent: 100%;
-      white-space: nowrap;
-      padding: 0;
+    &.active .label span {
+      display: none;
     }
 
     &.active .cameraImage {
       position: static;
       width: 100%;
       height: 100%;
-      transform: translateX(0);
       margin: 0;
+      transform: none;
+
+      img {
+        border-radius: 1.2rem;
+      }
     }
 
     .label {
       display: block;
       width: 100%;
       height: 100%;
-      padding: 10rem;
+      padding: 10rem 0 0;
       font-weight: 700;
       line-height: 2rem;
       color: $color-gray-40;
+      border-radius: 1.2rem;
       cursor: pointer;
       text-align: center;
 
-      @include tablet {
-        padding: calc(50% - 15rem) 0 0;
+      span {
+        color: $color-gray-40;
       }
     }
 
@@ -250,4 +265,9 @@
   @include desktop {
     margin: 2.4rem 0 0;
   }
+}
+
+.buttonWrap {
+  margin: 3.2rem auto;
+  text-align: center;
 }

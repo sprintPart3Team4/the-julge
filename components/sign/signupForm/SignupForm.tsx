@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import classNames from "classnames/bind";
-import axios from "@/pages/api/axios";
+import instance from "@/lib/axiosInstance";
 import Logo from "@/components/common/logo/Logo";
 import Button from "@/components/common/button/Button";
 import SignBottom from "@/components/sign/signBotton/SignBotton";
@@ -44,7 +44,7 @@ export default function SignupForm() {
   async function onSubmit(data: FormValue) {
     try {
       const { email, password, type } = data;
-      await axios.post("users", {
+      await instance.post("users", {
         email,
         password,
         type,

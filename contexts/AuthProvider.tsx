@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
+import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 import { AuthContextType, Shop, UpdateUser, User } from "@/types/apiTypes";
 
@@ -13,50 +13,41 @@ type AuthProviderProps = {
 type Values = {
   user: User | null;
   shop: Shop | null;
-  isPending: boolean;
 };
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [values, setValues] = useState<Values>({
     user: null,
     shop: null,
-    isPending: true,
   });
 
+  const [isPending, setIsPending] = useState(true);
+
   const getMe = async (userId: string) => {
+    const res = await instance.get(`users/${userId}`);
+    const nextUser = res.data.item;
+    const nextShop = res.data.item.shop === null ? null : res.data.item.shop.item;
+
     setValues((prev) => ({
       ...prev,
-      isPending: true,
+      user: nextUser,
+      shop: nextShop,
     }));
+    setIsPending(false);
 
-    let nextUser: User;
-    let nextShop: Shop;
-
-    try {
-      const res = await axios.get(`users/${userId}`);
-      nextUser = res.data.item;
-      nextShop = res.data.item.shop.item ?? null;
-      // shopId를 얻기 위해 이렇게 리턴을 하는데, 로직이 좀 이상한가?
-      return nextShop.id;
-    } finally {
-      setValues((prev) => ({
-        ...prev,
-        user: nextUser,
-        shop: nextShop,
-        isPending: false,
-      }));
-    }
+    return nextShop?.id;
   };
 
   // 로그인 후, 유저 정보까지 한꺼번에 저장
   const login = async (email: string, password: string) => {
-    const res = await axios.post("token", {
+    const res = await instance.post("token", {
       email,
       password,
     });
     const { token, user } = res.data.item;
 
     const id = await getMe(user.item.id);
+
     const shopId = id ?? "";
 
     document.cookie = `token=${token}`;
@@ -64,7 +55,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     document.cookie = `shopId=${shopId}`;
   };
 
-  // 이게 맞나?
   const logout = async () => {
     document.cookie = "";
     setValues((prev) => ({
@@ -78,7 +68,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const updateMe = async (formData: UpdateUser) => {
     const { token } = getCookies();
 
-    const res = await axios.put(`users/${values?.user?.id}`, formData, {
+    const res = await instance.put(`users/${values?.user?.id}`, formData, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -91,7 +81,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const registerShop = async (formData: Shop) => {
     const { token } = getCookies();
 
-    const res = await axios.post("shops", formData, {
+    const res = await instance.post("shops", formData, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -101,11 +91,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }));
   };
 
-  // 가게 정보 등록일 때는 method = post, 수정일 때는 put
   const updateShop = async (formData: Shop) => {
     const { token, shopId } = getCookies();
 
-    const res = await axios.put(`shops/${shopId}`, formData, {
+    const res = await instance.put(`shops/${shopId}`, formData, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -117,8 +106,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // 새로 고침했을 때, 로그인이 풀리지 않도록 ??
   useEffect(() => {
-    if (values?.user?.id) {
-      getMe(values.user.id);
+    const { userId, token } = getCookies();
+
+    if (userId && token) {
+      getMe(userId);
     }
   }, []);
 
@@ -127,7 +118,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       value={{
         user: values.user,
         shop: values.shop,
-        isPending: values.isPending,
+        isPending,
         login,
         logout,
         updateMe,

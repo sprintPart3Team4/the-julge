@@ -1,0 +1,55 @@
+@use "@/styles/variables.scss" as *;
+
+.noticeData {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .InputBox {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 6.2rem;
+    justify-content: space-between;
+    border-radius: 0.6rem;
+    padding: 1.6rem 2rem;
+    border: 1px solid $color-gray-30;
+    background: $color-white;
+  }
+
+  .noticeInput {
+    display: flex;
+    border: none;
+    outline: none;
+    width: 85%;
+  }
+
+  .floatingText {
+    text-align: center;
+    position: absolute;
+    width: 3rem;
+    height: 2.6rem;
+    right: 1rem;
+    top: 2rem;
+  }
+}
+
+@include tablet {
+  .noticeData {
+    width: 48%;
+  }
+}
+
+@include desktop {
+  .noticeData {
+    width: 30.8rem;
+  }
+}

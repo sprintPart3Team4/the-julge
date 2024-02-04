@@ -20,6 +20,7 @@ type NoticeCardProps = {
 
 const NoticeCard = React.forwardRef(
   ({ startsAt, workhour, hourlyPay, closed = false }: NoticeCardProps, ref: Ref<HTMLDivElement>) => {
+    
     const { shop } = useAuth();
 
     if (!shop) return;
