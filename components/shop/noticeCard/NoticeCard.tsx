@@ -8,6 +8,7 @@ import ClockIcon from "@/public/images/clock.svg";
 import GreyClockIcon from "@/public/images/clock_grey.svg";
 // import { useAuth } from "@/contexts/AuthProvider";
 import styles from "./NoticeCard.module.scss";
+import { getFullDate } from "@/lib/getFullDate";
 
 const cn = classNames.bind(styles);
 
@@ -60,9 +61,7 @@ const NoticeCard = React.forwardRef(
           <span className={cn("shopName")}>{name}</span>
           <div className={cn("time")}>
             <Image src={closed ? GreyClockIcon : ClockIcon} alt="시계 아이콘" width={20} height={20} />
-            <span>
-              {startsAt} ({workhour}시간) {/* TODO 시간 바꾸는 함수 */}
-            </span>
+            <span>{getFullDate(startsAt, workhour)}</span>
           </div>
           <div className={cn("location")}>
             <Image src={closed ? GreyLocationIcon : LocationIcon} alt="장소 아이콘" width={20} height={20} />
@@ -70,8 +69,12 @@ const NoticeCard = React.forwardRef(
           </div>
           <div className={cn("pays")}>
             <span className={cn("pay")}>{hourlyPay.toLocaleString("ko-KR")}원</span>
-            <HighPayRateBadge hourlyPay={hourlyPay} originalHourlyPay={originalHourlyPay || 0} />{" "}
-            {/* TODO 배지 색깔 바꾸기 / 모바일 UI */}
+            <HighPayRateBadge
+              isListedCard
+              closed={closed}
+              hourlyPay={hourlyPay}
+              originalHourlyPay={originalHourlyPay || 0}
+            />
           </div>
         </div>
       </div>
