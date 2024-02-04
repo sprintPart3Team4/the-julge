@@ -1,0 +1,57 @@
+@use "@/styles/variables.scss" as *;
+
+.pagenationWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pageNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.9rem 0 0.7rem;
+
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 0.4rem;
+
+  color: $color-black;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+
+  &.current {
+    color: $color-white;
+    background-color: $color-red-30;
+  }
+
+  @include tablet {
+    padding: 1.2rem;
+
+    width: 4rem;
+    height: 4rem;
+
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+  }
+}
+
+.pageNumber:hover {
+  color: $color-black;
+  background-color: $color-red-10;
+}
+
+.previousButton:disabled,
+.nextButton:disabled {
+  cursor: default;
+}
+
+.previousButton {
+  padding: 0.6rem 1.6rem 0 0;
+}
+
+.nextButton {
+  padding: 0.6rem 0 0 1.6rem;
+}
