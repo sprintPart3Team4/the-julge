@@ -13,14 +13,13 @@
 
   @include tablet {
     gap: 1.6rem;
-    padding: 2.4rem;
+    padding: 3.2rem;
     width: 100%;
+    font-size: 1.6rem;
   }
 
   @include desktop {
-    flex-direction: row;
-    gap: 2.8rem;
-    min-width: 100%;
+    width: 68rem;
   }
 
   .image {
@@ -55,10 +54,6 @@
 
     @include tablet {
       gap: 1.2rem;
-    }
-
-    @include desktop {
-      margin-top: 1.6rem;
     }
   }
 
@@ -119,6 +114,8 @@
     right: 2rem;
     @include tablet {
       width: 16.9rem;
+      top: 3.2rem;
+      right: 3.2rem;
     }
   }
 }
