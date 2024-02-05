@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useState } from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,7 +14,7 @@ const cn = classNames.bind(styles);
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const handleToggleNotification = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setIsOpen(!isOpen);
@@ -36,7 +36,7 @@ export default function NavBar() {
           <Link href={"/profile"} className={cn("button")}>
             내 프로필
           </Link>
-          <button type="button" className={cn("button")}>
+          <button type="button" className={cn("button")} onClick={logout}>
             로그아웃
           </button>
           <button type="button" className={cn("button")} onClick={handleToggleNotification}>
