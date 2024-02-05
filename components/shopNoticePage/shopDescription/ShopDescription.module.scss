@@ -8,4 +8,10 @@
     font-size: 1.6rem;
     line-height: 2.6rem;
   }
+
+  @include desktop {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 }

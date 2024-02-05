@@ -66,3 +66,68 @@ export type AuthContextType = {
   registerShop: (FormData: Shop) => Promise<void>;
   updateShop: (formData: Shop) => Promise<void>;
 };
+
+export type Signin = {
+  item: {
+    token: string;
+    user: {
+      item: User;
+      href: string;
+    };
+  };
+  links: [];
+};
+
+type UserApplicationStatus = {
+  id: string;
+  status: "pending" | "accepted" | "rejected" | "canceled";
+  createdAt: string;
+};
+
+type Notice = {
+  id: string;
+  hourlyPay: number;
+  startsAt: string;
+  workhour: number;
+  description: string;
+  closed: boolean;
+};
+
+export type NoticeDetail = {
+  id: string;
+  hourlyPay: number;
+  startsAt: string;
+  workhour: number;
+  description: string;
+  closed: boolean;
+  shop: {
+    item: Shop;
+    href: string;
+  };
+  currentUserApplication: {
+    item: UserApplicationStatus;
+  };
+};
+
+type Application = {
+  item: {
+    id: string;
+    status: "pending" | "accepted" | "rejected" | "canceled";
+    createdAt: string;
+    user: {
+      item: User;
+      href: string;
+    };
+    shop: {
+      item: Shop;
+      href: string;
+    };
+    notice: {
+      item: Notice;
+      href: string;
+    };
+  };
+  links: [];
+};
+
+export type ApplicationList = Application[];
