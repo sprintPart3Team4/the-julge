@@ -1,0 +1,30 @@
+@use "@/styles/variables.scss" as *;
+
+.button {
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.6rem;
+
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+
+  text-align: center;
+  white-space: nowrap;
+
+  @include tablet {
+    padding: 1rem 2rem;
+
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: normal;
+  }
+}
+
+.accepted {
+  color: $color-blue-20;
+  border: 1px solid $color-blue-20;
+}
+
+.rejected {
+  color: $color-red-40;
+  border: 1px solid $color-red-40;
+}
