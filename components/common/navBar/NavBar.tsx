@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "../logo/Logo";
+import { NoticeList, getNotices } from "@/lib/getNotices";
 import SearchIcon from "@/public/images/search.svg";
 import ActiveNotificationIcon from "@/public/images/notification_active.svg";
 import InactiveNotificationIcon from "@/public/images/notification_inactive.svg";
@@ -12,11 +13,19 @@ const cn = classNames.bind(styles);
 
 type Props = {
   setKeyword: Dispatch<SetStateAction<string>>;
+  setCount: Dispatch<SetStateAction<number>>;
+  setNoticeList: Dispatch<SetStateAction<NoticeList>>;
 };
 
-export default function NavBar({ setKeyword }: Props) {
+export default function NavBar({ setKeyword, setCount, setNoticeList }: Props) {
+  const LIMIT_PER_SINGLE_PAGE = 30; // 한 페이지에 보여줄 데이터의 개수
+
   const handleKeywordChange = (e: any) => {
     setKeyword(e.target.value);
+    getNotices(0, LIMIT_PER_SINGLE_PAGE, e.target.value).then(({ count, items }) => {
+      setCount(count);
+      setNoticeList(items);
+    });
   };
 
   return (

@@ -1,26 +1,23 @@
-import NavBar from "@/components/common/navBar/NavBar";
-import NoticeList from "@/components/noticeList/NoticeList";
-import { Notices, getNotices } from "@/lib/getNotices";
 import { useEffect, useState } from "react";
+import NavBar from "@/components/common/navBar/NavBar";
+import NoticeListLayout from "@/components/noticeList/noticeListLayout/NoticeListLayout";
+import { Notices, NoticeList } from "@/lib/getNotices";
 
 export default function Home() {
   const [keyword, setKeyword] = useState<string>("");
   const [notices, setNotices] = useState<Notices>();
-
-  const fetchNotices = async () => {
-    const data = await getNotices(0, 30, keyword);
-    setNotices(data);
-  };
+  const [isLoading, setIsLoading] = useState(true);
+  const [noticeList, setNoticeList] = useState<NoticeList>([]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    fetchNotices();
-    console.log(notices?.items);
+    setNoticeList(noticeList);
   }, [keyword]);
 
   return (
     <>
-      <NavBar setKeyword={setKeyword} />
-      <NoticeList keyword={keyword} />
+      <NavBar setKeyword={setKeyword} setCount={setCount} setNoticeList={setNoticeList} />
+      <NoticeListLayout keyword={keyword} noticeList={noticeList} />
     </>
   );
 }
