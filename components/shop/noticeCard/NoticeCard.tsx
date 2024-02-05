@@ -6,7 +6,7 @@ import LocationIcon from "@/public/images/location.svg";
 import GreyLocationIcon from "@/public/images/location_grey.svg";
 import ClockIcon from "@/public/images/clock.svg";
 import GreyClockIcon from "@/public/images/clock_grey.svg";
-// import { useAuth } from "@/contexts/AuthProvider";
+import { useAuth } from "@/contexts/AuthProvider";
 import styles from "./NoticeCard.module.scss";
 import { getFullDate } from "@/lib/getFullDate";
 
@@ -21,33 +21,11 @@ type NoticeCardProps = {
 
 const NoticeCard = React.forwardRef(
   ({ startsAt, workhour, hourlyPay, closed = false }: NoticeCardProps, ref: Ref<HTMLDivElement>) => {
-    // const shopInfo = useAuth().shop;
-    // 로그인 기능 만들어지기 전 임시로 만들어놓은 데이터
-    const shopInfo = {
-      id: "2fd3b8d8-cda3-4e83-a6ff-b6d177437a2b",
-      name: "더줄게",
-      category: "한식",
-      address1: "서울시 도봉구",
-      address2: "쌍문동",
-      description: "막퍼줄게 정말로 진짜진짜로 시급도 간식도 주휴수당도 전부전부",
-      imageUrl:
-        "https://bootcamp-project-api.s3.ap-northeast-2.amazonaws.com/2-4/the-julge/35fec78b-1191-4a39-8368-cf5b3f025ca1-food.png",
-      originalHourlyPay: 9860,
-      user: {
-        item: {
-          id: "d8ec5811-0da2-4caa-8ac6-d09de8ae4b25",
-          email: "thejulge@codeit.com",
-          type: "employer",
-        },
-        href: "/api/2-4/the-julge/users/d8ec5811-0da2-4caa-8ac6-d09de8ae4b25",
-      },
-    };
+    
+    const { shop } = useAuth();
 
-    // 구조분해할당 시 오류
-    const imageUrl = shopInfo?.imageUrl;
-    const name = shopInfo?.name;
-    const address1 = shopInfo?.address1;
-    const originalHourlyPay = shopInfo?.originalHourlyPay;
+    if (!shop) return;
+    const { imageUrl, name, address1, originalHourlyPay } = shop;
 
     return (
       <div className={cn("wrap", { closed })} ref={ref}>
