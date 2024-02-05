@@ -1,3 +1,4 @@
+
 import {
   useState,
   useEffect,
@@ -7,27 +8,28 @@ import {
 } from "react";
 import { useRouter } from "next/router";
 import classNames from "classnames/bind";
-import useReloadNotice from "./useReloadNotice";
 import CloseButton from "@/components/common/closeButton/CloseButton";
-import Input from "../../../common/input/inputWithSubtitle/Input";
+import Input from "../../../common/input/Input";
 import Button from "@/components/common/button/Button";
 import Modal from "@/components/common/modal/Modal";
-// import useReloadNotice from "./useReloadNotice";
+import useReloadNotice from "./useReloadNotice";
 import useEditNotice from "./useEditNotice";
 import styles from "./NoticeRegister.module.scss";
+import { set } from "react-hook-form";
 
 const cn = classNames.bind(styles);
 
 interface Props {
-  setIsRegisterOpen: (setIsRegisterOpen: boolean) => void;
+  toggleNoticeOpen: (toggleNoticeOpen: boolean) => void;
 }
 
-export default function NoticeRegister({ setIsRegisterOpen }: Props) {
+export default function NoticeRegister({ toggleNoticeOpen }: Props) {
   const [hourlyPay, setHourlyPay] = useState<number>();
-  const [startsAt, setStartsAt] = useState<string>("");
+  const [startsAt, setStartAt] = useState<string>("");
   const [workhour, setWorkHour] = useState<number>();
   const [description, setDescription] = useState<string>("");
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [okModal, setOkModal] = useState<boolean>(false);
+  const [falseModal, setFalseModal] = useState<boolean>(false);
   const [ModalText, setModalText] = useState<string>("");
 
   const router = useRouter();
@@ -35,10 +37,10 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
 
   useEffect(() => {
     const reloadData = useReloadNotice(noticeId);
-    setHourlyPay(reloadData[0]);
-    setStartsAt(reloadData[1]);
-    setWorkHour(reloadData[2]);
-    setDescription(reloadData[3]);
+    setHourlyPay(reloadData.hourlyPay);
+    setStartAt(String(reloadData.startsAt));
+    setWorkHour(reloadData.workHour);
+    setDescription(reloadData.description);
   }, []);
 
   const formatDate = (original: string) => {
@@ -55,7 +57,7 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
         setHourlyPay(Number(value));
         break;
       case "startsAt":
-        setStartsAt(formatDate(String(value)));
+        setStartAt(formatDate(String(value)));
         break;
       case "workhour":
         setWorkHour(Number(value));
@@ -66,8 +68,12 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
     }
   }
 
-  const handleConfirmButtonClick: MouseEventHandler<HTMLButtonElement> = () => {
-    setIsRegisterOpen(false);
+  const putSuccess: MouseEventHandler<HTMLButtonElement> = () => {
+    toggleNoticeOpen(false);
+  };
+
+  const putFail: MouseEventHandler<HTMLButtonElement> = () => {
+    setFalseModal(false);
   };
 
   function submit(e: FormEvent): void {
@@ -80,46 +86,60 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
       description,
     };
 
-    useEditNotice(body, setShowModal, setModalText);
+    useEditNotice(body, noticeId, setOkModal, setFalseModal, setModalText);
   }
 
   return (
     <div className={cn("wrapper")}>
-      {showModal && (
+      {okModal && (
         <Modal>
-          <Modal.Confirm
-            text={ModalText}
-            handleButtonClick={handleConfirmButtonClick}
-          />
+          <Modal.Confirm text={ModalText} handleButtonClick={putSuccess} />
+        </Modal>
+      )}
+      {falseModal && (
+        <Modal>
+          <Modal.Confirm text={ModalText} handleButtonClick={putFail} />
         </Modal>
       )}
       <form onSubmit={submit} className={cn("formBox")}>
         <div className={cn("titleBox")}>
           <h1 className={cn("title")}>공고 편집</h1>
-          <CloseButton setIsRegisterOpen={setIsRegisterOpen} />
+          <CloseButton stateToggle={toggleNoticeOpen} />
         </div>
         <div className={cn("noticeBox")}>
           <Input
-            id="hourlyPay"
-            type="number"
-            text="시급*"
-            setter={setState}
-            placeholder="입력"
+            label="hourlyPay"
+            title="시급"
+            input={{
+              type: "number",
+              id: "hourlyPay",
+              name: "hourlyPay",
+            }}
+            placeholder="0"
+            onChange={setState}
             floatingText="원"
           />
           <Input
-            id="startsAt"
-            type="datetime-local"
-            text="시작 일시*"
-            setter={setState}
+            label="startsAt"
+            title="시작 일시"
+            input={{
+              type: "datetime-local",
+              id: "startsAt",
+              name: "startsAt",
+            }}
+            onChange={setState}
           />
           <Input
-            id="workhour"
-            type="number"
-            text="업무 시간*"
-            setter={setState}
+            label="workhour"
+            title="업무 시간"
+            input={{
+              type: "number",
+              id: "workhour",
+              name: "workhour",
+            }}
+            onChange={setState}
             floatingText="시간"
-            placeholder="입력"
+            placeholder="0"
           />
         </div>
         <div className={cn("descriptionBox")}>
@@ -134,7 +154,7 @@ export default function NoticeRegister({ setIsRegisterOpen }: Props) {
           ></textarea>
         </div>
         <Button
-          text="등록하기"
+          text="수정하기"
           size="fixed"
           color="primary"
           handleButtonClick={submit}

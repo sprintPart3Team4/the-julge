@@ -1,9 +1,4 @@
-import {
-  useState,
-  ChangeEvent,
-  FormEvent,
-  MouseEventHandler,
-} from "react";
+import { useState, ChangeEvent, FormEvent, MouseEventHandler } from "react";
 import classNames from "classnames/bind";
 import CloseButton from "@/components/common/closeButton/CloseButton";
 import Input from "../../../common/input/Input";
@@ -97,7 +92,7 @@ export default function NoticeRegister({ toggleNoticeOpen }: Props) {
             input={{
               type: "number",
               id: "hourlyPay",
-              name: "hourlyPay"
+              name: "hourlyPay",
             }}
             placeholder="0"
             onChange={setState}
@@ -109,7 +104,7 @@ export default function NoticeRegister({ toggleNoticeOpen }: Props) {
             input={{
               type: "datetime-local",
               id: "startsAt",
-              name: "startsAt"
+              name: "startsAt",
             }}
             onChange={setState}
           />
@@ -119,11 +114,11 @@ export default function NoticeRegister({ toggleNoticeOpen }: Props) {
             input={{
               type: "number",
               id: "workhour",
-              name: "workhour"
+              name: "workhour",
             }}
             onChange={setState}
             floatingText="시간"
-            placeholder="입력"
+            placeholder="0"
           />
         </div>
         <div className={cn("descriptionBox")}>
