@@ -8,7 +8,7 @@ const cn = classNames.bind(styles);
 export default function SelectBox({ label, title, item, defaultValue, setFormValues }: SelectBox) {
   const items = item || [];
   const isSelected = defaultValue !== "선택";
-  
+
   const handleOpenClick = (e: MouseEvent<HTMLDivElement>) => e.currentTarget.classList.toggle(cn("active"));
 
   const handleOptionClick = (item: string) => {

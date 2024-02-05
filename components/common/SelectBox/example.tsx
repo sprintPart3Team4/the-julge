@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SelectBox from "./SelectBox";
+import SelectBox from "./SelectBoxDropDown";
 import { FormValues } from "@/components/register/shopInfo/shopInfoForm/type";
 import { FOOD_CATEGORY } from "@/components/register/shopInfo/shopInfoForm/constants";
 
