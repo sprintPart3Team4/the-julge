@@ -1,13 +1,25 @@
-// 공고 리스트 페이지
+import NavBar from "@/components/common/navBar/NavBar";
+import { Notices, getNotices } from "@/lib/getNotices";
+import { useEffect, useState } from "react";
 
-import Footer from "@/components/common/footer/Footer";
-import ShopInfoRegister from "@/components/register/shopInfo/shopInfoForm/ShopInfoRegister";
 export default function Home() {
+  const [keyword, setKeyword] = useState<string>("");
+  const [notices, setNotices] = useState<Notices>();
+
+  const fetchNotices = async () => {
+    const data = await getNotices(0, 5, keyword);
+    setNotices(data);
+  };
+
+  useEffect(() => {
+    fetchNotices();
+  }, [keyword]);
+
   return (
     <>
-      {/* <main>메인페이지</main> */}
-      {/* <Footer /> */}
-      <ShopInfoRegister />
+      <NavBar setKeyword={setKeyword} />
+      <p>키워드: {keyword}</p>
+      <p>검색결과: {JSON.stringify(notices)}</p>
     </>
   );
 }

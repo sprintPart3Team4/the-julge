@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +10,15 @@ import styles from "./NavBar.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function NavBar() {
+type Props = {
+  setKeyword: Dispatch<SetStateAction<string>>;
+};
+
+export default function NavBar({ setKeyword }: Props) {
+  const handleKeywordChange = (e: any) => {
+    setKeyword(e.target.value);
+  };
+
   return (
     <nav className={cn("wrap")}>
       <div className={cn("logo")}>
@@ -18,7 +26,7 @@ export default function NavBar() {
       </div>
       <div className={cn("searchBar")}>
         <Image className={cn("icon")} src={SearchIcon} alt="돋보기 아이콘" width={16} height={16} />
-        <input type="text" placeholder="가게 이름으로 찾아보세요" />
+        <input type="text" placeholder="가게 이름으로 찾아보세요" onChange={handleKeywordChange} />
       </div>
       <div className={cn("buttons")}>
         <Link href={"/signin"} className={cn("button")}>
