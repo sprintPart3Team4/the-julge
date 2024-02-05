@@ -1,4 +1,5 @@
 import NavBar from "@/components/common/navBar/NavBar";
+import NoticeList from "@/components/noticeList/NoticeList";
 import { Notices, getNotices } from "@/lib/getNotices";
 import { useEffect, useState } from "react";
 
@@ -7,19 +8,19 @@ export default function Home() {
   const [notices, setNotices] = useState<Notices>();
 
   const fetchNotices = async () => {
-    const data = await getNotices(0, 5, keyword);
+    const data = await getNotices(0, 30, keyword);
     setNotices(data);
   };
 
   useEffect(() => {
     fetchNotices();
+    console.log(notices?.items);
   }, [keyword]);
 
   return (
     <>
       <NavBar setKeyword={setKeyword} />
-      <p>키워드: {keyword}</p>
-      <p>검색결과: {JSON.stringify(notices)}</p>
+      <NoticeList keyword={keyword} />
     </>
   );
 }
