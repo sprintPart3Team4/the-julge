@@ -4,36 +4,83 @@
   display: flex;
   align-items: center;
   gap: 0.2rem;
-
   padding: 0.4rem 0.8rem;
   border-radius: 2rem;
+  color: $color-white;
 
-  background-color: $color-red-40;
+  &.red20 {
+    background-color: $color-red-20;
+  }
+  &.red30 {
+    background-color: $color-red-30;
+  }
+  &.red40 {
+    background-color: $color-red-40;
+  }
 
   @include tablet {
     padding: 1.2rem;
   }
-}
 
-.percentage {
-  padding-top: 0.2rem;
-  font-size: 1.2rem;
-  line-height: 1.6rem;
+  .percentage {
+    padding-top: 0.2rem;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
 
-  color: $color-white;
+    @include tablet {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+  }
 
-  @include tablet {
-    font-size: 1.4rem;
-    font-weight: 700;
+  .icon {
+    width: 1.6rem;
+    height: 1.6rem;
+
+    @include tablet {
+      width: 2rem;
+      height: 2rem;
+    }
   }
 }
 
-.icon {
-  width: 1.6rem;
-  height: 1.6rem;
+.mobileBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  background-color: none;
+  color: black;
+
+  &.red20 {
+    color: $color-red-20;
+  }
+  &.red30 {
+    color: $color-red-30;
+  }
+  &.red40 {
+    color: $color-red-40;
+  }
+
+  .percentage {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+
+  .icon {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+}
+
+.closed {
+  .percentage {
+    color: $color-gray-20;
+  }
 
   @include tablet {
-    width: 2rem;
-    height: 2rem;
+    background-color: $color-gray-20;
+    .percentage {
+      color: $color-white;
+    }
   }
 }

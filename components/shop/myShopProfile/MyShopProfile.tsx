@@ -1,27 +1,49 @@
 import classNames from "classnames/bind";
+import { useAuth } from "@/contexts/AuthProvider";
 import Image from "next/image";
 import Button from "@/components/common/button/Button";
-import { storeInfo } from "@/pages/api/mockdata";
-import TestImage from "@/public/images/shop-sample.png";
 import LocationIcon from "@/public/images/location.svg";
 import styles from "./MyShopProfile.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function MyShopProfile() {
+type Prop = {
+  toggleInfoOpen: () => void;
+  toggleNoticeOpen: () => void;
+};
+
+export default function MyShopProfile({
+  toggleInfoOpen,
+  toggleNoticeOpen,
+}: Prop) {
+        
+  const { shop } = useAuth();
+
+  if (!shop) return;
+  const { imageUrl, name, category, address1, description } = shop;
+
   return (
     <div className={cn("wrap")}>
-      <Image src={TestImage} className={cn("image")} alt="테스트 이미지" objectFit="cover" />
+      <div className={cn("imageWidth")}>
+        <div className={cn("imageHeight")}>
+          <Image src={imageUrl} className={cn("image")} alt="테스트 이미지" fill />
+        </div>
+      </div>
       <div className={cn("contents")}>
         <div className={cn("shopInfo")}>
-          <span className={cn("category")}>{storeInfo.item.category}</span>
-          <span className={cn("name")}>{storeInfo.item.name}</span>
+          <span className={cn("category")}>{category}</span>
+          <span className={cn("name")}>{name}</span>
           <div className={cn("location")}>
-            <Image src={LocationIcon} alt="위치 아이콘" width={20} height={20} />
-            <span>{storeInfo.item.address1}</span>
+            <Image
+              src={LocationIcon}
+              alt="위치 아이콘"
+              width={20}
+              height={20}
+            />
+            <span>{address1}</span>
           </div>
           <span className={cn("description")}>
-            {storeInfo.item.description.split("\n").map((el) => (
+            {description.split("\n").map((el) => (
               <>
                 <span>{el}</span>
                 <br />
@@ -30,8 +52,18 @@ export default function MyShopProfile() {
           </span>
         </div>
         <div className={cn("buttons")}>
-          <Button text="편집하기" size="flexible" color="secondary"></Button>
-          <Button text="공고 등록하기" size="flexible" color="primary"></Button>
+          <Button
+            text="편집하기"
+            size="flexible"
+            color="secondary"
+            handleButtonClick={toggleInfoOpen}
+          ></Button>
+          <Button
+            text="공고 등록하기"
+            size="flexible"
+            color="primary"
+            handleButtonClick={toggleNoticeOpen}
+          ></Button>
         </div>
       </div>
     </div>
