@@ -44,7 +44,7 @@ export default function NavBar() {
           </button>
           {isOpen && (
             <div className={cn("notification")}>
-              <NotificationList />
+              <NotificationList isOpen={isOpen} setIsOpen={setIsOpen} />
             </div>
           )}
         </div>
