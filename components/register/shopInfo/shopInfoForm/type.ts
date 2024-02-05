@@ -3,7 +3,7 @@ import { ChangeEvent, Dispatch, SetStateAction } from "react";
 export interface CommonProps {
   label: string;
   title: string;
-  defaultValue: string | number;
+  value: string | number;
 }
 export interface Input extends CommonProps {
   input?: {
@@ -16,12 +16,12 @@ export interface Input extends CommonProps {
     id: string;
     name: string;
   };
-  text?: string;
+  floatingText?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface SelectBox extends CommonProps {
-  item: {
+  item?: {
     id: string;
     name: string;
   }[];
@@ -34,6 +34,10 @@ export interface Textarea extends CommonProps {
     name: string;
   };
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+export interface FileInput {
+  setFormValues: Dispatch<SetStateAction<FormValues>>;
 }
 export interface Item {
   id: string;
