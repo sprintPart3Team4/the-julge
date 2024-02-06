@@ -26,20 +26,34 @@ type Props = {
   numberOfTotalData: number;
   limitPerSinglePage: number;
   limitPerPageGroup: number;
-  handleChangeData: (pageNumber: number) => Promise<void>;
+  dependency?: string;
+  handleChangeData: (pageNumber: number) => void;
 };
 
 export default function Pagenation({
   numberOfTotalData,
   limitPerSinglePage,
   limitPerPageGroup,
+  dependency,
   handleChangeData,
 }: Props) {
   const totalPageNumber = Math.ceil(numberOfTotalData / limitPerSinglePage);
+
+  // todo: 중복을 제거하고 싶은데...
   const initialCurrentPageGroup = getCurrentPageGroup(limitPerPageGroup, totalPageNumber);
 
   const [currentPageGroup, setCurrentPageGroup] = useState(initialCurrentPageGroup);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
+
+  useEffect(() => {
+    setCurrentPageGroup(initialCurrentPageGroup);
+    setCurrentPageNumber(1);
+  }, []);
+
+  useEffect(() => {
+    setCurrentPageGroup(initialCurrentPageGroup);
+    setCurrentPageNumber(1);
+  }, [numberOfTotalData, dependency]);
 
   const handlePageButtonClick = (pageNumber: number) => {
     handleChangeData(pageNumber);
@@ -54,7 +68,7 @@ export default function Pagenation({
   };
 
   const moveToNextPageGroup = () => {
-    const next = changePageGroup("previous", limitPerPageGroup, totalPageNumber, currentPageNumber);
+    const next = changePageGroup("next", limitPerPageGroup, totalPageNumber, currentPageNumber);
     setCurrentPageGroup(next);
     setCurrentPageNumber(next[0]);
     handleChangeData(next[0]);
