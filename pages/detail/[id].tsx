@@ -40,6 +40,7 @@ type ShopInfo = {
 export default function DetailPage() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isFinished, setIsFinished] = useState<boolean>(false);
+  const [changeButton, setChangeButton] = useState<boolean>(false);
   const [cardList, setCardList] = useState<Card[]>([]);
   const [watchedItem, setWatchedItem] = useState<Card[]>([]);
   const [noticeInfo, setNoticeInfo] = useState<NoticeInfo>({
@@ -61,27 +62,44 @@ export default function DetailPage() {
   const router = useRouter();
   const { id } = router.query;
   const { noticeId } = router.query;
+
   const isClosed = noticeInfo.closed ? "active" : "";
+  const buttonType = isFinished && !changeButton ? "취소하기" : "신청하기";
+  const buttonColor = isFinished && !changeButton ? "secondary" : "primary";
+  let isPast;
+
+  cardList.map((card) => {
+    const registeredDate = new Date(card.item.startsAt);
+    const today = new Date();
+    const diff = +today - +registeredDate;
+
+    const resultDate = Math.floor(+diff / (1000 * 60 * 60 * 24) + 1);
+
+    isPast = resultDate > 0 ? true : false;
+  });
+
+  console.log(isPast);
+
+  const status = {
+    status: "canceled",
+  };
 
   const handleRegisterClick = () => {
-    if (!user) {
-      setIsModalOpen(true);
-    } else {
-      handleApply();
-    }
+    !user ? setIsModalOpen(true) : handleApply();
   };
 
   const handleCancelClick = () => {
     setIsModalOpen(true);
   };
 
-  const handleButtonClick = () => {
+  const handleCancelButtonClick = () => {
     setIsModalOpen(false);
+    setChangeButton(true);
     handleCancelApply();
   };
 
-  const status = {
-    status: "canceled",
+  const handleButtonClick = () => {
+    isFinished ? handleCancelClick() : handleRegisterClick();
   };
 
   const handleCancelApply = async () => {
@@ -105,7 +123,7 @@ export default function DetailPage() {
     const { token } = getCookies();
 
     const res = await instance.get(
-      `shops/2fd3b8d8-cda3-4e83-a6ff-b6d177437a2b/notices/7517d116-f3c5-494e-91f6-223d5c16952b`,
+      `shops/${id}/notices/7517d116-f3c5-494e-91f6-223d5c16952b`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -115,7 +133,7 @@ export default function DetailPage() {
   };
 
   const handleNoticeList = async () => {
-    const res = await instance.get(`shops/2fd3b8d8-cda3-4e83-a6ff-b6d177437a2b/notices`);
+    const res = await instance.get(`shops/${id}/notices`);
     setCardList(res.data.items);
   };
 
@@ -130,18 +148,6 @@ export default function DetailPage() {
       setWatchedItem(cardList.filter((card) => uniqueWatched.includes(card.item.id)).slice(0, 6));
     }
   }, [id, cardList]);
-
-  let isPast;
-
-  cardList.map((card) => {
-    const registeredDate = new Date(card.item.startsAt);
-    const today = new Date();
-    const diff = +today - +registeredDate;
-
-    const resultDate = Math.floor(+diff / (1000 * 60 * 60 * 24) + 1);
-
-    isPast = resultDate < 0 ? "active" : "";
-  });
 
   useEffect(() => {
     handleNoticeList();
@@ -182,19 +188,14 @@ export default function DetailPage() {
               {noticeInfo.closed ? (
                 <Button text="신청 불가" size="flexible" color="disabled" />
               ) : (
-                <Button
-                  text={isFinished ? "취소하기" : "신청하기"}
-                  size="flexible"
-                  color={isFinished ? "secondary" : "primary"}
-                  handleButtonClick={() => {
-                    isFinished ? handleCancelClick() : handleRegisterClick();
-                  }}
-                />
+                <Button text={buttonType} size="flexible" color={buttonColor} handleButtonClick={handleButtonClick} />
               )}
             </div>
           </Panel>
         </div>
-        <NoticeDescription noticeDescription={noticeInfo.description} />
+        <div className={cn("desWrap")}>
+          <NoticeDescription noticeDescription={noticeInfo.description} />
+        </div>
       </div>
       {isModalOpen && (
         <Modal>
@@ -206,7 +207,7 @@ export default function DetailPage() {
           <Modal.YesOrNo
             text="신청을 취소하시겠어요?"
             yesButtonText="취소하기"
-            handleYesButtonClick={handleButtonClick}
+            handleYesButtonClick={handleCancelButtonClick}
             setIsModalOpen={setIsModalOpen}
           />
         </Modal>
@@ -215,14 +216,14 @@ export default function DetailPage() {
         <MainTitle mainTitle="최근에 본 공고" />
       </Title>
       <div className={cn("wrap")}>
-        {cardList.map((card) => {
+        {watchedItem.map((card) => {
           return (
             <NoticeCard
               key={card.item.id}
               startsAt={card.item.startsAt}
               workhour={card.item.workhour}
               hourlyPay={card.item.hourlyPay}
-              closed={card.item.closed}
+              closed={noticeInfo.closed ? true : card.item.closed}
             />
           );
         })}
