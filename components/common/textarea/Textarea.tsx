@@ -1,3 +1,4 @@
+import React, { ChangeEvent } from "react";
 import classNames from "classnames/bind";
 import styles from "./Textarea.module.scss";
 
@@ -10,15 +11,17 @@ export interface Textarea {
     id: string;
     name: string;
   };
+  value: string;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export default function Textarea({ label, title, textarea }: Textarea) {
+export default function Textarea({ label, title, textarea, value, onChange }: Textarea) {
   return (
     <div className={cn("inputBox", "textarea")}>
       <label htmlFor={label} className={cn("title")}>
         {title}
       </label>
-      <textarea {...textarea} className={cn("desc")} placeholder="입력"></textarea>
+      <textarea {...textarea} className={cn("desc")} value={value} placeholder="입력" onChange={onChange}></textarea>
     </div>
   );
 }

@@ -8,30 +8,24 @@ export interface InputProps {
   label: string;
   title: string;
   input: {
-    type: string,
-    id: string,
-    name: string,
-  }
+    type: string;
+    id: string;
+    name: string;
+  };
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   floatingText?: string;
   placeholder?: string;
+  value: string;
 }
 
-export default function Input({ label, title, input, onChange, floatingText, placeholder }: InputProps) {
+export default function Input({ label, title, input, value, onChange, floatingText, placeholder }: InputProps) {
   return (
     <div className={cn("box")}>
       <label htmlFor={label} className={cn("title")}>
         {title}*
       </label>
-      <input
-        className={cn("dataInput")}
-        placeholder={placeholder}
-        {...input}
-        onChange={onChange}
-      />
-      {floatingText && (
-        <span className={cn("floatingText")}>{floatingText}</span>
-      )}
+      <input className={cn("dataInput")} placeholder={placeholder} {...input} value={value} onChange={onChange} />
+      {floatingText && <span className={cn("floatingText")}>{floatingText}</span>}
     </div>
   );
 }
