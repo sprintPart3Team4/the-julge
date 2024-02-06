@@ -45,7 +45,7 @@ export default function Notices({ keyword }: Props) {
       setFilter(initailFilter);
       setIsLoading(false);
     }
-  }, []);
+  }, [keyword]);
 
   if (isLoading) return <div>로딩 중</div>;
 

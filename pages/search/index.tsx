@@ -1,5 +1,7 @@
-import { useRouter } from "next/router";
 import React from "react";
+import Notices from "@/components/Notices/Notices";
+import { useRouter } from "next/router";
+import Footer from "@/components/common/footer/Footer";
 
 export default function SearchPage() {
   const router = useRouter();
@@ -7,5 +9,10 @@ export default function SearchPage() {
 
   if (typeof keyword !== "string") return;
 
-  return keyword ? <h1>검색 결과</h1> : <h1>search 페이지</h1>;
+  return (
+    <>
+      <Notices keyword={keyword} />
+      <Footer />
+    </>
+  );
 }
