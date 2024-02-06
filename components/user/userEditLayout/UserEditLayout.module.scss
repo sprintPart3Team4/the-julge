@@ -1,0 +1,9 @@
+@use "@/styles/variables.scss" as *;
+
+.Wrap {
+  padding: 4rem 0;
+
+  @include tablet {
+    padding: 6rem 0;
+  }
+}
