@@ -1,10 +1,12 @@
 @use "@/styles/variables.scss" as *;
 
 .wrap {
-  position: relative;
-
   width: 10.5rem;
   height: 3rem;
+
+  @include tablet {
+    position: relative;
+  }
 }
 
 .openBox {
@@ -25,8 +27,7 @@
 
 .dropboxWrap {
   position: absolute;
-  top: 3.8rem;
-  right: 0;
+  inset: 0;
 
   display: flex;
   flex-direction: column;
@@ -47,6 +48,11 @@
   &.opened {
     animation: open 0.4s ease;
   }
+
+  @include tablet {
+    top: 3.8rem;
+    right: 0;
+  }
 }
 
 .header {
@@ -60,6 +66,18 @@
   font-weight: 700;
 
   color: $color-black;
+}
+
+.closeIcon {
+  display: block;
+  width: 2.4rem;
+  height: 2.4rem;
+  background: url("~/public/images/close.svg") no-repeat center;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+
+  cursor: pointer;
 }
 
 .section {

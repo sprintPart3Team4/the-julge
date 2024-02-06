@@ -11,7 +11,8 @@ export const getNotices = async (
   sort?: Sort
 ): Promise<Notices> => {
   const keywordQuery = keyword ? `&keyword=${keyword}` : "";
-  const addressQuery = address ? `&address=${address}` : "";
+  const addressQueryArray = address?.map((add) => `&address=${add}`).join("");
+  const addressQuery = address ? addressQueryArray : "";
   const startsAtGteQuery = startsAtGte ? `&startsAtGte=${startsAtGte}` : "";
   const hourlyPayGteQuery = hourlyPayGte ? `&hourlyPayGte=${hourlyPayGte}` : "";
   const sortQuery = sort ? `&sort=${sort}` : "";

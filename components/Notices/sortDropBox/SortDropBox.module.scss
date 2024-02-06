@@ -21,6 +21,25 @@
   background-color: $color-gray-10;
 }
 
+.icon {
+  display: block;
+
+  width: 1.6rem;
+  height: 1.6rem;
+
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+
+  &.closeIcon {
+    background: url("~/public/images/dropdown_close.svg") no-repeat center;
+  }
+
+  &.openIcon {
+    background: url("~/public/images/dropdown_open.svg") no-repeat center;
+  }
+}
+
 .dropdown {
   position: absolute;
   top: 3.8rem;
