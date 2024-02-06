@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <>
-      <NavBar setKeyword={setKeyword} setCount={setCount} setNoticeList={setNoticeList} />
+      {/* <NavBar /> */}
       <NoticeListLayout keyword={keyword} noticeList={noticeList} />
     </>
   );
