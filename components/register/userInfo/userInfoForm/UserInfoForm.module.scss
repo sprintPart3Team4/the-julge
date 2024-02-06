@@ -40,4 +40,8 @@
 .buttonWrap {
   margin: 3.2rem auto;
   text-align: center;
+
+  @include tablet {
+    width: 31.2rem;
+  }
 }
