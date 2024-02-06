@@ -5,7 +5,7 @@ import Link from "next/link";
 import Logo from "../logo/Logo";
 import NotificationList from "./notificationList/NotificationList";
 import { useAuth } from "@/contexts/AuthProvider";
-import { NoticeList, getNotices } from "@/lib/getNotices";
+import { NoticeList } from "@/types/noticesType";
 import SearchIcon from "@/public/images/search.svg";
 import ActiveNotificationIcon from "@/public/images/notification_active.svg";
 import InactiveNotificationIcon from "@/public/images/notification_inactive.svg";
@@ -24,6 +24,9 @@ export default function NavBar(/* { setKeyword, setCount, setNoticeList }: Props
   const [keyword, setKeyword] = useState("");
   const [count, setCount] = useState(0);
   const [noticeList, setNoticeList] = useState<NoticeList>([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { user, logout } = useAuth();
 
   const LIMIT_PER_SINGLE_PAGE = 30; // 한 페이지에 보여줄 데이터의 개수
 
@@ -36,6 +39,10 @@ export default function NavBar(/* { setKeyword, setCount, setNoticeList }: Props
   };
 
   const router = useRouter();
+
+  const handleToggleNotification = () => {
+    setIsOpen(!isOpen);
+  };
 
   const handleKeywordSubmit = (e: any) => {
     e.preventDefault();

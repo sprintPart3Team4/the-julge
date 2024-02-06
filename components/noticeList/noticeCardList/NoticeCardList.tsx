@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import NoticeCard from "../../shop/noticeCard/NoticeCard";
-import { NoticeList } from "@/lib/getNotices";
+import { NoticeList } from "@/types/noticesType";
 import styles from "./NoticeCardList.module.scss";
 
 const cn = classNames.bind(styles);
