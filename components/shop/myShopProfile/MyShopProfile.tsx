@@ -1,4 +1,5 @@
 import classNames from "classnames/bind";
+import { useRouter } from "next/router";
 import { useAuth } from "@/contexts/AuthProvider";
 import Image from "next/image";
 import Button from "@/components/common/button/Button";
@@ -7,17 +8,17 @@ import styles from "./MyShopProfile.module.scss";
 
 const cn = classNames.bind(styles);
 
-type Prop = {
-  toggleInfoOpen: () => void;
-  toggleNoticeOpen: () => void;
-};
-
-export default function MyShopProfile({
-  toggleInfoOpen,
-  toggleNoticeOpen,
-}: Prop) {
-        
+export default function MyShopProfile() {
   const { shop } = useAuth();
+  const router = useRouter();
+
+  function movementToInfo() {
+    router.push("");
+  }
+
+  function movementToNotice() {
+    router.push("shop/NoticeRegister");
+  }
 
   if (!shop) return;
   const { imageUrl, name, category, address1, description } = shop;
@@ -34,12 +35,7 @@ export default function MyShopProfile({
           <span className={cn("category")}>{category}</span>
           <span className={cn("name")}>{name}</span>
           <div className={cn("location")}>
-            <Image
-              src={LocationIcon}
-              alt="위치 아이콘"
-              width={20}
-              height={20}
-            />
+            <Image src={LocationIcon} alt="위치 아이콘" width={20} height={20} />
             <span>{address1}</span>
           </div>
           <span className={cn("description")}>
@@ -52,18 +48,8 @@ export default function MyShopProfile({
           </span>
         </div>
         <div className={cn("buttons")}>
-          <Button
-            text="편집하기"
-            size="flexible"
-            color="secondary"
-            handleButtonClick={toggleInfoOpen}
-          ></Button>
-          <Button
-            text="공고 등록하기"
-            size="flexible"
-            color="primary"
-            handleButtonClick={toggleNoticeOpen}
-          ></Button>
+          <Button text="편집하기" size="flexible" color="secondary" handleButtonClick={movementToInfo}></Button>
+          <Button text="공고 등록하기" size="flexible" color="primary" handleButtonClick={movementToNotice}></Button>
         </div>
       </div>
     </div>

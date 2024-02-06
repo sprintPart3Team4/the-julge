@@ -1,34 +1,33 @@
 import { useState, ChangeEvent, FormEvent, MouseEventHandler } from "react";
+import { useRouter } from "next/router";
 import classNames from "classnames/bind";
 import CloseButton from "@/components/common/closeButton/CloseButton";
-import Input from "../../../common/input/Input";
+import Input from "../../components/common/input/Input";
+import CalenderInput from "@/components/common/input/CalenderInput";
+import Textarea from "@/components/common/textarea/Textarea";
 import Button from "@/components/common/button/Button";
 import Modal from "@/components/common/modal/Modal";
-import usePostNotice from "@/components/register/notice/NoticeRegister/usePostNotice";
-import styles from "./NoticeRegister.module.scss";
+import usePostNotice from "@/components/register/notice/noticeRegister/usePostNotice";
+import styles from "@/components/register/notice/NoticeRegister/NoticeRegister.module.scss";
 
 const cn = classNames.bind(styles);
 
-interface Props {
-  toggleNoticeOpen: (toggleNoticeOpen: boolean) => void;
-}
-
-export default function NoticeRegister({ toggleNoticeOpen }: Props) {
+export default function NoticeRegister() {
   const [hourlyPay, setHourlyPay] = useState<number>();
   const [startsAt, setStartAt] = useState<string>("");
   const [workhour, setWorkHour] = useState<number>();
   const [description, setDescription] = useState<string>("");
-  const [okModal, setOkModal] = useState<boolean>(false);
-  const [falseModal, setFalseModal] = useState<boolean>(false);
+  const [successModal, setSuccessModal] = useState<boolean>(false);
+  const [failModal, setFailModal] = useState<boolean>(false);
+  const [askCloseModal, setAskCloseModal] = useState<boolean>(false);
   const [ModalText, setModalText] = useState<string>("");
+  const router = useRouter();
 
   const formatDate = (original: string) => {
     return `${original}:00Z`;
   };
 
-  function setState(
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void {
+  function setState(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     const value = e.target.value;
 
     switch (e.target.id) {
@@ -36,7 +35,7 @@ export default function NoticeRegister({ toggleNoticeOpen }: Props) {
         setHourlyPay(Number(value));
         break;
       case "startsAt":
-        setStartAt(formatDate(String(value)));
+        setStartAt(String(value));
         break;
       case "workhour":
         setWorkHour(Number(value));
@@ -47,12 +46,20 @@ export default function NoticeRegister({ toggleNoticeOpen }: Props) {
     }
   }
 
+  function movementToShop() {
+    router.push("/shop");
+  }
+
+  function activateAskCloaseModal() {
+    setAskCloseModal(true);
+  }
+
   const postSuccess: MouseEventHandler<HTMLButtonElement> = () => {
-    toggleNoticeOpen(false);
+    router.push("/shop");
   };
 
   const postFail: MouseEventHandler<HTMLButtonElement> = () => {
-    setFalseModal(false);
+    setFailModal(false);
   };
 
   function submit(e: FormEvent): void {
@@ -60,30 +67,40 @@ export default function NoticeRegister({ toggleNoticeOpen }: Props) {
 
     const body = {
       hourlyPay,
-      startsAt,
+      startsAt: formatDate(startsAt),
       workhour,
       description,
     };
 
-    usePostNotice(body, setOkModal, setFalseModal, setModalText);
+    usePostNotice(body, setSuccessModal, setFailModal, setModalText);
   }
 
   return (
     <div className={cn("wrapper")}>
-      {okModal && (
+      {successModal && (
         <Modal>
           <Modal.Confirm text={ModalText} handleButtonClick={postSuccess} />
         </Modal>
       )}
-      {falseModal && (
+      {failModal && (
         <Modal>
           <Modal.Confirm text={ModalText} handleButtonClick={postFail} />
+        </Modal>
+      )}
+      {askCloseModal && (
+        <Modal>
+          <Modal.YesOrNo
+            text="등록을 취소하시겠어요?"
+            yesButtonText="취소하기"
+            setIsModalOpen={setAskCloseModal}
+            handleYesButtonClick={movementToShop}
+          />
         </Modal>
       )}
       <form onSubmit={submit} className={cn("formBox")}>
         <div className={cn("titleBox")}>
           <h1 className={cn("title")}>공고 등록</h1>
-          <CloseButton stateToggle={toggleNoticeOpen} />
+          <CloseButton buttonClickEvent={activateAskCloaseModal} />
         </div>
         <div className={cn("noticeBox")}>
           <Input
@@ -98,7 +115,7 @@ export default function NoticeRegister({ toggleNoticeOpen }: Props) {
             onChange={setState}
             floatingText="원"
           />
-          <Input
+          <CalenderInput
             label="startsAt"
             title="시작 일시"
             input={{
@@ -121,23 +138,13 @@ export default function NoticeRegister({ toggleNoticeOpen }: Props) {
             placeholder="0"
           />
         </div>
-        <div className={cn("descriptionBox")}>
-          <label htmlFor="description" className={cn("explan")}>
-            공고 설명
-          </label>
-          <textarea
-            id="description"
-            className={cn("description")}
-            placeholder="입력"
-            onChange={setState}
-          ></textarea>
-        </div>
-        <Button
-          text="등록하기"
-          size="fixed"
-          color="primary"
-          handleButtonClick={submit}
+        <Textarea
+          label="description"
+          title="공고설명"
+          textarea={{ id: "description", name: "description" }}
+          value={description}
         />
+        <Button text="등록하기" size="fixed" color="primary" handleButtonClick={submit} />
       </form>
     </div>
   );

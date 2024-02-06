@@ -1,0 +1,9 @@
+@use "@/styles/variables.scss" as *;
+
+.wrapper {
+  background-color: $color-red-10;
+}
+
+@include tablet {}
+
+@include desktop {}

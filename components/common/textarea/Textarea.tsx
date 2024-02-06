@@ -10,15 +10,23 @@ export interface Textarea {
     id: string;
     name: string;
   };
+  value?: string;
+  onChangeHandler?: any;
 }
 
-export default function Textarea({ label, title, textarea }: Textarea) {
+export default function Textarea({ label, title, textarea, value, onChangeHandler }: Textarea) {
   return (
     <div className={cn("inputBox", "textarea")}>
       <label htmlFor={label} className={cn("title")}>
         {title}
       </label>
-      <textarea {...textarea} className={cn("desc")} placeholder="입력"></textarea>
+      <textarea
+        {...textarea}
+        className={cn("desc")}
+        placeholder="입력"
+        value={value}
+        onChange={onChangeHandler}
+      ></textarea>
     </div>
   );
 }

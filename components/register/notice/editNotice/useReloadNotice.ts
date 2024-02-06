@@ -1,7 +1,6 @@
 import getCookies from "@/lib/getCookies";
 import instance from "@/lib/axiosInstance";
 
-
 export default async function useReloadNotice(noticeId: any) {
   const { token, shopId } = getCookies();
 
