@@ -16,7 +16,7 @@ export default function ShopPageLayout({ hasShop, hasNotice }: ShopPageLayoutPro
     <div className={cn("wrap")}>
       <section>
         <h2>내 가게</h2>
-        {hasShop ? <MyShopProfile /> : <RegisterSuggestion type="shop" />}
+          {hasShop ? <MyShopProfile /> : <RegisterSuggestion type="shop" />}
       </section>
       {hasShop && (
         <section>

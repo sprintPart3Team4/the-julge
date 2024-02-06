@@ -1,0 +1,21 @@
+@use "@/styles/variables.scss" as *;
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+
+  padding: 0.6rem 1rem;
+  border-radius: 2rem;
+
+  font-size: 1.4rem;
+  font-weight: 700;
+
+  color: $color-primary;
+  background-color: $color-red-10;
+}
+
+.closeIcon {
+  padding-bottom: 0.2rem;
+}

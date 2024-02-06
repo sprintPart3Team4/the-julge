@@ -26,6 +26,7 @@ export default function EditNotice() {
 
   const router = useRouter();
   const { noticeId } = router.query;
+  console.log(noticeId);
 
   useEffect(() => {
     const reload = async () => {
@@ -73,7 +74,9 @@ export default function EditNotice() {
     }
   }
 
-  const putSuccess: MouseEventHandler<HTMLButtonElement> = () => {};
+  const putSuccess: MouseEventHandler<HTMLButtonElement> = () => {
+    movementToDetail();
+  };
 
   const putFail: MouseEventHandler<HTMLButtonElement> = () => {
     setFailModal(false);
@@ -168,7 +171,7 @@ export default function EditNotice() {
         </div>
         <Textarea
           label="description"
-          title="공고설명"
+          title="공고 설명"
           textarea={{ id: "description", name: "description" }}
           value={description !== "" ? description : ""}
           onChangeHandler={setState}

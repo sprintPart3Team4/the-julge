@@ -1,0 +1,126 @@
+@use "@/styles/variables.scss" as *;
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 1.2rem;
+  width: 100%;
+  height: auto;
+  border-radius: 1.2rem;
+  border: 0.1rem solid $color-gray-20;
+  background: $color-white;
+
+  @include tablet {
+    padding: 1.6rem;
+    gap: 2rem;
+  }
+
+  .imageWidth {
+    position: relative;
+    width: 100%;
+  }
+
+  .imageHeight {
+    padding-top: calc(100% / 16 * 9);
+  }
+
+  .image {
+    border-radius: 1.2rem;
+  }
+
+  .contents {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .shopName {
+    color: $color-black;
+    font-weight: 700;
+    line-height: 2rem;
+
+    @include tablet {
+      font-size: 2rem;
+      line-height: normal;
+    }
+  }
+
+  .time,
+  .location {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: $color-gray-50;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+
+    @include tablet {
+      font-size: 1.4rem;
+      line-height: 2.2rem;
+    }
+
+    img {
+      width: 1.6rem;
+
+      @include tablet {
+        width: 2rem;
+      }
+    }
+  }
+
+  .pays {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.2rem;
+
+    @include tablet {
+      flex-direction: row;
+    }
+  }
+
+  .pay {
+    margin-top: 0.8rem;
+    color: $color-black;
+    font-size: 1.8rem;
+    font-weight: 700;
+
+    @include tablet {
+      font-size: 2.4rem;
+      letter-spacing: 0.05rem;
+    }
+  }
+}
+
+.closed {
+  position: relative;
+
+  .imgOverlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    inset: 0;
+    background-color: rgba($color: $color-black, $alpha: 0.5);
+    border-radius: 1.2rem;
+    color: $color-gray-30;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    z-index: 1;
+
+    @include tablet {
+      font-size: 2.8rem;
+      letter-spacing: 0.06rem;
+    }
+  }
+
+  .shopName,
+  .time,
+  .location,
+  .pay {
+    color: $color-gray-30;
+  }
+}

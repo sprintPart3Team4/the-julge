@@ -27,7 +27,7 @@ export default function NoticeDetailPage() {
   const [numberOfTotalApplication, setNumberOfTotalApplication] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  const LIMIT_PER_SIMGLE_PAGE = 5; // 한 페이지에 보여줄 데이터의 개수
+  const LIMIT_PER_SINGLE_PAGE = 5; // 한 페이지에 보여줄 데이터의 개수
   const LIMIT_PER_PAGE_GROUP = 5; // 한 번에 보여줄 페이지 번호의 개수
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function NoticeDetailPage() {
 
     try {
       getNotice(shop.id, noticeId, setNoticeInfo);
-      getApplicationList(shop.id, noticeId, LIMIT_PER_SIMGLE_PAGE, setNumberOfTotalApplication, setAppliacationList);
+      getApplicationList(shop.id, noticeId, LIMIT_PER_SINGLE_PAGE, setNumberOfTotalApplication, setAppliacationList);
     } finally {
       setIsLoading(false);
     }
@@ -44,15 +44,17 @@ export default function NoticeDetailPage() {
   // 유저가 잘못된 경로로 들어오면, 아래의 로딩 중이 아닌, 에러 발생 -> 나중에 404 페이지 만들기?
   if (!shop || typeof noticeId !== "string" || isLoading || !noticeInfo) return <div>로딩 중</div>;
 
-  const handleChangeData = (pageNumber: number) =>
+  const handleChangeData = (pageNumber: number) => {
+    if (!shop.id) return;
     getApplicationList(
       shop.id,
       noticeId,
-      LIMIT_PER_SIMGLE_PAGE,
+      LIMIT_PER_SINGLE_PAGE,
       setNumberOfTotalApplication,
       setAppliacationList,
       pageNumber
     );
+  };
 
   // 나중에 현수님이 작업하신 페이지 가져오기
   const handleEditPageOpen = () => {
@@ -70,7 +72,7 @@ export default function NoticeDetailPage() {
             </Title>
           </div>
           <NoticeContent shop={shop} noticeInfo={noticeInfo} handleButtonClick={handleEditPageOpen} />
-          <NoticeDescription noticeDescription={shop.description} />
+          <NoticeDescription noticeDescription={noticeInfo.description} />
         </section>
       </div>
       {applicationList ? (
@@ -83,7 +85,7 @@ export default function NoticeDetailPage() {
             <div className={cn("pagenation")}>
               <Pagenation
                 numberOfTotalData={numberOfTotalApplication}
-                limitPerSinglePage={LIMIT_PER_SIMGLE_PAGE}
+                limitPerSinglePage={LIMIT_PER_SINGLE_PAGE}
                 limitPerPageGroup={LIMIT_PER_PAGE_GROUP}
                 handleChangeData={handleChangeData}
               />
