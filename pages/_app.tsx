@@ -6,7 +6,7 @@ import "@/styles/global.scss";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
-      <NavBar />
+      {/* <NavBar /> */}
       <Component {...pageProps} />
     </AuthProvider>
   );
