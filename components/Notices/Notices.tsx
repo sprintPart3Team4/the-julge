@@ -102,7 +102,7 @@ export default function Notices({ keyword }: Props) {
         >
           <div className={cn("address")}>
             <FilterDropBoxShell.FilterTitle text="위치" />
-            <FilterDropBoxShell.AddressBox setFilter={setFilter} />
+            <FilterDropBoxShell.AddressBox filter={filter} setFilter={setFilter} />
             {filter.address?.length !== 0 && (
               <FilterDropBoxShell.SelectedAddress address={filter.address} setFilter={setFilter} />
             )}
