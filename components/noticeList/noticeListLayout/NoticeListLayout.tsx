@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames/bind";
 import NoticeCardList from "@/components/noticeList/noticeCardList/NoticeCardList";
-import { NoticeList } from "@/lib/getNotices";
+import { NoticeList } from "@/types/noticesType";
 import styles from "./NoticeListLayout.module.scss";
 
 // import NoticeCardList from "../shop/noticeCardList/NoticeCardList";
