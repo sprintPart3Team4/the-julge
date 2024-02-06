@@ -27,7 +27,7 @@ export default function SortDropBox({ list, selectedItem, handleSortButtonClick 
   const handleDropBoxBlur = () => {
     setTimeout(() => {
       setIsDropBoxOpen(false);
-    }, 100);
+    }, 150);
   };
   const handleSelectSort = (e) => {
     setIsDropBoxOpen(false);
