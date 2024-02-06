@@ -9,11 +9,16 @@ import styles from "./FilterAddress.module.scss";
 const cn = classNames.bind(styles);
 
 type Props = {
+  filter: Filter;
   setFilter: Dispatch<SetStateAction<Filter>>;
 };
 
-export default function FilterAddress({ setFilter }: Props) {
-  const handleButtonClick = (add: string) => setFilter((prev) => ({ ...prev, address: [...prev.address, add] }));
+export default function FilterAddress({ filter, setFilter }: Props) {
+  const handleButtonClick = (add: string) => {
+    if (!filter.address?.includes(add)) {
+      setFilter((prev) => ({ ...prev, address: [...prev.address, add] }));
+    }
+  };
   return (
     <div className={cn("addressWrap")}>
       <div className={cn("totalAddress")}>
