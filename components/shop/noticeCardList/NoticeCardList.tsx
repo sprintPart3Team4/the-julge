@@ -38,7 +38,7 @@ async function getNoticeList({ offset = 0, limit = LIMIT }: Props): Promise<Noti
   return res.data;
 }
 
-export default function FeatureNoticeCardList() {
+export default function NoticeCardList() {
   const [cardList, setCardList] = useState<Card[]>([]);
   const [offset, setOffset] = useState<number>(0);
   const [hasNext, setHasNext] = useState<boolean>(false);
