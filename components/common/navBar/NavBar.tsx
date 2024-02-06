@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+
+import React, { Dispatch, SetStateAction, useState } from "react";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "../logo/Logo";
 import NotificationList from "./notificationList/NotificationList";
 import { useAuth } from "@/contexts/AuthProvider";
+import { NoticeList, getNotices } from "@/lib/getNotices";
 import SearchIcon from "@/public/images/search.svg";
 import ActiveNotificationIcon from "@/public/images/notification_active.svg";
 import InactiveNotificationIcon from "@/public/images/notification_inactive.svg";
@@ -29,7 +31,7 @@ export default function NavBar() {
       </div>
       <div className={cn("searchBar")}>
         <Image className={cn("icon")} src={SearchIcon} alt="돋보기 아이콘" width={16} height={16} />
-        <input type="text" placeholder="가게 이름으로 찾아보세요" />
+        <input type="text" placeholder="가게 이름으로 찾아보세요" onChange={handleKeywordChange} />
       </div>
       {user ? (
         <div className={cn("buttons")}>
