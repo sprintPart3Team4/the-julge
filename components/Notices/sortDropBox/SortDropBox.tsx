@@ -1,9 +1,5 @@
-import Image from "next/image";
 import { useState } from "react";
 import classNames from "classnames/bind";
-
-import Open from "@/public/images/dropdown_open.svg";
-import Close from "@/public/images/dropdown_close.svg";
 
 import styles from "./SortDropBox.module.scss";
 
@@ -38,11 +34,7 @@ export default function SortDropBox({ list, selectedItem, handleSortButtonClick 
     <div className={cn("container")} onBlur={handleDropBoxBlur}>
       <button className={cn("defaultValue")} onClick={handleDropBoxOpen}>
         {selectedItem.name}
-        {isDropBoxOpen ? (
-          <Image src={Open} alt="닫기" width={10} height={10} />
-        ) : (
-          <Image src={Close} alt="열기" width={10} height={10} />
-        )}
+        <span className={cn("icon", isDropBoxOpen ? "closeIcon" : "openIcon")}>열기</span>
       </button>
       {isDropBoxOpen && (
         <ul className={cn("dropdown", isDropBoxOpen && "opened")}>
