@@ -10,6 +10,7 @@ import { initailFilter, SORT } from "@/lib/NoticesConstants";
 import { Filter, NoticeList } from "@/types/noticesType";
 
 import styles from "./Notices.module.scss";
+import NoticeCardList from "../noticeList/noticeCardList/NoticeCardList";
 
 const cn = classNames.bind(styles);
 
@@ -87,6 +88,8 @@ export default function Notices({ keyword }: Props) {
     setNoticeList(items);
   };
 
+  if (!noticeList) return;
+
   return (
     <div>
       {/* 정렬 & 상세 필터 */}
@@ -118,6 +121,7 @@ export default function Notices({ keyword }: Props) {
       </div>
 
       {/* 검색 결과 테스트 */}
+      <NoticeCardList noticeList={noticeList} />
 
       {/* 페이지네이션 */}
       <Pagenation
