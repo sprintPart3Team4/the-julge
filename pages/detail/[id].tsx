@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
 import MainTitle from "@/components/common/titleBox/mainTitle/MainTitle";
 import getCookies from "@/lib/getCookies";
+import classNames from "classnames/bind";
+import styles from "@/styles/detail.module.scss";
 
 const cn = classNames.bind(styles);
 
@@ -21,17 +23,18 @@ type Card = {
 type NoticeInfo = {
   hourlyPay: number;
   startsAt: string;
-  workHour: number;
+  workhour: number;
   description: string;
+  closed?: boolean;
 };
 
 type ShopInfo = {
-  name: string,
+  name: string;
   category: string;
-  address1: string,
-  description: string,
-  imageUrl: string,
-  originalHourlyPay: number,
+  address1: string;
+  description: string;
+  imageUrl: string;
+  originalHourlyPay: number;
 };
 
 export default function DetailPage() {
@@ -42,8 +45,9 @@ export default function DetailPage() {
   const [noticeInfo, setNoticeInfo] = useState<NoticeInfo>({
     hourlyPay: 0,
     startsAt: "",
-    workHour: 0,
+    workhour: 0,
     description: "",
+    closed: false,
   });
   const [shopInfo, setShopInfo] = useState<ShopInfo>({
     name: "",
@@ -57,6 +61,7 @@ export default function DetailPage() {
   const router = useRouter();
   const { id } = router.query;
   const { noticeId } = router.query;
+  const isClosed = noticeInfo.closed ? "active" : "";
 
   const handleRegisterClick = () => {
     if (!user) {
@@ -110,22 +115,33 @@ export default function DetailPage() {
   };
 
   const handleNoticeList = async () => {
-    const { shopId } = getCookies();
-  const res = await instance.get(`shops/${shopId}/notices`);
+    const res = await instance.get(`shops/2fd3b8d8-cda3-4e83-a6ff-b6d177437a2b/notices`);
     setCardList(res.data.items);
   };
 
   useEffect(() => {
-    const stored = localStorage.getItem("watched");
+    if (id) {
+      const stored = localStorage.getItem("watched");
       let watched = stored ? JSON.parse(stored) : [];
       watched.unshift(id);
 
       const uniqueWatched = [...new Set(watched)];
       localStorage.setItem("watched", JSON.stringify(uniqueWatched));
       setWatchedItem(cardList.filter((card) => uniqueWatched.includes(card.item.id)).slice(0, 6));
+    }
   }, [id, cardList]);
 
-  console.log(watchedItem)
+  let isPast;
+
+  cardList.map((card) => {
+    const registeredDate = new Date(card.item.startsAt);
+    const today = new Date();
+    const diff = +today - +registeredDate;
+
+    const resultDate = Math.floor(+diff / (1000 * 60 * 60 * 24) + 1);
+
+    isPast = resultDate < 0 ? "active" : "";
+  });
 
   useEffect(() => {
     handleNoticeList();
@@ -133,7 +149,7 @@ export default function DetailPage() {
   }, []);
 
   return (
-    <>
+    <div className={cn("detailContainer")}>
       <div className={cn("noticeTitle")}>
         <div>
           <Title>
@@ -141,9 +157,12 @@ export default function DetailPage() {
             <Title.MainTitle mainTitle={shopInfo.name} />
           </Title>
         </div>
-        <div>
+        <div className={cn("panelContainer")}>
           <Panel>
-            <Panel.Thumbnail src={shopInfo.imageUrl} alt={shopInfo.imageUrl} />
+            <div className={cn("imgWrap", { active: isClosed })}>
+              <Panel.Thumbnail src={shopInfo.imageUrl} alt={shopInfo.imageUrl} />
+              <span>마감 완료</span>
+            </div>
             <div className={cn("contentContainer")}>
               <div className={cn("content")}>
                 <Pay>
@@ -156,18 +175,22 @@ export default function DetailPage() {
                     />
                   </div>
                 </Pay>
-                <Panel.WorkHour startsAt={noticeInfo.startsAt} workHour={noticeInfo.workHour} isClosed={false} />
+                <Panel.WorkHour startsAt={noticeInfo.startsAt} workHour={noticeInfo.workhour} isClosed={false} />
                 <Panel.Address address={shopInfo.address1} isClosed={false} />
                 <Panel.shopDescription description={shopInfo.description} />
               </div>
-              <Button
-                text={isFinished ? "취소하기" : "신청하기"}
-                size="fixed"
-                color={isFinished ? "secondary" : "primary"}
-                handleButtonClick={() => {
-                  isFinished ? handleCancelClick() : handleRegisterClick();
-                }}
-              />
+              {noticeInfo.closed ? (
+                <Button text="신청 불가" size="flexible" color="disabled" />
+              ) : (
+                <Button
+                  text={isFinished ? "취소하기" : "신청하기"}
+                  size="flexible"
+                  color={isFinished ? "secondary" : "primary"}
+                  handleButtonClick={() => {
+                    isFinished ? handleCancelClick() : handleRegisterClick();
+                  }}
+                />
+              )}
             </div>
           </Panel>
         </div>
@@ -192,7 +215,7 @@ export default function DetailPage() {
         <MainTitle mainTitle="최근에 본 공고" />
       </Title>
       <div className={cn("wrap")}>
-        {watchedItem.map((card) => {
+        {cardList.map((card) => {
           return (
             <NoticeCard
               key={card.item.id}
@@ -204,6 +227,6 @@ export default function DetailPage() {
           );
         })}
       </div>
-    </>
+    </div>
   );
 }

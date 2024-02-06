@@ -1,126 +1,93 @@
-// @use "@/styles/variables.scss" as *;
+@use "@/styles/variables.scss" as *;
 
-// .wrap {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-//   gap: 1.2rem;
-//   padding: 1.2rem;
-//   width: 100%;
-//   height: auto;
-//   border-radius: 1.2rem;
-//   border: 0.1rem solid $color-gray-20;
-//   background: $color-white;
+.detailContainer {
+  padding: 4rem 0 0;
 
-//   @include tablet {
-//     padding: 1.6rem;
-//     gap: 2rem;
-//   }
+  @include tablet {
+    padding: 6rem 0 0;
+  }
 
-//   .imageWidth {
-//     position: relative;
-//     width: 100%;
-//   }
+  .noticeTitle {
+    margin: 0 0 6rem 0;
 
-//   .imageHeight {
-//     padding-top: calc(100% / 16 * 9);
-//   }
+    @include tablet {
+      margin: 0 0 12rem 0;
+    }
+  }
 
-//   .image {
-//     border-radius: 1.2rem;
-//   }
+  .panelContainer {
+    margin: 3.4rem 0;
 
-//   .contents {
-//     display: flex;
-//     flex-direction: column;
-//     gap: 0.8rem;
-//   }
+    & > div {
+      @include desktop {
+        align-items: center;
+      }
+    }
+  }
 
-//   .shopName {
-//     color: $color-black;
-//     font-weight: 700;
-//     line-height: 2rem;
+  .content {
+    div + div {
+      margin: 1.2rem 0 0;
+    }
 
-//     @include tablet {
-//       font-size: 2rem;
-//       line-height: normal;
-//     }
-//   }
+    .payContainer {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
 
-//   .time,
-//   .location {
-//     display: flex;
-//     align-items: center;
-//     gap: 0.6rem;
-//     color: $color-gray-50;
-//     font-size: 1.2rem;
-//     line-height: 1.6rem;
+    p {
+      margin: 1.2rem 0 1.4rem 0;
+    }
+  }
+}
 
-//     @include tablet {
-//       font-size: 1.4rem;
-//       line-height: 2.2rem;
-//     }
+.imgWrap {
+  position: relative;
+  color: $color-gray-30;
 
-//     img {
-//       width: 1.6rem;
+  &::after {
+    content: "";
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 98%;
+    background-color: rgba($color: $color-black, $alpha: 0.5);
+    border-radius: 1.2rem;
+  }
 
-//       @include tablet {
-//         width: 2rem;
-//       }
-//     }
-//   }
+  span {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
 
-//   .pays {
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-between;
-//     gap: 0.2rem;
+  &.active {
+    position: relative;
+    color: $color-gray-30;
+  
+    &::after {
+      content: "";
+      display: block;
+    }
+  
+    span {
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      font-size: 2.8rem;
+      letter-spacing: 0.06rem;
+      font-weight: 700;
+    }
+  }
+}
 
-//     @include tablet {
-//       flex-direction: row;
-//     }
-//   }
 
-//   .pay {
-//     margin-top: 0.8rem;
-//     color: $color-black;
-//     font-size: 1.8rem;
-//     font-weight: 700;
-
-//     @include tablet {
-//       font-size: 2.4rem;
-//       letter-spacing: 0.05rem;
-//     }
-//   }
-// }
-
-// .closed {
-//   position: relative;
-
-//   .imgOverlay {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     position: absolute;
-//     inset: 0;
-//     background-color: rgba($color: $color-black, $alpha: 0.5);
-//     border-radius: 1.2rem;
-//     color: $color-gray-30;
-//     text-align: center;
-//     font-size: 2rem;
-//     font-weight: 700;
-//     z-index: 1;
-
-//     @include tablet {
-//       font-size: 2.8rem;
-//       letter-spacing: 0.06rem;
-//     }
-//   }
-
-//   .shopName,
-//   .time,
-//   .location,
-//   .pay {
-//     color: $color-gray-30;
-//   }
-// }
