@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState } from "react";
 import classNames from "classnames/bind";
 
@@ -11,8 +10,6 @@ import Button from "@/components/common/button/Button";
 
 import { Filter } from "@/types/noticesType";
 import { initailFilter } from "@/lib/NoticesConstants";
-
-import Close from "@/public/images/close.svg";
 
 import styles from "./FilterDropBoxShell.module.scss";
 
@@ -31,7 +28,8 @@ export default function FilterDropBoxShell({ countValue, setFilter, handleFilter
 
   const count = countValue ? countValue.length : 0;
 
-  const handleDropBoxOpen = () => setIsDropBoxOpen((prev) => !prev);
+  const handleDropBoxToggle = () => setIsDropBoxOpen((prev) => !prev);
+  const handleDropBoxClose = () => setIsDropBoxOpen(false);
 
   const resetFilter = () => {
     setFilter(() => initailFilter);
@@ -58,12 +56,14 @@ export default function FilterDropBoxShell({ countValue, setFilter, handleFilter
 
   return (
     <div className={cn("wrap")} ref={dropboxRef}>
-      <button className={cn("openBox")} onClick={handleDropBoxOpen}>{`상세 필터 (${count})`}</button>
+      <button className={cn("openBox")} onClick={handleDropBoxToggle}>{`상세 필터 (${count})`}</button>
       {isDropBoxOpen && (
         <div className={cn("dropboxWrap", isDropBoxOpen && "opened")}>
           <header className={cn("header")}>
             <h3>상세 필터</h3>
-            <Image src={Close} alt="닫기" width={24} height={24} />
+            <span className={cn("closeIcon")} onClick={handleDropBoxClose}>
+              닫기
+            </span>
           </header>
           <section className={cn("section")}>{children}</section>
           <footer className={cn("footer")}>
