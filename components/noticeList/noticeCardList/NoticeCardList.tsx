@@ -12,29 +12,9 @@ type Props = {
 export default function NoticeCardList({ noticeList }: Props) {
   return (
     <div className={cn("wrap")}>
-      {noticeList?.map(
-        ({
-          item: {
-            id,
-            hourlyPay,
-            startsAt,
-            workhour,
-            shop: {
-              item: { name, address1 },
-            },
-          },
-        }) => {
-          return (
-            <NoticeCard
-              key={id}
-              startsAt={startsAt}
-              workhour={workhour}
-              hourlyPay={hourlyPay}
-              // closed={card.item.closed}
-            />
-          );
-        }
-      )}
+      {noticeList?.map(({ item: { id, startsAt, workhour, hourlyPay, closed } }) => {
+        return <NoticeCard key={id} startsAt={startsAt} workhour={workhour} hourlyPay={hourlyPay} closed={closed} />;
+      })}
     </div>
   );
 }
