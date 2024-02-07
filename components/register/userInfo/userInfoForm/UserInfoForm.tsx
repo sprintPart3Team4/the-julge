@@ -6,7 +6,7 @@ import Textarea from "@/components/common/textarea/Textarea";
 import Button from "@/components/common/button/Button";
 import { useAuth } from "@/contexts/AuthProvider";
 import Modal from "@/components/common/modal/Modal";
-import { ADDRESS } from "./constants";
+import { ADDRESS } from "../../../common/SelectBox/constants";
 import { FormValues } from "./UserInfotype";
 import classNames from "classnames/bind";
 import styles from "./UserInfoForm.module.scss";
@@ -48,8 +48,8 @@ export default function userInfoForm() {
   };
 
   const handleCloseModal = () => {
-    // router.push("/");
     setIsModalOpen(false);
+    router.push("/profile");
   };
 
   return (
