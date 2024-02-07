@@ -2,38 +2,37 @@ import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import NoticeCard from "@/components/noticeList/noticeCard/noticeCard";
 import getCookies from "@/lib/getCookies";
+import useDobbyCustomList from "./useDobbyCustomList";
+import useNotDobbyCustomList from "./useNotDobbyCustomList";
 import styles from "./CustomNotice.module.scss";
-import useUserCustom from "./useDobbyCustom";
-import useNotUserCustom from "./useNotDobbyCustom";
 
 const cn = classNames.bind(styles);
 
 export default function CustomNotice() {
-  const [customList, setCustomList] = useState<any>([]);
-  const [dobbysCustomList, setDobbysCustomList] = useState<any>([]);
-  const [isDobbyLogin, setIsDobbyLogin] = useState<boolean>(false);
+  const [customNoticeList, setCustomNoticeList] = useState<any>([]);
+  const [isDobbyLogin, setIsDobbyLogin] = useState<boolean>(true);
 
   useEffect(() => {
     async function getData() {
-      const { shopId, token } = getCookies();
-      if (shopId.length === 0) {
-        await useUserCustom(setDobbysCustomList, token);
-        setIsDobbyLogin(true);
-      } else {
-        await useNotUserCustom(setCustomList);
+      const { shopId } = getCookies();
+      if (shopId in getCookies()) {
+        await useNotDobbyCustomList(setCustomNoticeList);
         setIsDobbyLogin(false);
+      } else {
+        await useDobbyCustomList(setCustomNoticeList);
+        setIsDobbyLogin(true);
       }
     }
     getData();
   }, []);
 
   return isDobbyLogin ? (
-    <div className={cn("wrapper")}>
+    <div className={cn("wrap")}>
       <div className={cn("contentWrapper")}>
-        <p className={cn("title")}>맞춤 공고</p>
+        <h1 className={cn("title")}>맞춤 공고</h1>
         <div className={cn("noticeCardList")}>
-          {dobbysCustomList.map((card: any, index: number) => (
-            <div className={cn("noticeCardBox")} key={index}>
+          {customNoticeList.map((card: any) => (
+            <div className={cn("noticeCardBox")}>
               <NoticeCard
                 key={card.item.id}
                 startsAt={card.item.startsAt}
@@ -47,12 +46,12 @@ export default function CustomNotice() {
       </div>
     </div>
   ) : (
-    <div className={cn("wrapper")}>
+    <div className={cn("wrap")}>
       <div className={cn("contentWrapper")}>
-        <p className={cn("title")}>맞춤 공고</p>
+        <h1 className={cn("title")}>맞춤 공고</h1>
         <div className={cn("noticeCardList")}>
-          {customList.map((card: any, index: number) => (
-            <div className={cn("noticeCardBox")} key={index}>
+          {customNoticeList.map((card: any) => (
+            <div className={cn("noticeCardBox")}>
               <NoticeCard
                 key={card.item.id}
                 startsAt={card.item.startsAt}
