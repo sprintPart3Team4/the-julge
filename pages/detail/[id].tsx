@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import instance from "@/lib/axiosInstance";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
-import MainTitle from "@/components/shopNoticePage/mainTitle/MainTitle";
+import MainTitle from "@/components/common/titleBox/mainTitle/MainTitle";
 import getCookies from "@/lib/getCookies";
 import classNames from "classnames/bind";
 import styles from "@/styles/detail.module.scss";

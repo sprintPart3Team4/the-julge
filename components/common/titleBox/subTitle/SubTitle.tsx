@@ -7,6 +7,6 @@ type Props = {
   subTitle: string;
 };
 
-export default function subTitle({ subTitle }: Props) {
+export default function SubTitle({ subTitle }: Props) {
   return <h3 className={cn("subTitle")}>{subTitle}</h3>;
 }
