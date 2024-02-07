@@ -21,11 +21,11 @@ export default function NotificationItem({ name, workhour, startsAt, result, cre
     <div className={cn("card")}>
       <Image src={result === "accepted" ? ApprovedIcon : RejectedIcon} alt="결과 아이콘" width={5} height={5} />
       <span className={cn("message")}>
-        {`${name}(${getFullDate(startsAt, workhour)}) 공고지원이 `}
-        <span className={cn({ result })}>{result === "accepted" ? `승인` : `거절`}</span>
+        {`${name}(${getFullDate(startsAt, workhour, true)}) 공고 지원이 `}
+        <span className={cn(result)}>{result === "accepted" ? `승인` : `거절`}</span>
         {`되었어요.`}
       </span>
-      <span className={cn("timeAgo")}>{createdAt}분 전</span>
+      <span className={cn("timeAgo")}>{createdAt}분 전</span> {/* TODO 몇 분 전 형식 바꿔주기 */}
     </div>
   );
 }
