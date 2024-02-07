@@ -31,7 +31,7 @@ export default function Notices({ keyword }: Props) {
   // 페이지네이션
   const [count, setCount] = useState(0);
 
-  const LIMIT_PER_SINGLE_PAGE = 5; // 한 페이지에 보여줄 데이터의 개수
+  const LIMIT_PER_SINGLE_PAGE = 6; // 한 페이지에 보여줄 데이터의 개수
   const LIMIT_PER_PAGE_GROUP = 5; // 한 번에 보여줄 페이지 번호의 개수
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function Notices({ keyword }: Props) {
       setFilter(initailFilter);
       setIsLoading(false);
     }
-  }, []);
+  }, [keyword]);
 
   if (isLoading) return <div>로딩 중</div>;
 
@@ -91,39 +91,43 @@ export default function Notices({ keyword }: Props) {
   if (!noticeList) return;
 
   return (
-    <div>
-      {/* 정렬 & 상세 필터 */}
-      <div className={cn("sortAndFilter")}>
-        <SortDropBox list={SORT} selectedItem={sort} handleSortButtonClick={handleSortButtonClick} />
-        <FilterDropBoxShell
-          countValue={filter.address}
-          setFilter={setFilter}
-          handleFilterButtonClick={handleFilterButtonClick}
-        >
-          <div className={cn("address")}>
-            <FilterDropBoxShell.FilterTitle text="위치" />
-            <FilterDropBoxShell.AddressBox filter={filter} setFilter={setFilter} />
-            {filter.address?.length !== 0 && (
-              <FilterDropBoxShell.SelectedAddress address={filter.address} setFilter={setFilter} />
-            )}
-          </div>
-          <div className={cn("line")}></div>
-          <div className={cn("startsAt")}>
-            <FilterDropBoxShell.FilterTitle text="시작일" />
-            <FilterDropBoxShell.StartsAtInput startsAtGte={filter.startsAtGte} setFilter={setFilter} />
-          </div>
-          <div className={cn("line")}></div>
-          <div className={cn("hourlyPay")}>
-            <FilterDropBoxShell.FilterTitle text="금액" />
-            <FilterDropBoxShell.HourlyPayInput hourlyPayGte={filter.hourlyPayGte} setFilter={setFilter} />
-          </div>
-        </FilterDropBoxShell>
+    <section className={cn("wrap")}>
+      <div className={cn("title")}>
+        {keyword ? (
+          <h2>
+            <span>{keyword}</span>에 대한 공고 목록
+          </h2>
+        ) : (
+          <h2>전체 공고</h2>
+        )}
+        <div className={cn("controls")}>
+          <SortDropBox list={SORT} selectedItem={sort} handleSortButtonClick={handleSortButtonClick} />
+          <FilterDropBoxShell
+            countValue={filter.address}
+            setFilter={setFilter}
+            handleFilterButtonClick={handleFilterButtonClick}
+          >
+            <div className={cn("address")}>
+              <FilterDropBoxShell.FilterTitle text="위치" />
+              <FilterDropBoxShell.AddressBox filter={filter} setFilter={setFilter} />
+              {filter.address?.length !== 0 && (
+                <FilterDropBoxShell.SelectedAddress address={filter.address} setFilter={setFilter} />
+              )}
+            </div>
+            <div className={cn("line")}></div>
+            <div className={cn("startsAt")}>
+              <FilterDropBoxShell.FilterTitle text="시작일" />
+              <FilterDropBoxShell.StartsAtInput startsAtGte={filter.startsAtGte} setFilter={setFilter} />
+            </div>
+            <div className={cn("line")}></div>
+            <div className={cn("hourlyPay")}>
+              <FilterDropBoxShell.FilterTitle text="금액" />
+              <FilterDropBoxShell.HourlyPayInput hourlyPayGte={filter.hourlyPayGte} setFilter={setFilter} />
+            </div>
+          </FilterDropBoxShell>
+        </div>
       </div>
-
-      {/* 검색 결과 테스트 */}
       <NoticeCardList noticeList={noticeList} />
-
-      {/* 페이지네이션 */}
       <Pagenation
         numberOfTotalData={count}
         limitPerSinglePage={LIMIT_PER_SINGLE_PAGE}
@@ -131,6 +135,6 @@ export default function Notices({ keyword }: Props) {
         dependency={sort.id}
         handleChangeData={handleChangeData}
       />
-    </div>
+    </section>
   );
 }
