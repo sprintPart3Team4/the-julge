@@ -6,16 +6,20 @@ import LocationIcon from "@/public/images/location.svg";
 import phoneIco from "@/public/images/phone.svg";
 import styles from "./MyProfile.module.scss";
 import { useAuth } from "@/contexts/AuthProvider";
+import { useRouter } from "next/router";
 
 const cn = classNames.bind(styles);
 
 export default function MyProfile() {
   const { user } = useAuth();
-  console.log(`유저정보 : ${user}`);
-  console.log(user);
 
   if (!user) return;
   const { address, bio, phone, name } = user;
+  const router = useRouter();
+
+  function handleApply() {
+    router.push("profile/edit");
+  }
 
   return (
     <div className={cn("wrap")}>
@@ -37,7 +41,7 @@ export default function MyProfile() {
         </div>
       </div>
       <div className={cn("buttons")}>
-        <Button text="편집하기" size="flexible" color="secondary"></Button>
+        <Button text="편집하기" size="flexible" color="secondary" handleButtonClick={handleApply}></Button>
       </div>
     </div>
   );
