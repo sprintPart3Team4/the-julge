@@ -150,7 +150,8 @@ export default function DetailPage() {
       const stored = localStorage.getItem("watched");
       let watched = stored ? JSON.parse(stored) : [];
       watched.unshift(id);
-      const uniqueWatched = [...new Set(watched)];
+      
+      const uniqueWatched = watched.filter((item: string, index: number) => watched.indexOf(item) === index);
       localStorage.setItem("watched", JSON.stringify(uniqueWatched));
       setWatchedItem(cardList.filter((card) => uniqueWatched.includes(card.item.id)).slice(0, 6));
     }
