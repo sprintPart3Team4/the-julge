@@ -13,7 +13,7 @@ export default function NoticeCardList({ noticeList }: Props) {
   return (
     <div className={cn("wrap")}>
       {noticeList?.map(({ item: { id, startsAt, workhour, hourlyPay, closed, shop } }) => {
-        const NoticeCardProps = {
+        const noticeCardProps = {
           id,
           startsAt,
           workhour,
@@ -21,7 +21,7 @@ export default function NoticeCardList({ noticeList }: Props) {
           closed,
           shop,
         };
-        return <NoticeCard key={id} {...NoticeCardProps} />;
+        return <NoticeCard key={id} {...noticeCardProps} />;
       })}
     </div>
   );
