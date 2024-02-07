@@ -8,7 +8,7 @@ import styles from "./MyShopProfile.module.scss";
 const cn = classNames.bind(styles);
 
 type Prop = {
-  handleEditClick: () => void;
+  handleEditClick?: () => void;
   toggleNoticeOpen: () => void;
 };
 

@@ -7,7 +7,8 @@ import FileInput from "./FileInput";
 import Button from "@/components/common/button/Button";
 import { useAuth } from "@/contexts/AuthProvider";
 import Modal from "@/components/common/modal/Modal";
-import { FOOD_CATEGORY, ADDRESS } from "./constants";
+import { FOOD_CATEGORY } from "./constants";
+import { ADDRESS } from "@/components/common/SelectBox/constants";
 import { FormValues } from "./type";
 import classNames from "classnames/bind";
 import styles from "./ShopInfoForm.module.scss";
@@ -63,7 +64,7 @@ export default function ShopInfoForm({ ...shop }) {
   };
 
   useEffect(() => {
-    if (!formValues.name && shop.name) {
+    if (!formValues.imageUrl && shop.name) {
       setFormValues(shop as FormValues);
     }
   }, [shop, formValues]);

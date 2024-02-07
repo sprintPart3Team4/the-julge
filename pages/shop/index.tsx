@@ -7,7 +7,6 @@ import RegisterSuggestion from "@/components/shop/registerSuggestion/RegisterSug
 import ShopPageLayout from "@/components/shop/shopPageLayout/ShopPageLayout";
 
 export default function ShopPage() {
-  const [isInfoRegisterOpen, setIsInfoRegisterOpen] = useState<boolean>(false);
   const [isNoticeRegisterOpen, setIsNoticeRegisterOpen] = useState<boolean>(false);
   const router = useRouter();
 

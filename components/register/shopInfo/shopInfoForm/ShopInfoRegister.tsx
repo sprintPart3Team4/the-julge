@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ShopInfoTitle from "../shopInfoTitle/ShopInfoTitle";
-import ShopInfoForm from "./shopInfoForm";
+import ShopInfoForm from "./ShopInfoForm";
 import ShopPageLayout from "@/components/shop/shopPageLayout/ShopPageLayout";
 import classNames from "classnames/bind";
 import styles from "./ShopInfoForm.module.scss";
@@ -18,7 +18,7 @@ export default function ShopInfoRegister() {
     <>
       {!isPageOpen ? (
         <div className={cn("wrapper")}>
-          <ShopInfoTitle title="가게 정보" handleYesButtonClick={handleYesButtonClick} isPageOpen={!isPageOpen}/>
+          <ShopInfoTitle title="가게 정보" handleYesButtonClick={handleYesButtonClick} isPageOpen={!isPageOpen} />
           <ShopInfoForm />
         </div>
       ) : (

@@ -1,5 +1,5 @@
 import ShopInfoEdit from "@/components/register/shopInfo/ShopInfoForm/ShopInfoEdit";
 
-export default function ShopEdit() {
+export default function Edit() {
   return <ShopInfoEdit />;
 }

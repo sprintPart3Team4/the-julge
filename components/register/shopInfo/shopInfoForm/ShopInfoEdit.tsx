@@ -1,4 +1,4 @@
-import ShopInfoForm from "./shopInfoForm";
+import ShopInfoForm from "./ShopInfoForm";
 import ShopInfoTitle from "../shopInfoTitle/ShopInfoTitle";
 import { useAuth } from "@/contexts/AuthProvider";
 import classNames from "classnames/bind";

@@ -9,7 +9,7 @@ const cn = classNames.bind(styles);
 type ShopPageLayoutProps = {
   hasShop?: boolean;
   hasNotice?: boolean;
-  handleEditClick: () => void;
+  handleEditClick?: () => void;
   toggleNoticeOpen: () => void;
 };
 

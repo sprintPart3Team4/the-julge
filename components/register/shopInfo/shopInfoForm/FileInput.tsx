@@ -17,7 +17,7 @@ export default function FileInput({ setFormValues, value }: FileInput) {
   const isAddImage = fileValue ? "active" : "";
   const isDefaultImage = value && !fileValue ? "edit" : "";
   const alt = preview ? fileName : "카메라 아이콘";
-  const imageButton = value ? "이미지 추가하기" : "이미지 등록하기";
+  const imageButton = value ? "이미지 변경하기" : "이미지 등록하기";
 
   const getImgUrl = async (file: File) => {
     const imgUrl = await createPresinedURL(file);
