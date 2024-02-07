@@ -40,7 +40,6 @@ type ShopInfo = {
 export default function DetailPage() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isFinished, setIsFinished] = useState<boolean>(false);
-  const [changeButton, setChangeButton] = useState<boolean>(false);
   const [isUser, setIsUser] = useState<string>("");
   const [userType, setUserType] = useState<string>("");
   const [cardList, setCardList] = useState<Card[]>([]);
@@ -93,7 +92,6 @@ export default function DetailPage() {
 
   const handleCancelButtonClick = () => {
     setIsModalOpen(false);
-    setChangeButton(false);
     handleCancelApply();
     setIsFinished(false);
   };
@@ -151,11 +149,12 @@ export default function DetailPage() {
     if (id) {
       const stored = localStorage.getItem("watched");
       let watched = stored ? JSON.parse(stored) : [];
-      watched.unshift(id);
+      if (!watched.includes(id)) {
+        watched.unshift(id);
 
-      const uniqueWatched = [...new Set(watched)];
-      localStorage.setItem("watched", JSON.stringify(uniqueWatched));
-      setWatchedItem(cardList.filter((card) => uniqueWatched.includes(card.item.id)).slice(0, 6));
+        localStorage.setItem("watched", JSON.stringify(watched));
+        setWatchedItem(cardList.filter((card) => watched.includes(card.item.id)).slice(0, 6));
+      }
     }
   }, [id, cardList]);
 
