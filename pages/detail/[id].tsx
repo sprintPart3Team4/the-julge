@@ -66,7 +66,7 @@ export default function DetailPage() {
   const isClosed = noticeInfo.closed ? "active" : "";
   const buttonType = isFinished ? "취소하기" : "신청하기";
   const buttonColor = isFinished ? "secondary" : "primary";
-  let isPast;
+  let isPast: boolean;
 
   cardList.map((card) => {
     const registeredDate = new Date(card.item.startsAt);
@@ -141,7 +141,7 @@ export default function DetailPage() {
   };
 
   const handleLoadNotice = async () => {
-    const res = await instance.get(`shops/${id}/notices`);
+    const res = await instance.get(`shops/2fd3b8d8-cda3-4e83-a6ff-b6d177437a2b/notices`);
     setCardList(res.data.items);
   };
 
@@ -149,12 +149,10 @@ export default function DetailPage() {
     if (id) {
       const stored = localStorage.getItem("watched");
       let watched = stored ? JSON.parse(stored) : [];
-      if (!watched.includes(id)) {
-        watched.unshift(id);
-
-        localStorage.setItem("watched", JSON.stringify(watched));
-        setWatchedItem(cardList.filter((card) => watched.includes(card.item.id)).slice(0, 6));
-      }
+      watched.unshift(id);
+      const uniqueWatched = [...new Set(watched)];
+      localStorage.setItem("watched", JSON.stringify(uniqueWatched));
+      setWatchedItem(cardList.filter((card) => uniqueWatched.includes(card.item.id)).slice(0, 6));
     }
   }, [id, cardList]);
 
@@ -243,6 +241,7 @@ export default function DetailPage() {
               workhour={card.item.workhour}
               hourlyPay={card.item.hourlyPay}
               closed={noticeInfo.closed ? true : card.item.closed}
+              isPast={isPast}
             />
           );
         })}
