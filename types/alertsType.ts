@@ -3,8 +3,14 @@ import { Notice } from "./noticesType";
 
 export type AlertItem = {
   id: string;
-  notice: Notice;
-  shop: Shop;
+  notice: {
+    item: Notice;
+    href: string;
+  };
+  shop: {
+    item: Shop;
+    href: string;
+  };
   createdAt: string;
   result: "accepted" | "rejected";
   read: boolean;
@@ -18,7 +24,7 @@ export type AlertItem = {
 };
 
 export type AlertItems = {
-  items: AlertItem;
+  item: AlertItem;
   links: [];
 };
 
