@@ -41,6 +41,8 @@ export default function DetailPage() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [changeButton, setChangeButton] = useState<boolean>(false);
+  const [isUser, setIsUser] = useState<string>("");
+  const [userType, setUserType] = useState<string>("");
   const [cardList, setCardList] = useState<Card[]>([]);
   const [watchedItem, setWatchedItem] = useState<Card[]>([]);
   const [noticeInfo, setNoticeInfo] = useState<NoticeInfo>({
@@ -61,11 +63,10 @@ export default function DetailPage() {
   const { user } = useAuth();
   const router = useRouter();
   const { id } = router.query;
-  const { noticeId } = router.query;
 
   const isClosed = noticeInfo.closed ? "active" : "";
-  const buttonType = isFinished && !changeButton ? "취소하기" : "신청하기";
-  const buttonColor = isFinished && !changeButton ? "secondary" : "primary";
+  const buttonType = isFinished ? "취소하기" : "신청하기";
+  const buttonColor = isFinished ? "secondary" : "primary";
   let isPast;
 
   cardList.map((card) => {
@@ -78,8 +79,6 @@ export default function DetailPage() {
     isPast = resultDate > 0 ? true : false;
   });
 
-  console.log(isPast);
-
   const status = {
     status: "canceled",
   };
@@ -88,18 +87,32 @@ export default function DetailPage() {
     !user ? setIsModalOpen(true) : handleApply();
   };
 
-  const handleCancelClick = () => {
+  const handleModalOpen = () => {
     setIsModalOpen(true);
   };
 
   const handleCancelButtonClick = () => {
     setIsModalOpen(false);
-    setChangeButton(true);
+    setChangeButton(false);
     handleCancelApply();
+    setIsFinished(false);
   };
 
   const handleButtonClick = () => {
-    isFinished ? handleCancelClick() : handleRegisterClick();
+    const { userId } = getCookies();
+
+    if (userType === "employer") {
+      handleModalOpen();
+    }
+
+    if (isUser === undefined) {
+      handleModalOpen();
+    } else {
+      isFinished ? handleModalOpen() : handleRegisterClick();
+    }
+
+    setUserType(user !== null ? user.type : "");
+    setIsUser(userId);
   };
 
   const handleCancelApply = async () => {
@@ -119,20 +132,17 @@ export default function DetailPage() {
     setIsFinished(res.data.item.id);
   };
 
-  const handleNoticeInfo = async () => {
+  const handleLoadNoticeDetail = async () => {
     const { token } = getCookies();
 
-    const res = await instance.get(
-      `shops/${id}/notices/7517d116-f3c5-494e-91f6-223d5c16952b`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const res = await instance.get(`shops/${id}/notices/7517d116-f3c5-494e-91f6-223d5c16952b`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     setNoticeInfo(res.data.item);
     setShopInfo(res.data.item.shop.item);
   };
 
-  const handleNoticeList = async () => {
+  const handleLoadNotice = async () => {
     const res = await instance.get(`shops/${id}/notices`);
     setCardList(res.data.items);
   };
@@ -150,8 +160,8 @@ export default function DetailPage() {
   }, [id, cardList]);
 
   useEffect(() => {
-    handleNoticeList();
-    handleNoticeInfo();
+    handleLoadNotice();
+    handleLoadNoticeDetail();
   }, []);
 
   return (
@@ -210,6 +220,16 @@ export default function DetailPage() {
             handleYesButtonClick={handleCancelButtonClick}
             setIsModalOpen={setIsModalOpen}
           />
+        </Modal>
+      )}
+      {isUser === undefined && isModalOpen && (
+        <Modal>
+          <Modal.Warning text="먼저 로그인을 해주세요" size="small" setIsModalOpen={setIsModalOpen} />
+        </Modal>
+      )}
+      {userType === "employer" && isModalOpen && (
+        <Modal>
+          <Modal.Warning text="사장님은 신청할 수 없습니다" size="small" setIsModalOpen={setIsModalOpen} />
         </Modal>
       )}
       <Title>
