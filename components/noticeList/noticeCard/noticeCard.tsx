@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import classNames from "classnames/bind";
@@ -9,7 +9,8 @@ import ClockIcon from "@/public/images/clock.svg";
 import GreyClockIcon from "@/public/images/clock_grey.svg";
 import { useAuth } from "@/contexts/AuthProvider";
 import { getFullDate } from "@/lib/getFullDate";
-import { Shop } from "@/types/noticesType";
+import { NoticeItem, Shop } from "@/types/noticesType";
+import instance from "@/lib/axiosInstance";
 import styles from "./NoticeCard.module.scss";
 
 const cn = classNames.bind(styles);
@@ -27,28 +28,29 @@ type Props = {
 };
 
 export default function NoticeCard({ id, startsAt, workhour, hourlyPay, closed = false, shop }: Props) {
-  // const router = useRouter();
+  const [href, setHref] = useState<string>("");
   const { user } = useAuth();
   const noticeId = id;
+  const shopId = user?.shop?.id;
 
-  // const handleClick = () => {
-  //   // const { userId } = getCookies();
-  //   // if(!userId) router.push('') // 로그인 안 되어 있을 시: 기본 공고 상세 페이지
-  //   // else if (){ // 로그인 되어 있을 시
-  //   //   router.push('')
-  //   // }
+  const getNoticeList = async (): Promise<NoticeItem[]> => {
+    const res = await instance.get(`shops/${shopId}/notices`);
+    return res.data.items;
+  };
 
-  //   if (!user) router.push(`detail/${noticeId}`); // 로그인 안 되어 있을 시: 기본 공고 상세 페이지
-  //   else if (user.type === "employer" /* && 내 공고이면 */)
-  //     router.push(`shop/${noticeId}`); // 로그인 되어 있는데 - 사장님이고/내 공고라면: 내 가게/공고 상세 페이지
-  //   else router.push(`detail/${noticeId}`); // 그 외의 경우: 기본 공고 상세 페이지
-  // };
-
-  let href;
-  if (!user) href = `detail/${noticeId}`; // 로그인 안 되어 있을 시: 기본 공고 상세 페이지
-  else if (user.type === "employer" /* && 내 공고이면 */)
-    href = `shop/${noticeId}`; // 로그인 되어 있는데 - 사장님이고/내 공고라면: 내 가게/공고 상세 페이지
-  else href = `detail/${noticeId}`; // 그 외의 경우: 기본 공고 상세 페이지
+  useEffect(() => {
+    if (!user) {
+      setHref(`detail/${noticeId}`); // 로그인 하지 않은 유저
+    } else if (shopId) {
+      getNoticeList().then((res) => {
+        if (res.some((notice) => notice.item.id === noticeId))
+          setHref(`shop/${noticeId}`); // 가게 등록을 한 사장님 자신의 공고일 때
+        else setHref(`detail/${noticeId}`); // 가게 등록을 했지만 자신의 공고가 아닐 때
+      });
+    } else {
+      setHref(`detail/${noticeId}`);
+    } // 일반 유저 or 가게 등록을 하지 않은 사장님
+  });
 
   return (
     <Link href={href}>
