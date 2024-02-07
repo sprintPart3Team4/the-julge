@@ -59,13 +59,15 @@ export default function FilterDropBoxShell({ countValue, setFilter, handleFilter
       <button className={cn("openBox")} onClick={handleDropBoxToggle}>{`상세 필터 (${count})`}</button>
       {isDropBoxOpen && (
         <div className={cn("dropboxWrap", isDropBoxOpen && "opened")}>
-          <header className={cn("header")}>
-            <h3>상세 필터</h3>
-            <span className={cn("closeIcon")} onClick={handleDropBoxClose}>
-              닫기
-            </span>
-          </header>
-          <section className={cn("section")}>{children}</section>
+          <div className={cn("dropboxContextWrap")}>
+            <header className={cn("header")}>
+              <h3>상세 필터</h3>
+              <span className={cn("closeIcon")} onClick={handleDropBoxClose}>
+                닫기
+              </span>
+            </header>
+            <section className={cn("section")}>{children}</section>
+          </div>
           <footer className={cn("footer")}>
             <Button text="초기화" size="flexible" color="secondary" handleButtonClick={resetFilter} />
             <Button text="적용하기" size="flexible" color="primary" handleButtonClick={handleFilterSubmit} />

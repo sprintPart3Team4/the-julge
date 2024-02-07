@@ -27,18 +27,21 @@
 
 .dropboxWrap {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: flex-start;
   gap: 2.4rem;
 
-  padding: 2.4rem 2rem;
+  padding: 2.4rem 3.6rem 2.4rem 2rem;
   border: 1px solid $color-gray-20;
   border-radius: 1rem;
-
-  width: 39rem;
 
   background-color: $color-white;
 
@@ -52,7 +55,21 @@
   @include tablet {
     top: 3.8rem;
     right: 0;
+    left: -28.5rem;
+
+    padding: 2.4rem 2rem;
+
+    width: 39rem;
+    height: fit-content;
   }
+}
+
+.dropboxContextWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+
+  width: 100%;
 }
 
 .header {
@@ -88,12 +105,16 @@
 .footer {
   // 버튼 크기 조정
   display: grid;
-  grid-template-columns: 8.2rem auto;
+  grid-template-columns: 1fr 2fr;
   gap: 0.8rem;
 
-  margin-top: 1.6rem;
+  margin: 1.6rem auto;
 
   width: 100%;
+
+  @include tablet {
+    grid-template-columns: 8.2rem auto;
+  }
 }
 
 @keyframes open {
