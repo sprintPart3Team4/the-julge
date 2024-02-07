@@ -19,7 +19,20 @@ function getTime(date: Date, workhour: number) {
 
 export function getFullDate(sourceDate: string, workhour: number) {
   const offset = 1000 * 60 * 60 * 9;
-  const date = new Date(new Date(sourceDate).getTime() - offset);
+  const date = new Date(new Date(sourceDate).getTime() + offset);
 
   return `${getDate(date)} ${getTime(date, workhour)}`;
+}
+
+export function getToday() {
+  const offset = 1000 * 60 * 60 * 9;
+  const date = new Date(new Date().getTime() + offset).toISOString();
+
+  return date;
+}
+
+export function getLocalTime(startsAt: string) {
+  const offset = 1000 * 60 * 60 * 9;
+  const date = new Date(new Date(startsAt).getTime() + offset).toISOString();
+  return date;
 }
