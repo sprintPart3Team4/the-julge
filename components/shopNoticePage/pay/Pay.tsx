@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames/bind";
 
-import SubTitle from "../subTitle/SubTitle";
+import SubTitle from "@/components/common/titleBox/subTitle/SubTitle";
 import HourlyPay from "../hourlyPay/HourlyPay";
 import HighPayRateBadge from "../highPayRateBadge/HighPayRateBadge";
 
