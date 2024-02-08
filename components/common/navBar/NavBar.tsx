@@ -1,11 +1,10 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "../logo/Logo";
 import NotificationList from "./notificationList/NotificationList";
 import { useAuth } from "@/contexts/AuthProvider";
-import { NoticeList } from "@/types/noticesType";
 import SearchIcon from "@/public/images/search.svg";
 import ActiveNotificationIcon from "@/public/images/notification_active.svg";
 import InactiveNotificationIcon from "@/public/images/notification_inactive.svg";
@@ -14,30 +13,16 @@ import { useRouter } from "next/router";
 
 const cn = classNames.bind(styles);
 
-// type Props = {
-//   setKeyword: Dispatch<SetStateAction<string>>;
-//   setCount: Dispatch<SetStateAction<number>>;
-//   setNoticeList: Dispatch<SetStateAction<NoticeList>>;
-// };
-
-export default function NavBar(/* { setKeyword, setCount, setNoticeList }: Props */) {
+export default function NavBar() {
   const [keyword, setKeyword] = useState("");
-  const [count, setCount] = useState(0);
-  const [noticeList, setNoticeList] = useState<NoticeList>([]);
   const [isOpen, setIsOpen] = useState(false);
 
   const { user, logout } = useAuth();
 
   const userPage = user?.type === "employee" ? "내 프로필" : "내 가게";
 
-  const LIMIT_PER_SINGLE_PAGE = 30; // 한 페이지에 보여줄 데이터의 개수
-
   const handleKeywordChange = (e: any) => {
     setKeyword(e.target.value);
-    // getNotices(0, LIMIT_PER_SINGLE_PAGE, e.target.value).then(({ count, items }) => {
-    //   setCount(count);
-    //   setNoticeList(items);
-    // });
   };
 
   const router = useRouter();
