@@ -93,6 +93,15 @@ type Notice = {
   closed: boolean;
 };
 
+type Item = {
+  id: string;
+  hourlyPay: number;
+  description: string;
+  startsAt: string;
+  workhour: number;
+  closed: boolean;
+};
+
 export type NoticeDetail = {
   id: string;
   hourlyPay: number;
@@ -130,4 +139,21 @@ type Application = {
   links: [];
 };
 
+type UserApplication = {
+  item: {
+    id: string;
+    status: "pending" | "accepted" | "rejected" | "canceled";
+    createdAt: string;
+    shop: {
+      item: Shop;
+      href: string;
+    };
+    notice: {
+      item: Item;
+    };
+  };
+  links: [];
+};
+
 export type ApplicationList = Application[];
+export type UserApplicationList = UserApplication[];
