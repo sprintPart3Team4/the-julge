@@ -1,0 +1,57 @@
+@use "@/styles/variables.scss" as *;
+
+.wrap {
+  margin: 0 auto;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    box-sizing: content-box;
+    padding: 4rem 1.2rem;
+
+    & + section {
+      background-color: $color-gray-5;
+    }
+
+    @include tablet {
+      gap: 3.2rem;
+      padding: 6rem 3.2rem;
+    }
+
+    @include desktop {
+      padding: 6rem calc((100% - 96.4rem) / 2);
+      width: 96.4rem;
+    }
+  }
+
+  .sectionMyProfile {
+    @include desktop {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 2rem;
+
+    @include tablet {
+      font-size: 2.8rem;
+      letter-spacing: 0.06rem;
+    }
+  }
+}
+
+.pagenationWrap {
+  margin: auto;
+  border: 1px solid $color-gray-20;
+  border-radius: 1rem;
+
+  max-width: 96.4rem;
+  width: calc(100% - $mobile-safezone * 2);
+}
+
+.pagenation {
+  padding: 1.2rem;
+}
