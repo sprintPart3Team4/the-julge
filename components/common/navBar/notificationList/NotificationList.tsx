@@ -26,15 +26,20 @@ export default function NotificationList({ isOpen, setIsOpen }: Props) {
   };
 
   const { user } = useAuth();
-  const [count, setCount] = useState<number>();
+  const [count, setCount] = useState<number>(0);
   const [items, setItems] = useState<AlertItems[]>();
 
   useEffect(() => {
+    let readCount = 0;
+    items?.forEach(({ item: { read } }) => {
+      if (read) readCount++;
+      console.log(readCount);
+    });
     getAlerts(user?.id).then((res) => {
-      setCount(res.count);
+      setCount(res.count - readCount);
       setItems(res.items);
     });
-  }, []);
+  }, [count]);
 
   if (!user) return;
   return (
@@ -48,7 +53,8 @@ export default function NotificationList({ isOpen, setIsOpen }: Props) {
         )}
       </div>
       <ul className={cn("list")}>
-        {items?.map(({ item: { shop, notice, result, createdAt, id } }) => {
+        {items?.map(({ item: { shop, notice, result, createdAt, id, read } }) => {
+          if (read) return;
           const notificationItemProps = {
             name: shop.item.name,
             workhour: notice.item.workhour,
