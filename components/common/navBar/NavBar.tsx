@@ -49,7 +49,6 @@ export default function NavBar(/* { setKeyword, setCount, setNoticeList }: Props
   const handleKeywordSubmit = (e: any) => {
     e.preventDefault();
     const query = `?keyword=${keyword}`;
-    // query ?
     router.push(`/search${query}`);
   };
 
@@ -71,9 +70,11 @@ export default function NavBar(/* { setKeyword, setCount, setNoticeList }: Props
           <Link href={userPage === "내 가게" ? "/shop" : "/profile"} className={cn("button")}>
             {userPage}
           </Link>
-          <button type="button" className={cn("button")} onClick={logout}>
-            로그아웃
-          </button>
+          <Link href="/">
+            <button type="button" className={cn("button")} onClick={logout}>
+              로그아웃
+            </button>
+          </Link>
           <button type="button" className={cn("button")} onClick={handleToggleNotification}>
             <Image className={cn("icon")} src={InactiveNotificationIcon} alt="알림 아이콘" width={17} height={17} />
           </button>
