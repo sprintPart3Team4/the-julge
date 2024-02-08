@@ -55,6 +55,7 @@ export default function NotificationList({ isOpen, setIsOpen }: Props) {
             startsAt: notice.item.startsAt,
             result,
             createdAt,
+            id,
           };
           return (
             <li key={id}>
