@@ -13,7 +13,6 @@ function getTime(date: Date, workhour: number) {
 
   const startTime = `${hour}:${minute}`;
   const endTime = `${endHour}:${minute}`;
-
   return `${startTime}~${endTime} (${workhour}시간)`;
 }
 
