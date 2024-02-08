@@ -170,8 +170,8 @@ export default function EditNotice() {
           label="description"
           title="공고 설명"
           textarea={{ id: "description", name: "description" }}
-          value={description}
-          onChangeHandler={setState || undefined}
+          value={description || ""}
+          onChange={setState}
         />
         <Button text="수정하기" size="fixed" color="primary" handleButtonClick={submit} />
       </form>
