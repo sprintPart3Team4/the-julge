@@ -1,0 +1,20 @@
+@use "@/styles/variables.scss" as *;
+
+.input {
+  padding: 1.6rem 2rem;
+  border: 1px solid $color-gray-30;
+  border-radius: 0.6rem;
+  width: 100%;
+
+  line-height: 2.6rem;
+
+  background-color: $color-white;
+}
+
+.input::placeholder {
+  color: $color-gray-40;
+}
+
+.input:focus {
+  outline: none;
+}

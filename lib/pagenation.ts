@@ -4,9 +4,11 @@ const getPageGroup = (limitPerPageGroup: number, totalPageNumber: number, pageGr
   if (totalPageNumber < lastNumberOfPageGroup) {
     lastNumberOfPageGroup = totalPageNumber;
   }
-  return new Array(lastNumberOfPageGroup - startNumberOfPageGroup + 1)
+  const newPageGroup = new Array(lastNumberOfPageGroup - startNumberOfPageGroup + 1)
     .fill(0)
     .map((_, i) => startNumberOfPageGroup + i);
+
+  return newPageGroup;
 };
 
 export const getCurrentPageGroup = (
@@ -26,6 +28,7 @@ export const changePageGroup = (
 ) => {
   // 현재 페이지 그룹이 몇 번째 그룹인지
   const currentPageGroupNumber = Math.ceil(currentPageNumber / limitPerPageGroup);
+
   let nextPageGroupNumber;
   switch (type) {
     case "previous":
@@ -35,5 +38,6 @@ export const changePageGroup = (
       nextPageGroupNumber = currentPageGroupNumber + 1;
       break;
   }
+
   return getPageGroup(limitPerPageGroup, totalPageNumber, nextPageGroupNumber);
 };

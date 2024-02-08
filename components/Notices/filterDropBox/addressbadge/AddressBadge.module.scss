@@ -1,0 +1,28 @@
+@use "@/styles/variables.scss" as *;
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+
+  padding: 0.6rem 1rem;
+  border-radius: 2rem;
+
+  font-size: 1.4rem;
+  font-weight: 700;
+
+  color: $color-primary;
+  background-color: $color-red-10;
+}
+
+.closeIcon {
+  display: block;
+
+  width: 1.6rem;
+  height: 1.6rem;
+  background: url("~/public/images/close_red.svg") no-repeat center;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}

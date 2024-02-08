@@ -1,0 +1,49 @@
+@use "@/styles/variables.scss" as *;
+
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+
+  width: 100%;
+}
+
+.inputWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1.6rem 2rem;
+
+  border: 1px solid $color-gray-30;
+  border-radius: 0.6rem;
+
+  width: 24rem;
+
+  color: $color-black;
+  line-height: 2.6rem;
+
+  background: $color-white;
+
+  @include tablet {
+    width: 16.9rem;
+  }
+}
+
+.input {
+  border: none;
+  width: 18rem;
+
+  @include tablet {
+    width: 11rem;
+  }
+}
+
+.input::placeholder {
+  color: $color-gray-40;
+  line-height: 2.6rem;
+}
+
+.input:focus {
+  outline: none;
+}
