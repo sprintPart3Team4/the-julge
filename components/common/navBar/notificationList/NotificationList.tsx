@@ -52,22 +52,26 @@ export default function NotificationList({ isOpen, setIsOpen }: Props) {
         )}
       </div>
       <ul className={cn("list")}>
-        {items?.map(({ item: { shop, notice, result, createdAt, id, read } }) => {
-          if (read) return;
-          const notificationItemProps = {
-            name: shop.item.name,
-            workhour: notice.item.workhour,
-            startsAt: notice.item.startsAt,
-            result,
-            createdAt,
-            id,
-          };
-          return (
-            <li key={id}>
-              <NotificationItem {...notificationItemProps} />
-            </li>
-          );
-        })}
+        {count ? (
+          items?.map(({ item: { shop, notice, result, createdAt, id, read } }) => {
+            if (read) return;
+            const notificationItemProps = {
+              name: shop.item.name,
+              workhour: notice.item.workhour,
+              startsAt: notice.item.startsAt,
+              result,
+              createdAt,
+              id,
+            };
+            return (
+              <li key={id}>
+                <NotificationItem {...notificationItemProps} />
+              </li>
+            );
+          })
+        ) : (
+          <div className={cn("noAlert")}>알림이 없습니다</div>
+        )}
       </ul>
     </div>
   );
