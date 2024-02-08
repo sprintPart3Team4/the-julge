@@ -31,7 +31,8 @@ export default function NoticeCard({ id, startsAt, workhour, hourlyPay, closed =
   const [href, setHref] = useState<string>("");
   const { user } = useAuth();
   const noticeId = id;
-  const shopId = user?.shop?.id;
+  const shopId = shop.item.id;
+  const query = `?s=${shopId}&u=${noticeId}`;
 
   const getNoticeList = async (): Promise<NoticeItem[]> => {
     const res = await instance.get(`shops/${shopId}/notices`);
@@ -40,17 +41,17 @@ export default function NoticeCard({ id, startsAt, workhour, hourlyPay, closed =
 
   useEffect(() => {
     if (!user) {
-      setHref(`detail/${noticeId}`); // 로그인 하지 않은 유저
+      setHref(`detail${query}`); // 로그인 하지 않은 유저
     } else if (shopId) {
       getNoticeList().then((res) => {
         if (res.some((notice) => notice.item.id === noticeId))
           setHref(`shop/${noticeId}`); // 가게 등록을 한 사장님 자신의 공고일 때
-        else setHref(`detail/${noticeId}`); // 가게 등록을 했지만 자신의 공고가 아닐 때
+        else setHref(`detail${query}`); // 가게 등록을 했지만 자신의 공고가 아닐 때
       });
     } else {
-      setHref(`detail/${noticeId}`);
+      setHref(`detail${query}`);
     } // 일반 유저 or 가게 등록을 하지 않은 사장님
-  });
+  }, []);
 
   return (
     <Link href={href}>
