@@ -15,7 +15,7 @@ import styles from "./ShopInfoForm.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function ShopInfoForm({ ...shop }) {
+export default function ShopInfoForm({...shop}) {
   const [formValues, setFormValues] = useState<FormValues>({
     name: "",
     category: "선택",
@@ -35,7 +35,9 @@ export default function ShopInfoForm({ ...shop }) {
     formValues.address1 !== "선택" &&
     formValues.category !== "선택" &&
     formValues.originalHourlyPay !== 0;
-
+  const buttonText =  shop.name ? "완료하기" : "등록하기";
+  const modalText = shop.name ? "수정이 완료되었습니다" : "등록이 완료되었습니다.";
+  const buttonColor = isRequired || shop.name ? "primary" : "disabled";
   const { registerShop, updateShop } = useAuth();
 
   const wage = formValues.originalHourlyPay !== 0 ? formValues.originalHourlyPay : "";
@@ -64,10 +66,10 @@ export default function ShopInfoForm({ ...shop }) {
   };
 
   useEffect(() => {
-    if (!formValues.imageUrl && shop.name) {
+    if (!formValues.name && shop.name) {
       setFormValues(shop as FormValues);
     }
-  }, [shop, formValues]);
+  }, [shop]);
 
   return (
     <div className={cn("container")}>
@@ -148,9 +150,9 @@ export default function ShopInfoForm({ ...shop }) {
         />
         <div className={cn("buttonWrap")} onClick={handleModalOpen}>
           <Button
-            text={shop.name ? "완료하기" : "등록하기"}
+            text={buttonText}
             size="fixed"
-            color={isRequired || shop.name ? "primary" : "disabled"}
+            color={buttonColor}
           />
         </div>
       </form>
@@ -158,7 +160,7 @@ export default function ShopInfoForm({ ...shop }) {
         {isModalOpen && (
           <Modal>
             <Modal.Confirm
-              text={shop.name ? "수정이 완료되었습니다" : "등록이 완료되었습니다."}
+              text={modalText}
               handleButtonClick={handleButtonClick}
             />
           </Modal>
