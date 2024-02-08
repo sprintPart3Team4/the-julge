@@ -4,7 +4,7 @@ import Image from "next/image";
 import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 import { useAuth } from "@/contexts/AuthProvider";
-import { getFullDate } from "@/lib/getFullDate";
+import { getWorkingDate } from "@/lib/getFullDate";
 import { calculateTimeAgo } from "@/lib/calculateTimeAgo";
 import ApprovedIcon from "@/public/images/circle_approved.svg";
 import RejectedIcon from "@/public/images/circle_rejected.svg";
@@ -30,7 +30,6 @@ export default function NotificationItem({ name, workhour, startsAt, result, cre
     const res = await instance.put(`users/${userId}/alerts/${alertId}`, null, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(res.data);
     return res.data;
   };
 
@@ -42,7 +41,7 @@ export default function NotificationItem({ name, workhour, startsAt, result, cre
     <div className={cn("card")} onClick={() => handleClick()}>
       <Image src={result === "accepted" ? ApprovedIcon : RejectedIcon} alt="결과 아이콘" width={5} height={5} />
       <span className={cn("message")}>
-        {`${name}(${getFullDate(startsAt, workhour)}) 공고 지원이 `}
+        {`${name}(${getWorkingDate(startsAt, workhour)}) 공고 지원이 `}
         <span className={cn(result)}>{result === "accepted" ? `승인` : `거절`}</span>
         {`되었어요.`}
       </span>

@@ -33,7 +33,6 @@ export default function NotificationList({ isOpen, setIsOpen }: Props) {
     let readCount = 0;
     items?.forEach(({ item: { read } }) => {
       if (read) readCount++;
-      console.log(readCount);
     });
     getAlerts(user?.id).then((res) => {
       setCount(res.count - readCount);
