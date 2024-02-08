@@ -6,7 +6,7 @@ import styles from "./RegisterSuggestion.module.scss";
 const cn = classNames.bind(styles);
 
 type RegisterSuggestionProps = {
-  type: "shop" | "notice";
+  type: "shop" | "notice" | "user" | "apply";
 };
 
 export default function RegisterSuggestion({ type }: RegisterSuggestionProps) {
