@@ -53,7 +53,6 @@ export default function NoticeCardList() {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasNext) {
-          console.log(offset);
           handleLoad({ offset, limit: LIMIT });
         }
       });

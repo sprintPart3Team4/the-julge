@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import classNames from "classnames/bind";
@@ -7,51 +7,40 @@ import LocationIcon from "@/public/images/location.svg";
 import GreyLocationIcon from "@/public/images/location_grey.svg";
 import ClockIcon from "@/public/images/clock.svg";
 import GreyClockIcon from "@/public/images/clock_grey.svg";
-import { useAuth } from "@/contexts/AuthProvider";
 import { getFullDate } from "@/lib/getFullDate";
-import { NoticeItem, Shop } from "@/types/noticesType";
-import instance from "@/lib/axiosInstance";
 import styles from "./NoticeCard.module.scss";
 
 const cn = classNames.bind(styles);
 
 type Props = {
-  id: string;
+  noticeId: string;
   startsAt: string;
   workhour: number;
   hourlyPay: number;
   closed?: boolean;
-  shop: {
-    item: Shop;
-    href: string;
-  };
+  noticeShopId: string | undefined;
+  myShopId?: string;
+  imageUrl: string;
+  name: string;
+  address1: string;
+  originalHourlyPay: number;
 };
 
-export default function NoticeCard({ id, startsAt, workhour, hourlyPay, closed = false, shop }: Props) {
-  const [href, setHref] = useState<string>("");
-  const { user } = useAuth();
-  const noticeId = id;
-  const shopId = shop.item.id;
-  const query = `?s=${shopId}&u=${noticeId}`;
-
-  const getNoticeList = async (): Promise<NoticeItem[]> => {
-    const res = await instance.get(`shops/${shopId}/notices`);
-    return res.data.items;
-  };
-
-  useEffect(() => {
-    if (!user) {
-      setHref(`detail${query}`); // 로그인 하지 않은 유저
-    } else if (shopId) {
-      getNoticeList().then((res) => {
-        if (res.some((notice) => notice.item.id === noticeId))
-          setHref(`shop/${noticeId}`); // 가게 등록을 한 사장님 자신의 공고일 때
-        else setHref(`detail${query}`); // 가게 등록을 했지만 자신의 공고가 아닐 때
-      });
-    } else {
-      setHref(`detail${query}`);
-    } // 일반 유저 or 가게 등록을 하지 않은 사장님
-  }, []);
+export default function NoticeCard({
+  noticeId,
+  startsAt,
+  workhour,
+  hourlyPay,
+  closed,
+  noticeShopId,
+  myShopId,
+  imageUrl,
+  name,
+  address1,
+  originalHourlyPay,
+}: Props) {
+  const query = `?s=${noticeShopId}&u=${noticeId}`;
+  const href = noticeShopId === myShopId ? `shop/${noticeId}` : `detail${query}`;
 
   return (
     <Link href={href}>
@@ -59,18 +48,18 @@ export default function NoticeCard({ id, startsAt, workhour, hourlyPay, closed =
         <div className={cn("imageWidth")}>
           <div className={cn("imageHeight")}>
             {closed && <div className={cn("imgOverlay")}>마감 완료</div>}
-            <Image className={cn("image")} src={shop.item.imageUrl} alt="가게 이미지" fill />
+            <Image className={cn("image")} src={imageUrl} alt="가게 이미지" fill />
           </div>
         </div>
         <div className={cn("contents")}>
-          <span className={cn("shopName")}>{shop.item.name}</span>
+          <span className={cn("shopName")}>{name}</span>
           <div className={cn("time")}>
             <Image src={closed ? GreyClockIcon : ClockIcon} alt="시계 아이콘" width={20} height={20} />
             <span>{getFullDate(startsAt, workhour)}</span>
           </div>
           <div className={cn("location")}>
             <Image src={closed ? GreyLocationIcon : LocationIcon} alt="장소 아이콘" width={20} height={20} />
-            <span>{shop.item.address1}</span>
+            <span>{address1}</span>
           </div>
           <div className={cn("pays")}>
             <span className={cn("pay")}>{hourlyPay.toLocaleString("ko-KR")}원</span>
@@ -78,7 +67,7 @@ export default function NoticeCard({ id, startsAt, workhour, hourlyPay, closed =
               isListedCard
               closed={closed}
               hourlyPay={hourlyPay}
-              originalHourlyPay={shop.item.originalHourlyPay || 0}
+              originalHourlyPay={originalHourlyPay || 0}
             />
           </div>
         </div>
