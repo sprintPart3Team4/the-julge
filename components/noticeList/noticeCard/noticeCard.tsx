@@ -17,19 +17,21 @@ type Props = {
   workhour: number;
   hourlyPay: number;
   closed?: boolean;
+  isPast?: boolean;
 };
 
-export default function NoticeCard({ startsAt, workhour, hourlyPay, closed = false }: Props) {
+export default function NoticeCard({ startsAt, workhour, hourlyPay, closed = false, isPast }: Props) {
   const { shop } = useAuth();
 
   if (!shop) return;
   const { imageUrl, name, address1, originalHourlyPay } = shop;
 
   return (
-    <div className={cn("wrap", { closed })}>
+    <div className={cn("wrap", { closed, isPast })}>
       <div className={cn("imageWidth")}>
         <div className={cn("imageHeight")}>
           {closed && <div className={cn("imgOverlay")}>마감 완료</div>}
+          {isPast && <div className={cn("imgOverlay")}>지난 공고</div>}
           <Image className={cn("image")} src={imageUrl || ""} alt="가게 이미지" fill />
         </div>
       </div>
