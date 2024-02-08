@@ -28,6 +28,8 @@ export default function NavBar(/* { setKeyword, setCount, setNoticeList }: Props
 
   const { user, logout } = useAuth();
 
+  const userPage = user?.type === "employee" ? "내 프로필" : "내 가게";
+
   const LIMIT_PER_SINGLE_PAGE = 30; // 한 페이지에 보여줄 데이터의 개수
 
   const handleKeywordChange = (e: any) => {
@@ -66,8 +68,8 @@ export default function NavBar(/* { setKeyword, setCount, setNoticeList }: Props
       </div>
       {user ? (
         <div className={cn("buttons")}>
-          <Link href={"/profile"} className={cn("button")}>
-            내 프로필
+          <Link href={userPage === "내 가게" ? "/shop" : "/profile"} className={cn("button")}>
+            {userPage}
           </Link>
           <button type="button" className={cn("button")} onClick={logout}>
             로그아웃
