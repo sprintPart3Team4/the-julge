@@ -14,9 +14,10 @@ const cn = classNames.bind(styles);
 type Props = {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  setIsActive: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function NotificationList({ isOpen, setIsOpen }: Props) {
+export default function NotificationList({ isOpen, setIsOpen, setIsActive }: Props) {
   const isMobile: boolean = useMediaQuery({
     query: "(max-width:743px)",
   });
@@ -32,7 +33,8 @@ export default function NotificationList({ isOpen, setIsOpen }: Props) {
     getAlerts(user?.id).then(({ items }) => {
       setAlerts(items.filter(({ item }) => !item.read));
     });
-  }, []);
+    if (alerts.length) setIsActive(true);
+  }, [isOpen]);
 
   if (!user) return;
   return (
@@ -46,7 +48,7 @@ export default function NotificationList({ isOpen, setIsOpen }: Props) {
         )}
       </div>
       <ul className={cn("list")}>
-        {alerts ? (
+        {alerts.length ? (
           alerts?.map(({ item: { shop, notice, result, createdAt, id } }) => {
             const notificationItemProps = {
               name: shop.item.name,

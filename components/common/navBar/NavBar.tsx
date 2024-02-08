@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 import NotificationList from "./notificationList/NotificationList";
 import { useAuth } from "@/contexts/AuthProvider";
 import SearchIcon from "@/public/images/search.svg";
-import { getAlerts } from "@/lib/getAlerts";
 import ActiveNotificationIcon from "@/public/images/notification_active.svg";
 import InactiveNotificationIcon from "@/public/images/notification_inactive.svg";
 import styles from "./NavBar.module.scss";
@@ -17,6 +16,7 @@ const cn = classNames.bind(styles);
 export default function NavBar() {
   const [keyword, setKeyword] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [isActice, setIsActive] = useState(false);
 
   const { user, logout } = useAuth();
 
@@ -38,16 +38,7 @@ export default function NavBar() {
     router.push(`/search${query}`);
   };
 
-  let notificationIcon = InactiveNotificationIcon;
-  useEffect(() => {
-    getAlerts(user?.id).then((res) => {
-      notificationIcon = res.items.some(({ item }) => {
-        item.read === false;
-      })
-        ? ActiveNotificationIcon
-        : InactiveNotificationIcon;
-    });
-  });
+  const notificationIcon = isActice ? ActiveNotificationIcon : InactiveNotificationIcon;
 
   return (
     <nav className={cn("wrap")}>
@@ -72,12 +63,14 @@ export default function NavBar() {
               로그아웃
             </button>
           </Link>
-          <button type="button" className={cn("button")} onClick={handleToggleNotification}>
-            <Image className={cn("icon")} src={notificationIcon} alt="알림 아이콘" width={17} height={17} />
-          </button>
-          {isOpen && (
+          {user.type === "employee" && (
+            <button type="button" className={cn("button")} onClick={handleToggleNotification}>
+              <Image className={cn("icon")} src={notificationIcon} alt="알림 아이콘" width={17} height={17} />
+            </button>
+          )}
+          {isOpen && user.type === "employee" && (
             <div className={cn("notification")}>
-              <NotificationList isOpen={isOpen} setIsOpen={setIsOpen} />
+              <NotificationList isOpen={isOpen} setIsOpen={setIsOpen} setIsActive={setIsActive} />
             </div>
           )}
         </div>
