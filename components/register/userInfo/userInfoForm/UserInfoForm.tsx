@@ -23,12 +23,34 @@ const initialFormValues = {
 export default function userInfoForm() {
   const [formValues, setFormValues] = useState<FormValues>(initialFormValues);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
+  const [modalText, setModalText] = useState<string>("");
   const router = useRouter();
-
+  const { user, updateMe } = useAuth();
   const isRequired = formValues.name !== "" && formValues.address !== "선택" && formValues.phone !== "";
+  const [isRegister, setIsRegister] = useState<string>("등록하기");
+  // 수정하기 -> 완료하기
+  // 필수속성에 값이 들어가야 버튼이 활성화 되게끔 바꾸기
+  // input
 
-  const { updateMe } = useAuth();
+  useEffect(() => {
+    const userInfo: FormValues = {
+      name: user?.name || "",
+      bio: user?.bio || "",
+      phone: user?.phone || "",
+      address: user?.address || "선택",
+    };
+    setFormValues(userInfo);
+    getCheckEdit();
+  }, [user]);
+
+  const getCheckEdit = () => {
+    const isCheck = user?.name === undefined && user?.address === undefined && user?.phone === undefined;
+    if (!isCheck) {
+      setIsRegister("완료하기");
+    } else {
+      setIsRegister("등록하기");
+    }
+  };
 
   const handleValueChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -41,13 +63,11 @@ export default function userInfoForm() {
   const handleRegisterForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     updateMe(formValues);
-  };
-
-  const handleButtonClick = () => {
+    setModalText(isRegister === "완료하기" ? "수정이 완료되었습니다." : "등록이 완료되었습니다.");
     setIsModalOpen(true);
   };
 
-  const handleCloseModal = () => {
+  const handleModalButtonClick = () => {
     setIsModalOpen(false);
     router.push("/profile");
   };
@@ -103,14 +123,14 @@ export default function userInfoForm() {
           value={formValues.bio}
           onChange={handleValueChange}
         />
-        <div className={cn("buttonWrap")} onClick={handleButtonClick}>
-          <Button text={"등록하기"} size="flexible" color={isRequired ? "primary" : "disabled"} />
+        <div className={cn("buttonWrap")}>
+          <Button text={isRegister} size="flexible" color={isRequired ? "primary" : "disabled"} />
         </div>
       </form>
       <div>
         {isModalOpen && (
           <Modal>
-            <Modal.Confirm text={"등록이 완료되었습니다."} handleButtonClick={handleCloseModal} />
+            <Modal.Confirm text={modalText} handleButtonClick={handleModalButtonClick} />
           </Modal>
         )}
       </div>
