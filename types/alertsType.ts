@@ -12,12 +12,12 @@ export type AlertItem = {
     href: string;
   };
   createdAt: string;
-  result: "accepted" | "rejected";
+  result: "accepted" | "rejected" | "canceled";
   read: boolean;
   application: {
     item: {
       id: string;
-      status: "pending" | "accepted" | "rejected";
+      status: "pending" | "accepted" | "rejected" | "canceled";
     };
     href: string;
   };

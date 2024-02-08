@@ -8,6 +8,7 @@ import { getWorkingDate } from "@/lib/getFullDate";
 import { calculateTimeAgo } from "@/lib/calculateTimeAgo";
 import ApprovedIcon from "@/public/images/circle_approved.svg";
 import RejectedIcon from "@/public/images/circle_rejected.svg";
+import CanceledIcon from "@/public/images/circle_canceled.svg";
 import styles from "./NotificationItem.module.scss";
 import { Alerts } from "@/types/alertsType";
 
@@ -17,7 +18,7 @@ type Props = {
   name: string;
   workhour: number;
   startsAt: string;
-  result: "accepted" | "rejected";
+  result: "accepted" | "rejected" | "canceled";
   createdAt: string;
   id: string;
 };
@@ -37,12 +38,28 @@ export default function NotificationItem({ name, workhour, startsAt, result, cre
     if (user) putRead();
   };
 
+  let resultIcon;
+  let resultMessage;
+  switch (result) {
+    case "accepted":
+      resultIcon = ApprovedIcon;
+      resultMessage = "승인";
+      break;
+    case "rejected":
+      resultIcon = RejectedIcon;
+      resultMessage = "거절";
+      break;
+    case "canceled":
+      resultIcon = CanceledIcon;
+      resultMessage = "취소";
+  }
+
   return (
     <div className={cn("card")} onClick={() => handleClick()}>
-      <Image src={result === "accepted" ? ApprovedIcon : RejectedIcon} alt="결과 아이콘" width={5} height={5} />
+      <Image src={resultIcon} alt="결과 아이콘" width={5} height={5} />
       <span className={cn("message")}>
         {`${name}(${getWorkingDate(startsAt, workhour)}) 공고 지원이 `}
-        <span className={cn(result)}>{result === "accepted" ? `승인` : `거절`}</span>
+        <span className={cn(result)}>{resultMessage}</span>
         {`되었어요.`}
       </span>
       <span className={cn("timeAgo")}>{calculateTimeAgo(createdAt)}</span>
