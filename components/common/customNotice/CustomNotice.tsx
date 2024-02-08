@@ -10,42 +10,28 @@ const cn = classNames.bind(styles);
 
 export default function CustomNotice() {
   const [customNoticeList, setCustomNoticeList] = useState<any>([]);
-  const [isDobbyLogin, setIsDobbyLogin] = useState<boolean>(true);
 
   useEffect(() => {
-    async function getData() {
-      const { shopId } = getCookies();
-      if (shopId in getCookies()) {
-        await useNotDobbyCustomList(setCustomNoticeList);
-        setIsDobbyLogin(false);
+    const getData = async () => {
+      const cookie = getCookies();
+      if (cookie.hasOwnProperty("userId")) {
+        if (cookie.shopId === "") {
+          console.log("알바님");
+          await useDobbyCustomList(setCustomNoticeList);
+        } else {
+          console.log("사장님");
+          await useNotDobbyCustomList(setCustomNoticeList);
+        }
       } else {
+        console.log("로그인 안한 유저");
         await useDobbyCustomList(setCustomNoticeList);
-        setIsDobbyLogin(true);
       }
-    }
+    };
+
     getData();
   }, []);
 
-  return isDobbyLogin ? (
-    <div className={cn("wrap")}>
-      <div className={cn("contentWrapper")}>
-        <h1 className={cn("title")}>맞춤 공고</h1>
-        <div className={cn("noticeCardList")}>
-          {customNoticeList.map((card: any) => (
-            <div className={cn("noticeCardBox")}>
-              <NoticeCard
-                key={card.item.id}
-                startsAt={card.item.startsAt}
-                workhour={card.item.workhour}
-                hourlyPay={card.item.hourlyPay}
-                closed={card.item.closed}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  ) : (
+  return (
     <div className={cn("wrap")}>
       <div className={cn("contentWrapper")}>
         <h1 className={cn("title")}>맞춤 공고</h1>

@@ -10,7 +10,6 @@ import Modal from "@/components/common/modal/Modal";
 import useReloadNotice from "../../../components/register/notice/editNotice/useReloadNotice";
 import useEditNotice from "../../../components/register/notice/editNotice/useEditNotice";
 import styles from "@/components/register/notice/EditNotice/EditNotice.module.scss";
-import { set } from "react-hook-form";
 
 const cn = classNames.bind(styles);
 
@@ -26,25 +25,23 @@ export default function EditNotice() {
 
   const router = useRouter();
   const { noticeId } = router.query;
-  console.log(noticeId);
 
   useEffect(() => {
     const reload = async () => {
       try {
         const reloadedData = await useReloadNotice(noticeId);
-        console.log(reloadedData);
         setHourlyPay(reloadedData.hourlyPay);
         setStartAt(reformatDate(reloadedData.startsAt));
-        console.log(startsAt);
         setWorkHour(reloadedData.workhour);
         setDescription(reloadedData.description);
+        console.log("Input값 초기화 완료");
       } catch (error) {
-        console.error("데이터 로드 중 에러 발생", error);
+        console.error("Input값 초기화 중 에러.", error);
       }
     };
 
     reload();
-  }, [noticeId]);
+  }, []);
 
   const formatDate = (original: string) => {
     return `${original}:00Z`;
@@ -139,7 +136,7 @@ export default function EditNotice() {
               id: "hourlyPay",
               name: "hourlyPay",
             }}
-            value={hourlyPay !== 0 ? hourlyPay : undefined}
+            value={hourlyPay || undefined}
             placeholder="0"
             onChange={setState}
             floatingText="원"
@@ -152,7 +149,7 @@ export default function EditNotice() {
               id: "startsAt",
               name: "startsAt",
             }}
-            value={startsAt}
+            value={startsAt || undefined}
             onChange={setState}
           />
           <Input
@@ -163,7 +160,7 @@ export default function EditNotice() {
               id: "workhour",
               name: "workhour",
             }}
-            value={workhour !== 0 ? workhour : undefined}
+            value={workhour || undefined}
             onChange={setState}
             floatingText="시간"
             placeholder="0"
@@ -173,8 +170,8 @@ export default function EditNotice() {
           label="description"
           title="공고 설명"
           textarea={{ id: "description", name: "description" }}
-          value={description !== "" ? description : ""}
-          onChangeHandler={setState}
+          value={description}
+          onChangeHandler={setState || undefined}
         />
         <Button text="수정하기" size="fixed" color="primary" handleButtonClick={submit} />
       </form>
