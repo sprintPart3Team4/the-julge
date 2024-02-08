@@ -1,12 +1,10 @@
 import instance from "@/lib/axiosInstance";
 
-export default async function useNotDobbyCustomList(setCustomNoticeList: any) {
+export default async function useNotDobbyCustomList(setCustomNoticeList: (arg: Array<any>) => void) {
   try {
-    const res = await instance.get(`notices?sort=time`);
-    const noticeList = res.data.items;
-    console.log("API 응답 확인.")
-    setCustomNoticeList(noticeList);
+    const customList = (await instance.get(`notices?sort=time`)).data.items;
+    setCustomNoticeList(customList);
   } catch (error) {
-    console.log("API 응답 오류 발생", error)
+    console.log("API 응답 오류 발생", error);
   }
 }

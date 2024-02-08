@@ -5,7 +5,7 @@
   box-sizing: content-box;
   padding: 5rem 1.2rem;
 
-  .contentWrapper {
+  .contentWrap {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -46,7 +46,7 @@
 }
 
 @include tablet {
-  .contentWrapper {
+  .contentWrap {
     width: 95.1%;
     margin: 0 auto;
 
@@ -61,7 +61,7 @@
 }
 
 @include desktop {
-  .contentWrapper {
+  .contentWrap {
     margin: 0 auto;
     width: 96.4rem;
 

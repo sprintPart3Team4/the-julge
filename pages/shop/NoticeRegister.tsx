@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent, MouseEventHandler } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/router";
 import classNames from "classnames/bind";
 import CloseButton from "@/components/common/closeButton/CloseButton";
@@ -12,87 +12,86 @@ import styles from "@/components/register/notice/NoticeRegister/NoticeRegister.m
 
 const cn = classNames.bind(styles);
 
-export default function NoticeRegister() {
-  const [hourlyPay, setHourlyPay] = useState<number>();
-  const [startsAt, setStartAt] = useState<string>("");
-  const [workhour, setWorkHour] = useState<number>();
-  const [description, setDescription] = useState<string>("");
-  const [successModal, setSuccessModal] = useState<boolean>(false);
-  const [failModal, setFailModal] = useState<boolean>(false);
-  const [askCloseModal, setAskCloseModal] = useState<boolean>(false);
-  const [ModalText, setModalText] = useState<string>("");
-  const router = useRouter();
+interface StateType {
+  hourlyPay: number | undefined;
+  startsAt: string;
+  workhour: number | undefined;
+  description: string;
+}
 
-  const formatDate = (original: string) => {
-    return `${original}:00Z`;
-  };
+interface ModalType {
+  postSuccessModal: boolean;
+  postFailModal: boolean;
+  askCloseModal: boolean;
+  modalText: string;
+}
+
+export default function NoticeRegister() {
+  const [inputState, setInputState] = useState<StateType>({
+    hourlyPay: undefined,
+    startsAt: "",
+    workhour: undefined,
+    description: "",
+  });
+  const [modal, setModal] = useState<ModalType>({
+    postSuccessModal: false,
+    postFailModal: false,
+    askCloseModal: false,
+    modalText: "",
+  });
+
+  const router = useRouter();
 
   function setState(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     const value = e.target.value;
+    const property = e.target.id;
+    setInputState((prevState: StateType) => ({ ...prevState, [property]: value }));
+  }
 
-    switch (e.target.id) {
-      case "hourlyPay":
-        setHourlyPay(Number(value));
-        break;
-      case "startsAt":
-        setStartAt(String(value));
-        break;
-      case "workhour":
-        setWorkHour(Number(value));
-        break;
-      case "description":
-        setDescription(String(value));
-        break;
-    }
+  function activateAskCloaseModal() {
+    setModal((prevState: ModalType) => ({ ...prevState, askCloseModal: true }));
+  }
+
+  function deActivateAskCloseModal() {
+    setModal((prevState: ModalType) => ({ ...prevState, askCloseModal: false }));
   }
 
   function movementToShop() {
     router.push("/shop");
   }
 
-  function activateAskCloaseModal() {
-    setAskCloseModal(true);
+  function postSuccess(): void {
+    router.push("/shop");
   }
 
-  const postSuccess: MouseEventHandler<HTMLButtonElement> = () => {
-    router.push("/shop");
-  };
-
-  const postFail: MouseEventHandler<HTMLButtonElement> = () => {
-    setFailModal(false);
-  };
+  function postFail(): void {
+    setModal((prevState: ModalType) => ({ ...prevState, postFailModal: false }));
+  }
 
   function submit(e: FormEvent): void {
     e.preventDefault();
 
-    const body = {
-      hourlyPay,
-      startsAt: formatDate(startsAt),
-      workhour,
-      description,
-    };
-
-    usePostNotice(body, setSuccessModal, setFailModal, setModalText);
+    usePostNotice(inputState, setModal);
   }
 
   return (
     <div className={cn("wrapper")}>
-      {successModal && (
+      {modal.postSuccessModal && (
         <Modal>
-          <Modal.Confirm text={ModalText} handleButtonClick={postSuccess} />
+          <Modal.Confirm text={modal.modalText} handleButtonClick={postSuccess} />
         </Modal>
       )}
-      {failModal && (
+      {modal.postFailModal && (
         <Modal>
-          <Modal.Confirm text={ModalText} handleButtonClick={postFail} />
+          <Modal.Confirm text={modal.modalText} handleButtonClick={postFail} />
         </Modal>
       )}
-      {askCloseModal && (
+      {modal.askCloseModal && (
         <Modal>
           <Modal.YesOrNo
             text="등록을 취소하시겠어요?"
             yesButtonText="취소하기"
-            setIsModalOpen={setAskCloseModal}
+            setIsModalOpen={deActivateAskCloseModal}
             handleYesButtonClick={movementToShop}
           />
         </Modal>
@@ -142,7 +141,7 @@ export default function NoticeRegister() {
           label="description"
           title="공고 설명"
           textarea={{ id: "description", name: "description" }}
-          value={description}
+          value={inputState.description}
           onChange={setState}
         />
         <Button text="등록하기" size="fixed" color="primary" handleButtonClick={submit} />

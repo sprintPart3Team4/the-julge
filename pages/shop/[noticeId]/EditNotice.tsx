@@ -7,45 +7,59 @@ import CalenderInput from "@/components/common/input/CalenderInput";
 import Textarea from "@/components/common/textarea/Textarea";
 import Button from "@/components/common/button/Button";
 import Modal from "@/components/common/modal/Modal";
-import useReloadNotice from "../../../components/register/notice/editNotice/useReloadNotice";
-import useEditNotice from "../../../components/register/notice/editNotice/useEditNotice";
+import useReloadNotice from "@/components/register/notice/editNotice/useReloadNotice";
+import useEditNotice from "@/components/register/notice/editNotice/useEditNotice";
 import styles from "@/components/register/notice/EditNotice/EditNotice.module.scss";
+import getCookies from "@/lib/getCookies";
 
 const cn = classNames.bind(styles);
 
+interface StateType {
+  hourlyPay: number | undefined;
+  startsAt: string;
+  workhour: number | undefined;
+  description: string;
+}
+
+interface ModalType {
+  editSuccessModal: boolean;
+  editFailModal: boolean;
+  askCloseModal: boolean;
+  modalText: string;
+}
+
 export default function EditNotice() {
-  const [hourlyPay, setHourlyPay] = useState<number>();
-  const [startsAt, setStartAt] = useState<string>("");
-  const [workhour, setWorkHour] = useState<number>();
-  const [description, setDescription] = useState<string>("");
-  const [successModal, setSuccessModal] = useState<boolean>(false);
-  const [failModal, setFailModal] = useState<boolean>(false);
-  const [askCloseModal, setAskCloseModal] = useState<boolean>(false);
-  const [ModalText, setModalText] = useState<string>("");
+  const [inputState, setInputState] = useState<StateType>({
+    hourlyPay: undefined,
+    startsAt: "",
+    workhour: undefined,
+    description: "",
+  });
+  const [modal, setModal] = useState<ModalType>({
+    editSuccessModal: false,
+    editFailModal: false,
+    askCloseModal: false,
+    modalText: "",
+  });
 
   const router = useRouter();
-  const { noticeId } = router.query;
+  const { noticeId } = getCookies();
 
   useEffect(() => {
-    const reload = async () => {
+    async function reload() {
       try {
-        const reloadedData = await useReloadNotice(noticeId);
-        setHourlyPay(reloadedData.hourlyPay);
-        setStartAt(reformatDate(reloadedData.startsAt));
-        setWorkHour(reloadedData.workhour);
-        setDescription(reloadedData.description);
-        console.log("Input값 초기화 완료");
+        const reloadedData = await useReloadNotice();
+        setInputState((prevState: StateType) => ({ ...prevState, hourlyPay: reloadedData.hourlyPay }));
+        setInputState((prevState: StateType) => ({ ...prevState, startsAt: reformatDate(reloadedData.startsAt) }));
+        setInputState((prevState: StateType) => ({ ...prevState, workhour: reloadedData.workhour }));
+        setInputState((prevState: StateType) => ({ ...prevState, description: reloadedData.description }));
       } catch (error) {
         console.error("Input값 초기화 중 에러.", error);
       }
-    };
+    }
 
     reload();
   }, []);
-
-  const formatDate = (original: string) => {
-    return `${original}:00Z`;
-  };
 
   const reformatDate = (original: string) => {
     return original.replace(":00.000Z", "");
@@ -53,71 +67,54 @@ export default function EditNotice() {
 
   function setState(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     const value = e.target.value;
-
-    switch (e.target.id) {
-      case "hourlyPay":
-        setHourlyPay(Number(value));
-        break;
-      case "startsAt":
-        setStartAt(String(value));
-        console.log(startsAt);
-        break;
-      case "workhour":
-        setWorkHour(Number(value));
-        break;
-      case "description":
-        setDescription(String(value));
-        break;
-    }
+    const property = e.target.id;
+    setInputState((prevState: StateType) => ({ ...prevState, [property]: value }));
   }
 
-  const putSuccess: MouseEventHandler<HTMLButtonElement> = () => {
+  function activateAskCloaseModal() {
+    setModal((prevState: ModalType) => ({ ...prevState, askCloseModal: true }));
+  }
+
+  function deActivateAskCloseModal() {
+    setModal((prevState: ModalType) => ({ ...prevState, askCloseModal: false }));
+  }
+
+  const editSucces: MouseEventHandler<HTMLButtonElement> = () => {
     movementToDetail();
   };
 
-  const putFail: MouseEventHandler<HTMLButtonElement> = () => {
-    setFailModal(false);
+  const editFail: MouseEventHandler<HTMLButtonElement> = () => {
+    setModal((prevState: ModalType) => ({ ...prevState, editFailModal: true }));
   };
 
   function movementToDetail() {
     router.push(`/shop/${noticeId}`);
   }
 
-  function activateAskCloaseModal() {
-    setAskCloseModal(true);
-  }
-
   function submit(e: FormEvent): void {
     e.preventDefault();
 
-    const body = {
-      hourlyPay,
-      startsAt: formatDate(startsAt),
-      workhour,
-      description,
-    };
-
-    useEditNotice(body, noticeId, setSuccessModal, setFailModal, setModalText);
+    useEditNotice(inputState, setModal);
   }
 
   return (
     <div className={cn("wrapper")}>
-      {successModal && (
+      {modal.editSuccessModal && (
         <Modal>
-          <Modal.Confirm text={ModalText} handleButtonClick={putSuccess} />
+          <Modal.Confirm text={modal.modalText} handleButtonClick={editSucces} />
         </Modal>
       )}
-      {failModal && (
+      {modal.editFailModal && (
         <Modal>
-          <Modal.Confirm text={ModalText} handleButtonClick={putFail} />
+          <Modal.Confirm text={modal.modalText} handleButtonClick={editFail} />
         </Modal>
       )}
-      {askCloseModal && (
+      {modal.askCloseModal && (
         <Modal>
           <Modal.YesOrNo
             text="편집을 취소하시겠어요?"
             yesButtonText="취소하기"
-            setIsModalOpen={setAskCloseModal}
+            setIsModalOpen={deActivateAskCloseModal}
             handleYesButtonClick={movementToDetail}
           />
         </Modal>
@@ -136,7 +133,7 @@ export default function EditNotice() {
               id: "hourlyPay",
               name: "hourlyPay",
             }}
-            value={hourlyPay || undefined}
+            value={inputState.hourlyPay}
             placeholder="0"
             onChange={setState}
             floatingText="원"
@@ -149,7 +146,7 @@ export default function EditNotice() {
               id: "startsAt",
               name: "startsAt",
             }}
-            value={startsAt || undefined}
+            value={inputState.startsAt}
             onChange={setState}
           />
           <Input
@@ -160,7 +157,7 @@ export default function EditNotice() {
               id: "workhour",
               name: "workhour",
             }}
-            value={workhour || undefined}
+            value={inputState.workhour}
             onChange={setState}
             floatingText="시간"
             placeholder="0"
@@ -170,7 +167,7 @@ export default function EditNotice() {
           label="description"
           title="공고 설명"
           textarea={{ id: "description", name: "description" }}
-          value={description || ""}
+          value={inputState.description}
           onChange={setState}
         />
         <Button text="수정하기" size="fixed" color="primary" handleButtonClick={submit} />

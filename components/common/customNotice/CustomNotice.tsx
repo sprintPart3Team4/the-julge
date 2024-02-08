@@ -8,42 +8,42 @@ import styles from "./CustomNotice.module.scss";
 
 const cn = classNames.bind(styles);
 
+interface Item {
+  id: string;
+  hourlyPay: number;
+  workhour: number;
+  descriptio: string;
+}
+
 export default function CustomNotice() {
-  const [customNoticeList, setCustomNoticeList] = useState<any>([]);
+  const [customList, setCustomList] = useState<Array<Item>>([]);
 
   useEffect(() => {
-    const getData = async () => {
-      const cookie = getCookies();
-      if (cookie.hasOwnProperty("userId")) {
-        if (cookie.shopId === "") {
-          console.log("알바님");
-          await useDobbyCustomList(setCustomNoticeList);
-        } else {
-          console.log("사장님");
-          await useNotDobbyCustomList(setCustomNoticeList);
-        }
-      } else {
-        console.log("로그인 안한 유저");
-        await useDobbyCustomList(setCustomNoticeList);
-      }
-    };
+    async function showCarousel() {
+      const { userId, shopId } = getCookies();
 
-    getData();
+      if (userId && !shopId) {
+        await useDobbyCustomList(setCustomList, userId);
+      } else {
+        await useNotDobbyCustomList(setCustomList);
+      }
+    }
+    showCarousel();
   }, []);
 
   return (
     <div className={cn("wrap")}>
-      <div className={cn("contentWrapper")}>
-        <h1 className={cn("title")}>맞춤 공고</h1>
+      <div className={cn("contentWrap")}>
+        <p className={cn("title")}>맞춤 공고</p>
         <div className={cn("noticeCardList")}>
-          {customNoticeList.map(({ item: { id, startsAt, workhour, hourlyPay, closed }}) => (
-            <div className={cn("noticeCardBox")}>
+          {customList.map((card: any, index: number) => (
+            <div className={cn("noticeCardBox")} key={index}>
               <NoticeCard
-                key={id}
-                startsAt={startsAt}
-                workhour={workhour}
-                hourlyPay={hourlyPay}
-                closed={closed}
+                key={card.item.id}
+                startsAt={card.item.startsAt}
+                workhour={card.item.workhour}
+                hourlyPay={card.item.hourlyPay}
+                closed={card.item.closed}
               />
             </div>
           ))}

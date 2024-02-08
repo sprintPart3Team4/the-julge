@@ -1,15 +1,11 @@
 import instance from "@/lib/axiosInstance";
-import getCookies from "@/lib/getCookies";
 
-export default async function useDobbyCustomList(setCustomNoticeList: any) {
-  const { userId } = getCookies();
+export default async function useDobbyCustomList(setCustomList: (arg: Array<any>)=> void, userId: string) {
   try {
     const notices = await instance.get(`notices?sort=time`);
-    console.log("공고 API 응답 확인");
     const noticeList = notices.data.items;
 
     const userData = await instance.get(`users/${userId}`);
-    console.log("유저 API 응답 확인");
     const userAddress = userData.data.item.address;
 
     let customList; 
@@ -22,7 +18,7 @@ export default async function useDobbyCustomList(setCustomNoticeList: any) {
       customList = userCustomList;
     }
 
-    setCustomNoticeList(customList);
+    setCustomList(customList);
   } catch (error) {
     console.log("API 응답 오류 발생", error);
   }
