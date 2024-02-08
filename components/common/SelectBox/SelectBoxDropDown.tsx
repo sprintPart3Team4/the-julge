@@ -5,9 +5,9 @@ import styles from "./SelectBox.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function SelectBox({ label, title, item, defaultValue, setFormValues }: SelectBox) {
+export default function SelectBox({ label, title, item, value, setFormValues }: SelectBox) {
   const items = item || [];
-  const isSelected = defaultValue !== "선택";
+  const isSelected = value !== "선택";
 
   const handleOpenClick = (e: MouseEvent<HTMLDivElement>) => e.currentTarget.classList.toggle(cn("active"));
 
@@ -22,7 +22,7 @@ export default function SelectBox({ label, title, item, defaultValue, setFormVal
     <div className={cn("inputBox")} onClick={handleOpenClick}>
       <p className={cn("title")}>{title}</p>
       <label htmlFor={label} className={cn("option", { active: isSelected })}>
-        {defaultValue}
+        {value}
         <span className={cn("dropdownOpen")}>열기</span>
       </label>
       <ul>
