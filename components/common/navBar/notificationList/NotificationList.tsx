@@ -1,9 +1,12 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { useMediaQuery } from "react-responsive";
 import Image from "next/image";
 import NotificationItem from "../notificationItem/NotificationItem";
 import CloseIcon from "@/public/images/close.svg";
+import { useAuth } from "@/contexts/AuthProvider";
+import { getAlerts } from "@/lib/getAlerts";
+import { AlertItems } from "@/types/alertsType";
 import styles from "./NotificationList.module.scss";
 
 const cn = classNames.bind(styles);
@@ -22,10 +25,22 @@ export default function NotificationList({ isOpen, setIsOpen }: Props) {
     setIsOpen(false);
   };
 
+  const { user } = useAuth();
+  const [count, setCount] = useState<number>();
+  const [items, setItems] = useState<AlertItems[]>();
+
+  useEffect(() => {
+    getAlerts(user?.id).then((res) => {
+      setCount(res.count);
+      setItems(res.items);
+    });
+  }, []);
+
+  if (!user) return;
   return (
     <div className={cn("wrap")}>
       <div className={cn("title")}>
-        <h2>알림 6개</h2>
+        <h2>알림 {count}개</h2>
         {isMobile && isOpen && (
           <button type="button" onClick={closeNotification}>
             <Image src={CloseIcon} alt="창 닫기 아이콘" width={24} height={24} />
@@ -33,18 +48,20 @@ export default function NotificationList({ isOpen, setIsOpen }: Props) {
         )}
       </div>
       <ul className={cn("list")}>
-        <li>
-          <NotificationItem status="승인" />
-        </li>
-        <li>
-          <NotificationItem status="거절" />
-        </li>
-        <li>
-          <NotificationItem status="승인" />
-        </li>
-        <li>
-          <NotificationItem status="거절" />
-        </li>
+        {items?.map(({ item: { shop, notice, result, createdAt, id } }) => {
+          const notificationItemProps = {
+            name: shop.item.name,
+            workhour: notice.item.workhour,
+            startsAt: notice.item.startsAt,
+            result,
+            createdAt,
+          };
+          return (
+            <li key={id}>
+              <NotificationItem {...notificationItemProps} />
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
