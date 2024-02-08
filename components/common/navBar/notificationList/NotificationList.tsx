@@ -26,25 +26,19 @@ export default function NotificationList({ isOpen, setIsOpen }: Props) {
   };
 
   const { user } = useAuth();
-  const [count, setCount] = useState<number>(0);
-  const [items, setItems] = useState<AlertItems[]>();
+  const [alerts, setAlerts] = useState<AlertItems[]>([]);
 
   useEffect(() => {
-    let readCount = 0;
-    items?.forEach(({ item: { read } }) => {
-      if (read) readCount++;
+    getAlerts(user?.id).then(({ items }) => {
+      setAlerts(items.filter(({ item }) => !item.read));
     });
-    getAlerts(user?.id).then((res) => {
-      setCount(res.count - readCount);
-      setItems(res.items);
-    });
-  }, [count]);
+  }, []);
 
   if (!user) return;
   return (
     <div className={cn("wrap")}>
       <div className={cn("title")}>
-        <h2>알림 {count}개</h2>
+        <h2>알림 {alerts.length}개</h2>
         {isMobile && isOpen && (
           <button type="button" onClick={closeNotification}>
             <Image src={CloseIcon} alt="창 닫기 아이콘" width={24} height={24} />
@@ -52,9 +46,8 @@ export default function NotificationList({ isOpen, setIsOpen }: Props) {
         )}
       </div>
       <ul className={cn("list")}>
-        {count ? (
-          items?.map(({ item: { shop, notice, result, createdAt, id, read } }) => {
-            if (read) return;
+        {alerts ? (
+          alerts?.map(({ item: { shop, notice, result, createdAt, id } }) => {
             const notificationItemProps = {
               name: shop.item.name,
               workhour: notice.item.workhour,
