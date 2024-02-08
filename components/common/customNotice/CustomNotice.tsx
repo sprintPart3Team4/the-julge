@@ -36,14 +36,14 @@ export default function CustomNotice() {
       <div className={cn("contentWrapper")}>
         <h1 className={cn("title")}>맞춤 공고</h1>
         <div className={cn("noticeCardList")}>
-          {customNoticeList.map((card: any) => (
+          {customNoticeList.map(({ item: { id, startsAt, workhour, hourlyPay, closed }}) => (
             <div className={cn("noticeCardBox")}>
               <NoticeCard
-                key={card.item.id}
-                startsAt={card.item.startsAt}
-                workhour={card.item.workhour}
-                hourlyPay={card.item.hourlyPay}
-                closed={card.item.closed}
+                key={id}
+                startsAt={startsAt}
+                workhour={workhour}
+                hourlyPay={hourlyPay}
+                closed={closed}
               />
             </div>
           ))}

@@ -17,11 +17,11 @@ type NoticeCardProps = {
   workhour: number;
   hourlyPay: number;
   closed?: boolean;
+  isPast?: boolean;
 };
 
 const NoticeCard = React.forwardRef(
-  ({ startsAt, workhour, hourlyPay, closed = false }: NoticeCardProps, ref: Ref<HTMLDivElement>) => {
-    
+  ({ startsAt, workhour, hourlyPay, closed = false, isPast }: NoticeCardProps, ref: Ref<HTMLDivElement>) => {
     const { shop } = useAuth();
 
     if (!shop) return;
@@ -32,6 +32,7 @@ const NoticeCard = React.forwardRef(
         <div className={cn("imageWidth")}>
           <div className={cn("imageHeight")}>
             {closed && <div className={cn("imgOverlay")}>마감 완료</div>}
+            {isPast && <div className={cn("imgOverlay")}>지난 공고</div>}
             <Image className={cn("image")} src={imageUrl || ""} alt="가게 이미지" fill />
           </div>
         </div>
