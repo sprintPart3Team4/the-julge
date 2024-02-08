@@ -143,7 +143,7 @@ export default function NoticeRegister() {
           title="공고 설명"
           textarea={{ id: "description", name: "description" }}
           value={description}
-          onChangeHandler={setState}
+          onChange={setState}
         />
         <Button text="등록하기" size="fixed" color="primary" handleButtonClick={submit} />
       </form>
