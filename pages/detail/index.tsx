@@ -2,6 +2,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
 import MainTitle from "@/components/common/titleBox/mainTitle/MainTitle";
+import Title from "@/components/common/titleBox/title/Title";
+import NoticeDescription from "@/components/shopNoticePage/noticeDescription/NoticeDescription";
+import Panel from "@/components/shopNoticePage/panel/Panel";
+import Pay from "@/components/shopNoticePage/pay/Pay";
+import { useAuth } from "@/contexts/AuthProvider";
+import Button from "@/components/common/button/Button";
+import Modal from "@/components/common/modal/Modal";
+import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 import classNames from "classnames/bind";
 import styles from "@/styles/detail.module.scss";
@@ -61,7 +69,8 @@ export default function DetailPage() {
   });
   const { user } = useAuth();
   const router = useRouter();
-  const { id } = router.query;
+  const { s } = router.query;
+  const { u } = router.query;
 
   const isClosed = noticeInfo.closed ? "active" : "";
   const buttonType = isFinished ? "취소하기" : "신청하기";
@@ -116,7 +125,7 @@ export default function DetailPage() {
   const handleCancelApply = async () => {
     const { token } = getCookies();
 
-    await instance.put(`/shops/${id}/notices/7517d116-f3c5-494e-91f6-223d5c16952b/applications/${isFinished}`, status, {
+    await instance.put(`/shops/${s}/notices/${u}/applications/${isFinished}`, status, {
       headers: { Authorization: `Bearer ${token}` },
     });
   };
@@ -124,7 +133,7 @@ export default function DetailPage() {
   const handleApply = async () => {
     const { token } = getCookies();
 
-    const res = await instance.post(`shops/${id}/notices/7517d116-f3c5-494e-91f6-223d5c16952b/applications`, user, {
+    const res = await instance.post(`shops/${s}/notices/${u}/applications`, user, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setIsFinished(res.data.item.id);
@@ -133,7 +142,7 @@ export default function DetailPage() {
   const handleLoadNoticeDetail = async () => {
     const { token } = getCookies();
 
-    const res = await instance.get(`shops/${id}/notices/7517d116-f3c5-494e-91f6-223d5c16952b`, {
+    const res = await instance.get(`shops/${s}/notices/${u}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setNoticeInfo(res.data.item);
@@ -141,21 +150,21 @@ export default function DetailPage() {
   };
 
   const handleLoadNotice = async () => {
-    const res = await instance.get(`shops/2fd3b8d8-cda3-4e83-a6ff-b6d177437a2b/notices`);
+    const res = await instance.get(`shops/${s}/notices`);
     setCardList(res.data.items);
   };
 
   useEffect(() => {
-    if (id) {
+    if (s) {
       const stored = localStorage.getItem("watched");
       let watched = stored ? JSON.parse(stored) : [];
-      watched.unshift(id);
+      watched.unshift(s);
       
       const uniqueWatched = watched.filter((item: string, index: number) => watched.indexOf(item) === index);
       localStorage.setItem("watched", JSON.stringify(uniqueWatched));
       setWatchedItem(cardList.filter((card) => uniqueWatched.includes(card.item.id)).slice(0, 6));
     }
-  }, [id, cardList]);
+  }, [s, cardList]);
 
   useEffect(() => {
     handleLoadNotice();
@@ -241,7 +250,7 @@ export default function DetailPage() {
               startsAt={card.item.startsAt}
               workhour={card.item.workhour}
               hourlyPay={card.item.hourlyPay}
-              closed={noticeInfo.closed ? true : card.item.closed}
+              closed={noticeInfo.closed ? true : false}
               isPast={isPast}
             />
           );
