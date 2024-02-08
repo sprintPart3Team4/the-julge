@@ -50,6 +50,7 @@
 
   max-width: 96.4rem;
   width: calc(100% - $mobile-safezone * 2);
+  background-color: $color-white;
 }
 
 .pagenation {

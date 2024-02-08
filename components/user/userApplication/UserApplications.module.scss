@@ -54,7 +54,7 @@
   line-height: 2.2rem;
 
   text-align: start;
-
+  background-color: $color-white;
   &.name {
     background-color: $color-white;
   }
@@ -71,6 +71,12 @@
   left: 0;
   z-index: 1;
 }
+
+// .status {
+//   position: sticky;
+//   right: 0;
+//   z-index: 1;
+// }
 
 .bioLineUp {
   display: -webkit-box;
