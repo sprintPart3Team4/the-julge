@@ -48,19 +48,16 @@ export default function NotificationList({ isOpen, setIsOpen }: Props) {
         )}
       </div>
       <ul className={cn("list")}>
-        {items?.map((el) => {
-          console.log("el", el);
+        {items?.map(({ item: { shop, notice, result, createdAt, id } }) => {
           const notificationItemProps = {
-            name: el.item?.shop.item.name,
-            workhour: el.item?.notice.item.workhour,
-            startsAt: el.item?.notice.item.startsAt,
-            result: el.item?.result,
-            createdAt: el.item?.createdAt,
+            name: shop.item.name,
+            workhour: notice.item.workhour,
+            startsAt: notice.item.startsAt,
+            result,
+            createdAt,
           };
-          console.log(notificationItemProps);
-
           return (
-            <li key={el.item?.id}>
+            <li key={id}>
               <NotificationItem {...notificationItemProps} />
             </li>
           );
