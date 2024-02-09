@@ -19,24 +19,36 @@ type Props = {
   workhour: number;
   hourlyPay: number;
   closed?: boolean;
+  isPast?: boolean;
 };
 
 const NoticeCard = React.forwardRef(
-  ({ id, startsAt, workhour, hourlyPay, closed = false }: Props, ref: Ref<HTMLDivElement>) => {
+  ({ id, startsAt, workhour, hourlyPay, closed = false, isPast }: Props, ref: Ref<HTMLDivElement>) => {
     const { shop } = useAuth();
     const noticeId = id;
 
     if (!shop) return;
     const { imageUrl, name, address1, originalHourlyPay } = shop;
 
-    return (
-      <Link href={`shop/${noticeId}`}>
-        <div className={cn("wrap", { closed })} ref={ref}>
-          <div className={cn("imageWidth")}>
-            <div className={cn("imageHeight")}>
-              {closed && <div className={cn("imgOverlay")}>마감 완료</div>}
-              <Image className={cn("image")} src={imageUrl || ""} alt="가게 이미지" fill />
-            </div>
+    return ( 
+    <Link href={`shop/${noticeId}`}>
+      <div className={cn("wrap", { closed, isPast })} ref={ref}>
+        <div className={cn("imageWidth")}>
+          <div className={cn("imageHeight")}>
+            {closed && <div className={cn("imgOverlay")}>마감 완료</div>}
+            {isPast && <div className={cn("imgOverlay")}>지난 공고</div>}
+            <Image className={cn("image")} src={imageUrl || ""} alt="가게 이미지" fill />
+          </div>
+        </div>
+        <div className={cn("contents")}>
+          <span className={cn("shopName")}>{name}</span>
+          <div className={cn("time")}>
+            <Image src={closed ? GreyClockIcon : ClockIcon} alt="시계 아이콘" width={20} height={20} />
+            <span>{getFullDate(startsAt, workhour)}</span>
+          </div>
+          <div className={cn("location")}>
+            <Image src={closed ? GreyLocationIcon : LocationIcon} alt="장소 아이콘" width={20} height={20} />
+            <span>{address1}</span>
           </div>
           <div className={cn("contents")}>
             <span className={cn("shopName")}>{name}</span>
