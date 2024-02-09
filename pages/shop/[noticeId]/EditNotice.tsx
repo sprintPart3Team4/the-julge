@@ -1,6 +1,7 @@
 import { useState, useEffect, ChangeEvent, FormEvent, MouseEventHandler } from "react";
 import { useRouter } from "next/router";
 import classNames from "classnames/bind";
+import getCookies from "@/lib/getCookies";
 import CloseButton from "@/components/common/closeButton/CloseButton";
 import Input from "@/components/common/input/Input";
 import CalenderInput from "@/components/common/input/CalenderInput";
@@ -10,7 +11,6 @@ import Modal from "@/components/common/modal/Modal";
 import useReloadNotice from "@/components/register/notice/editNotice/useReloadNotice";
 import useEditNotice from "@/components/register/notice/editNotice/useEditNotice";
 import styles from "@/components/register/notice/EditNotice/EditNotice.module.scss";
-import getCookies from "@/lib/getCookies";
 
 const cn = classNames.bind(styles);
 
@@ -43,12 +43,14 @@ export default function EditNotice() {
   });
 
   const router = useRouter();
-  const { noticeId } = getCookies();
+  const { shopId, token } = getCookies();
+  const { noticeId } = router.query;
+  console.log(typeof noticeId);
 
   useEffect(() => {
     async function reload() {
       try {
-        const reloadedData = await useReloadNotice();
+        const reloadedData = await useReloadNotice(shopId, token, noticeId);
         setInputState((prevState: StateType) => ({ ...prevState, hourlyPay: reloadedData.hourlyPay }));
         setInputState((prevState: StateType) => ({ ...prevState, startsAt: reformatDate(reloadedData.startsAt) }));
         setInputState((prevState: StateType) => ({ ...prevState, workhour: reloadedData.workhour }));
@@ -94,7 +96,7 @@ export default function EditNotice() {
   function submit(e: FormEvent): void {
     e.preventDefault();
 
-    useEditNotice(inputState, setModal);
+    useEditNotice(inputState, shopId, noticeId, token, setModal);
   }
 
   return (

@@ -40,10 +40,12 @@ export default function CustomNotice() {
             <div className={cn("noticeCardBox")} key={index}>
               <NoticeCard
                 key={card.item.id}
+                id={card.id}
                 startsAt={card.item.startsAt}
                 workhour={card.item.workhour}
                 hourlyPay={card.item.hourlyPay}
                 closed={card.item.closed}
+                shop={card.item.shop}
               />
             </div>
           ))}

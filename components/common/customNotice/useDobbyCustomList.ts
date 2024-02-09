@@ -1,6 +1,9 @@
 import instance from "@/lib/axiosInstance";
 
-export default async function useDobbyCustomList(setCustomList: (arg: Array<any>)=> void, userId: string) {
+export default async function useDobbyCustomList(
+  setCustomList: (arg: Array<any>) => void,
+  userId: string,
+) {
   try {
     const notices = await instance.get(`notices?sort=time`);
     const noticeList = notices.data.items;
@@ -8,8 +11,8 @@ export default async function useDobbyCustomList(setCustomList: (arg: Array<any>
     const userData = await instance.get(`users/${userId}`);
     const userAddress = userData.data.item.address;
 
-    let customList; 
-    
+    let customList;
+
     const userCustomList = noticeList.filter((i: any) => i.item.shop.address1 === userAddress);
     if (userCustomList.length < 1) {
       customList = noticeList;

@@ -1,9 +1,6 @@
-import getCookies from "@/lib/getCookies";
 import instance from "@/lib/axiosInstance";
 
-export default async function useReloadNotice() {
-  const { token, shopId, noticeId } = getCookies();
-
+export default async function useReloadNotice(shopId: string, token: string, noticeId: string | string[] | undefined) {
   try {
     const response = await instance.get(`shops/${shopId}/notices/${noticeId}`, {
       headers: { Authorization: `Bearer ${token}` },
