@@ -23,20 +23,8 @@
       flex-direction: row;
       gap: 1rem;
       width: max-content;
-      animation: autoPlay 10s linear infinite;
+      transition: transform 0.3s ease;
 
-      @keyframes autoPlay {
-        0% {
-          transform: translateX(0);
-        }
-        100% {
-          transform: translateX(calc(-250px * 2));
-        }
-      }
-
-      &:hover {
-        animation-play-state: paused;
-      }
 
       .scroll::-webkit-scrollbar {
         display: none;

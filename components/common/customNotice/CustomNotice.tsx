@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import classNames from "classnames/bind";
 import NoticeCard from "@/components/noticeList/noticeCard/noticeCard";
 import getCookies from "@/lib/getCookies";
@@ -28,14 +28,17 @@ export default function CustomNotice() {
         await useNotDobbyCustomList(setCustomList);
       }
     }
+
     showCarousel();
   }, []);
+
+  const noticeCardListRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className={cn("wrap")}>
       <div className={cn("contentWrap")}>
         <p className={cn("title")}>맞춤 공고</p>
-        <div className={cn("noticeCardList")}>
+        <div className={cn("noticeCardList")} ref={noticeCardListRef}>
           {customList.map((card: any, index: number) => (
             <div className={cn("noticeCardBox")} key={index}>
               <NoticeCard

@@ -94,7 +94,8 @@
   }
 }
 
-.closed .isPast{
+.closed,
+.isPast {
   position: relative;
 
   .imgOverlay {

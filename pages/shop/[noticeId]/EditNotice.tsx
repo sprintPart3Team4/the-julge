@@ -86,7 +86,7 @@ export default function EditNotice() {
   };
 
   const editFail: MouseEventHandler<HTMLButtonElement> = () => {
-    setModal((prevState: ModalType) => ({ ...prevState, editFailModal: true }));
+    setModal((prevState: ModalType) => ({ ...prevState, editFailModal: false }));
   };
 
   function movementToDetail() {
