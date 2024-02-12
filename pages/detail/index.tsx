@@ -78,7 +78,6 @@ export default function DetailPage() {
   const isClosed = noticeInfo.closed ? "active" : "";
   const buttonType = isFinished ? "취소하기" : "신청하기";
   const buttonColor = isFinished ? "secondary" : "primary";
-  let isPast: boolean;
 
   const status = {
     status: "canceled",
@@ -137,17 +136,6 @@ export default function DetailPage() {
     const res = await instance.get("notices?limit=100");
     setCardList(res.data.items);
   };
-
-  
-  cardList.map((card) => {
-    const registeredDate = new Date(card.item.startsAt);
-    const today = new Date();
-    const diff = +today - +registeredDate;
-
-    const resultDate = Math.floor(+diff / (1000 * 60 * 60 * 24) + 1);
-
-    isPast = resultDate > 0 ? true : false;
-  });
 
   useEffect(() => {
     if (u) {
@@ -250,7 +238,6 @@ export default function DetailPage() {
                 workhour={card.item.workhour}
                 hourlyPay={card.item.hourlyPay}
                 closed={noticeInfo.closed ? true : false}
-                isPast={isPast}
                 noticeId={card.item.id}
                 noticeShopId={card.item.shop.id}
                 imageUrl={card.item.shop.item.imageUrl}
