@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
 import Footer from "@/components/common/footer/Footer";
 
 import NavBar from "@/components/common/navBar/NavBar";
@@ -9,7 +8,6 @@ import RegisterSuggestion from "@/components/shop/registerSuggestion/RegisterSug
 import ShopPageLayout from "@/components/shop/shopPageLayout/ShopPageLayout";
 
 export default function ShopPage() {
-  const [isNoticeRegisterOpen, setIsNoticeRegisterOpen] = useState<boolean>(false);
   const router = useRouter();
 
   const handleEditClick = () => {

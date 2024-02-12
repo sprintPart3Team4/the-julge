@@ -15,13 +15,20 @@ interface Item {
   descriptio: string;
 }
 
+interface Cookie {
+  shopId: string | undefined;
+  userId: string | undefined;
+}
+
 export default function CustomNotice() {
   const [customList, setCustomList] = useState<Array<Item>>([]);
+  const [cookie, setCookie] = useState<Cookie>({shopId: undefined, userId: undefined});
 
   useEffect(() => {
-    async function showCarousel() {
-      const { userId, shopId } = getCookies();
+    const { shopId, userId } = getCookies();
+    setCookie((prevState: Cookie) => ({...prevState, shopId: shopId, userId: userId}))
 
+    async function showCarousel() {
       if (userId && !shopId) {
         await useDobbyCustomList(setCustomList, userId);
       } else {
@@ -38,19 +45,21 @@ export default function CustomNotice() {
         <p className={cn("title")}>맞춤 공고</p>
         <div className={cn("noticeCardList")}>
           {customList.map((card: any, index: number) => {
-            const {
-              item: { id, startsAt, workhour, hourlyPay, closed, shop },
-            } = card;
             return (
               <div className={cn("noticeCardBox")} key={index}>
                 <NoticeCard
-                  key={id}
-                  id={id}
-                  startsAt={startsAt}
-                  workhour={workhour}
-                  hourlyPay={hourlyPay}
-                  closed={closed}
-                  shop={shop}
+                  key={card.item.id}
+                  noticeId={card.item.id}
+                  startsAt={card.item.startsAt}
+                  workhour={card.item.workhour}
+                  hourlyPay={card.item.hourlyPay}
+                  closed={card.item.closed}
+                  noticeShopId={card.item.shop.item.id}
+                  myShopId={cookie.shopId}
+                  imageUrl={card.item.shop.item.imageUrl}
+                  name={card.item.shop.item.name}
+                  address1={card.item.shop.item.address1}
+                  originalHourlyPay={card.item.shop.item.originalHourlyPay}
                 />
               </div>
             );
