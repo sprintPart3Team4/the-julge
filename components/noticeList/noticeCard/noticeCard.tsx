@@ -43,11 +43,9 @@ export default function NoticeCard({
   const query = `?s=${noticeShopId}&u=${noticeId}`;
   const href = noticeShopId === myShopId ? `shop/${noticeId}` : `detail${query}`;
 
-  const registeredDate = new Date(startsAt);
-  const today = new Date();
-  const diff = +today - +registeredDate;
-  const resultDate = Math.floor(+diff / (1000 * 60 * 60 * 24) + 1);
-  const isPast = resultDate > 0 ? true : false;
+  const currentDate = new Date();
+  const endDate = new Date(startsAt);
+  const isPast = currentDate > endDate;
 
   return (
     <Link href={href}>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import NavBar from "@/components/common/navBar/NavBar";
 import NoticeCard from "@/components/noticeList/noticeCard/noticeCard";
 import NavBar from "@/components/common/navBar/NavBar";
 import Footer from "@/components/common/footer/Footer";
@@ -86,7 +85,7 @@ export default function DetailPage() {
   };
 
   const handleRegisterClick = () => {
-    !user ? setIsModalOpen(true) : handleApply();
+    !user?.address ? setIsModalOpen(true) : handleApply();
   };
 
   const handleModalOpen = () => {
@@ -147,7 +146,7 @@ export default function DetailPage() {
 
       const uniqueWatched = watched.filter((item: string, index: number) => watched.indexOf(item) === index);
       localStorage.setItem("watched", JSON.stringify(uniqueWatched));
-      setWatchedItem(cardList.filter((card) => uniqueWatched.includes(card.item.id)).slice(0, 5));
+      setWatchedItem(cardList.filter((card) => uniqueWatched.includes(card.item.id)).slice(0, 6));
     }
   }, [u, cardList]);
 
@@ -157,6 +156,10 @@ export default function DetailPage() {
     setUserType(user !== null ? user.type : "");
     setIsUser(userId);
   }, []);
+
+  const currentDate = new Date();
+  const endDate = new Date(noticeInfo.startsAt);
+  const isPast = currentDate > endDate;
 
   return (
     <>
@@ -171,9 +174,9 @@ export default function DetailPage() {
           </div>
           <div className={cn("panelContainer")}>
             <Panel>
-              <div className={cn("imgWrap", { active: isClosed })}>
+              <div className={cn("imgWrap", { active: isClosed , past: isPast})}>
                 <Panel.Thumbnail src={shopInfo.imageUrl} alt={shopInfo.imageUrl} />
-                <span>마감 완료</span>
+                <span>{isPast ? "지난 공고" : "마감 완료"}</span>
               </div>
               <div className={cn("contentContainer")}>
                 <div className={cn("content")}>
@@ -191,7 +194,7 @@ export default function DetailPage() {
                   <Panel.Address address={shopInfo.address1} isClosed={false} />
                   <Panel.shopDescription description={shopInfo.description} />
                 </div>
-                {noticeInfo.closed ? (
+                {noticeInfo.closed || isPast ? (
                   <Button text="신청 불가" size="flexible" color="disabled" />
                 ) : (
                   <Button text={buttonType} size="flexible" color={buttonColor} handleButtonClick={handleButtonClick} />
