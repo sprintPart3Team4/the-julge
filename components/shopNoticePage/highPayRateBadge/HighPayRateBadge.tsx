@@ -15,6 +15,7 @@ const cn = classNames.bind(styles);
 type Props = {
   isListedCard?: boolean;
   closed?: boolean;
+  isPast?: boolean;
   hourlyPay: number;
   originalHourlyPay: number;
 };
@@ -22,6 +23,7 @@ type Props = {
 export default function HighPayRateBadge({
   isListedCard = false,
   closed = false,
+  isPast = false,
   hourlyPay,
   originalHourlyPay,
 }: Props) {
@@ -46,12 +48,12 @@ export default function HighPayRateBadge({
   let arrow = ArrowUpWhite;
 
   if (isMobile && isListedCard) {
-    arrow = closed ? ArrowUpGrey : mobileRedArrow;
+    arrow = closed || isPast ? ArrowUpGrey : mobileRedArrow;
   }
 
   return (
     percentage != 0 && (
-      <div className={cn(isMobile && isListedCard ? "mobileBadge" : "badge", { closed }, color)}>
+      <div className={cn(isMobile && isListedCard ? "mobileBadge" : "badge", { closed, isPast }, isPast || color)}>
         <span className={cn("percentage")}>기존 시급보다 {percentage}%</span>
         <Image
           className={cn("icon")}
