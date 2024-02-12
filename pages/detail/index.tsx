@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import NavBar from "@/components/common/navBar/NavBar";
 import NoticeCard from "@/components/noticeList/noticeCard/noticeCard";
 import NavBar from "@/components/common/navBar/NavBar";
 import Footer from "@/components/common/footer/Footer";
