@@ -16,7 +16,6 @@ export interface InputProps {
   floatingText?: string;
   placeholder?: string;
   value?: string | number;
-}
 
 export default function Input({ label, title, input, value, onChange, floatingText, placeholder }: InputProps) {
   return (
