@@ -1,4 +1,4 @@
-import ShopInfoEdit from "@/components/register/shopInfo/ShopInfoForm/ShopInfoEdit";
+import ShopInfoEdit from "@/components/register/shopInfo/shopInfoForm/ShopInfoEdit";
 
 export default function Edit() {
   return <ShopInfoEdit />;
