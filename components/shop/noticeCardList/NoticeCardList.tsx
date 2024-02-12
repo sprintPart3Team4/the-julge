@@ -35,6 +35,7 @@ async function getNoticeList({ offset = 0, limit = LIMIT }: Props): Promise<Noti
   const { shopId } = getCookies();
   const query = `offset=${offset}&limit=${limit}`;
   const res = await instance.get<NoticeListResponse>(`shops/${shopId}/notices?${query}`);
+  // console.log(res.data.count);
   return res.data;
 }
 
@@ -57,14 +58,14 @@ export default function NoticeCardList() {
       });
       if (node) observer.current.observe(node);
     },
-    [isLoading, hasNext]
+    [isLoading, hasNext, offset]
   );
 
   const handleLoad = async (options: Props) => {
     const { items, hasNext } = await getNoticeList(options);
     try {
       setCardList((prevList) => [...prevList, ...items]);
-      setOffset(options.offset + items.length);
+      setOffset((prev) => prev + LIMIT);
       setHasNext(hasNext);
       setIsLoading(false);
     } catch (error) {
@@ -74,7 +75,7 @@ export default function NoticeCardList() {
 
   useEffect(() => {
     handleLoad({ offset, limit: LIMIT });
-  });
+  }, []);
 
   return (
     <>
