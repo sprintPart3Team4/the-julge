@@ -85,7 +85,7 @@ export default function DetailPage() {
   };
 
   const handleRegisterClick = () => {
-    !user ? setIsModalOpen(true) : handleApply();
+    !user?.address ? setIsModalOpen(true) : handleApply();
   };
 
   const handleModalOpen = () => {
