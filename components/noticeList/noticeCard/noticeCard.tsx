@@ -18,6 +18,7 @@ type Props = {
   workhour: number;
   hourlyPay: number;
   closed?: boolean;
+  isPast?: boolean;
   noticeShopId: string | undefined;
   myShopId?: string;
   imageUrl: string;
@@ -32,6 +33,7 @@ export default function NoticeCard({
   workhour,
   hourlyPay,
   closed,
+  isPast,
   noticeShopId,
   myShopId,
   imageUrl,
@@ -41,25 +43,6 @@ export default function NoticeCard({
 }: Props) {
   const query = `?s=${noticeShopId}&u=${noticeId}`;
   const href = noticeShopId === myShopId ? `shop/${noticeId}` : `detail${query}`;
-
-  const getNoticeList = async (): Promise<NoticeItem[]> => {
-    const res = await instance.get(`shops/${shopId}/notices`);
-    return res.data.items;
-  };
-
-  useEffect(() => {
-    if (!user) {
-      setHref(`detail${query}`); // 로그인 하지 않은 유저
-    } else if (shopId) {
-      getNoticeList().then((res) => {
-        if (res.some((notice) => notice.item.id === noticeId))
-          setHref(`shop/${noticeId}`); // 가게 등록을 한 사장님 자신의 공고일 때
-        else setHref(`detail${query}`); // 가게 등록을 했지만 자신의 공고가 아닐 때
-      });
-    } else {
-      setHref(`detail${query}`);
-    } // 일반 유저 or 가게 등록을 하지 않은 사장님
-  }, []);
 
   return (
     <Link href={href}>
@@ -93,6 +76,6 @@ export default function NoticeCard({
           </div>
         </div>
       </div>
-    </Link>;
+    </Link>
   );
 }
