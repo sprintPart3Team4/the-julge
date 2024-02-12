@@ -61,12 +61,12 @@ export default function ShopInfoForm({...shop}) {
   };
 
   const handleButtonClick = () => {
-    shop.name ? "" : router.push("/shop");
+    router.push("/shop")
     setIsModalOpen(false);
   };
 
   useEffect(() => {
-    if (!formValues.name && shop.name) {
+    if (!formValues.imageUrl && shop.name) {
       setFormValues(shop as FormValues);
     }
   }, [shop]);
