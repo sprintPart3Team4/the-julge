@@ -59,7 +59,7 @@ export default function NavBar() {
             {userPage}
           </Link>
           <Link href="/">
-            <button type="button" className={cn("button")} onClick={logout}>
+            <button type="button" className={cn("button")} onClick={() => logout()}>
               로그아웃
             </button>
           </Link>

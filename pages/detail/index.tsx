@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import instance from "@/lib/axiosInstance";
 import NavBar from "@/components/common/navBar/NavBar";
+import Footer from "@/components/common/footer/Footer";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
 import MainTitle from "@/components/common/titleBox/mainTitle/MainTitle";
 import Title from "@/components/common/titleBox/title/Title";
@@ -11,6 +11,7 @@ import Pay from "@/components/shopNoticePage/pay/Pay";
 import { useAuth } from "@/contexts/AuthProvider";
 import Button from "@/components/common/button/Button";
 import Modal from "@/components/common/modal/Modal";
+import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 import classNames from "classnames/bind";
 import styles from "@/styles/detail.module.scss";
@@ -78,15 +79,15 @@ export default function DetailPage() {
   const buttonColor = isFinished ? "secondary" : "primary";
   let isPast: boolean;
 
-  // cardList.map((card) => {
-  //   const registeredDate = new Date(card.item.startsAt);
-  //   const today = new Date();
-  //   const diff = +today - +registeredDate;
+  cardList.map((card) => {
+    const registeredDate = new Date(card.item.startsAt);
+    const today = new Date();
+    const diff = +today - +registeredDate;
 
-  //   const resultDate = Math.floor(+diff / (1000 * 60 * 60 * 24) + 1);
+    const resultDate = Math.floor(+diff / (1000 * 60 * 60 * 24) + 1);
 
-  //   isPast = resultDate > 0 ? true : false;
-  // });
+    isPast = resultDate > 0 ? true : false;
+  });
 
   const status = {
     status: "canceled",
@@ -169,7 +170,7 @@ export default function DetailPage() {
   }, []);
 
   console.log(watchedItem)
-
+        
   return (
     <>
       <NavBar />
@@ -258,6 +259,7 @@ export default function DetailPage() {
           })}
         </div>
       </div>
+      <Footer />
     </>
   );
 }
