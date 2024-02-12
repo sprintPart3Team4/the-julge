@@ -2,10 +2,7 @@ import classNames from "classnames/bind";
 import UserApplication from "./UserApplication";
 import styles from "./UserApplications.module.scss";
 import { UserApplicationList } from "@/types/apiTypes";
-import { useState, useEffect } from "react";
-import instance from "@/lib/axiosInstance";
-import getCookies from "@/lib/getCookies";
-import { useAuth } from "@/contexts/AuthProvider";
+import { getFullDate } from "@/lib/getFullDate";
 
 const cn = classNames.bind(styles);
 
@@ -52,7 +49,7 @@ export default function UserApplications({ applyList }: Props) {
                     item: { name },
                   },
                   notice: {
-                    item: { hourlyPay, startsAt },
+                    item: { hourlyPay, startsAt, workhour },
                   },
                 },
               }) => (
@@ -61,8 +58,8 @@ export default function UserApplications({ applyList }: Props) {
                   applicationId={id}
                   status={status}
                   name={name}
-                  startsAt={startsAt}
-                  hourlyPay={hourlyPay}
+                  startsAt={getFullDate(startsAt, workhour)}
+                  hourlyPay={hourlyPay.toLocaleString()}
                 />
               )
             )}
