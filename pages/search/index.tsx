@@ -1,6 +1,7 @@
 import React from "react";
-import Notices from "@/components/Notices/Notices";
 import { useRouter } from "next/router";
+import Notices from "@/components/Notices/Notices";
+import NavBar from "@/components/common/navBar/NavBar";
 import Footer from "@/components/common/footer/Footer";
 
 export default function SearchPage() {
@@ -11,6 +12,7 @@ export default function SearchPage() {
 
   return (
     <>
+      <NavBar />
       <Notices keyword={keyword} />
       <Footer />
     </>

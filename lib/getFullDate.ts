@@ -1,3 +1,5 @@
+const OFFSET = 1000 * 60 * 60 * 9;
+
 function getDate(date: Date) {
   const year = String(date.getFullYear());
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -14,11 +16,30 @@ function getTime(date: Date, workhour: number) {
   const startTime = `${hour}:${minute}`;
   const endTime = `${endHour}:${minute}`;
 
-  return `${startTime}~${endTime} (${workhour}시간)`;
+  return `${startTime}~${endTime}`;
 }
 
+// 2024-02-14 13:00~18:00 (5시간)
 export function getFullDate(sourceDate: string, workhour: number) {
-  const date = new Date(sourceDate);
+  const date = new Date(new Date(sourceDate).getTime() + OFFSET);
+
+  return `${getDate(date)} ${getTime(date, workhour)} (${workhour}시간)`;
+}
+
+// 2024-02-14 13:00~18:00
+export function getWorkingDate(sourceDate: string, workhour: number) {
+  const date = new Date(new Date(sourceDate).getTime() + OFFSET);
 
   return `${getDate(date)} ${getTime(date, workhour)}`;
+}
+
+export function getToday() {
+  const date = new Date(new Date().getTime() + OFFSET).toISOString();
+
+  return date;
+}
+
+export function getLocalTime(startsAt: string) {
+  const date = new Date(new Date(startsAt).getTime() + OFFSET).toISOString();
+  return date;
 }
