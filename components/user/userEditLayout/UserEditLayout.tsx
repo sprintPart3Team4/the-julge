@@ -42,7 +42,7 @@ export default function UserEditLayout() {
       {isModalOpen && (
         <Modal>
           <Modal.YesOrNo
-            text="등록을 취소하시겠습니까?"
+            text="등록을 취소하시겠어요?"
             yesButtonText="취소하기"
             setIsModalOpen={setIsModalOpen}
             handleYesButtonClick={handleYesButtonClick}
@@ -52,7 +52,7 @@ export default function UserEditLayout() {
       {isEditModalOpen && (
         <Modal>
           <Modal.YesOrNo
-            text="수정을 취소하시겠습니까?"
+            text="수정을 취소하시겠어요?"
             yesButtonText="취소하기"
             setIsModalOpen={setIsEditModalOpen}
             handleYesButtonClick={handleYesButtonClick}
