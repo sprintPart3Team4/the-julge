@@ -32,26 +32,29 @@ export default function CustomNotice() {
     showCarousel();
   }, []);
 
-  const noticeCardListRef = useRef<HTMLDivElement>(null);
-
   return (
     <div className={cn("wrap")}>
       <div className={cn("contentWrap")}>
         <p className={cn("title")}>맞춤 공고</p>
-        <div className={cn("noticeCardList")} ref={noticeCardListRef}>
-          {customList.map((card: any, index: number) => (
-            <div className={cn("noticeCardBox")} key={index}>
-              <NoticeCard
-                key={card.item.id}
-                id={card.id}
-                startsAt={card.item.startsAt}
-                workhour={card.item.workhour}
-                hourlyPay={card.item.hourlyPay}
-                closed={card.item.closed}
-                shop={card.item.shop}
-              />
-            </div>
-          ))}
+        <div className={cn("noticeCardList")}>
+          {customList.map((card: any, index: number) => {
+            const {
+              item: { id, startsAt, workhour, hourlyPay, closed, shop }
+            } = card;
+            return (
+              <div className={cn("noticeCardBox")} key={index}>
+                <NoticeCard
+                  key={id}
+                  id={id}
+                  startsAt={startsAt}
+                  workhour={workhour}
+                  hourlyPay={hourlyPay}
+                  closed={closed}
+                  shop={shop}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
