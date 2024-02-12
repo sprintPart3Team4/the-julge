@@ -25,6 +25,10 @@
       width: max-content;
       animation: autoPlay 500s linear infinite;
 
+      &.active {
+        animation: autoplay 0s linear infinite;
+      }
+
       @keyframes autoPlay {
         0% {
           transform: translateX(0);
