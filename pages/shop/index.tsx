@@ -21,6 +21,7 @@ export default function ShopPage() {
 
   return (
     <>
+      <NavBar />
       <ShopPageLayout hasShop hasNotice handleEditClick={handleEditClick} toggleNoticeOpen={toggleNoticeOpen} />
       <Footer />
     </>
