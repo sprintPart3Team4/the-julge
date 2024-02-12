@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import instance from "@/lib/axiosInstance";
 import NavBar from "@/components/common/navBar/NavBar";
 import NoticeCard from "@/components/noticeList/noticeCard/noticeCard";
+import NavBar from "@/components/common/navBar/NavBar";
+import Footer from "@/components/common/footer/Footer";
 import MainTitle from "@/components/common/titleBox/mainTitle/MainTitle";
 import Title from "@/components/common/titleBox/title/Title";
 import NoticeDescription from "@/components/shopNoticePage/noticeDescription/NoticeDescription";
@@ -11,6 +12,7 @@ import Pay from "@/components/shopNoticePage/pay/Pay";
 import { useAuth } from "@/contexts/AuthProvider";
 import Button from "@/components/common/button/Button";
 import Modal from "@/components/common/modal/Modal";
+import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 import classNames from "classnames/bind";
 import styles from "@/styles/detail.module.scss";
@@ -249,6 +251,7 @@ export default function DetailPage() {
           })}
         </div>
       </div>
+      <Footer />
     </>
   );
 }

@@ -14,7 +14,7 @@ import styles from "./NoticeCard.module.scss";
 const cn = classNames.bind(styles);
 
 type Props = {
-  id: string;
+  id?: string;
   startsAt: string;
   workhour: number;
   hourlyPay: number;
@@ -27,7 +27,8 @@ const NoticeCard = React.forwardRef(
     const { shop } = useAuth();
     const noticeId = id;
 
-    if (!shop) return;
+    if (!shop) return null;
+
     const { imageUrl, name, address1, originalHourlyPay } = shop;
 
     return (
@@ -60,7 +61,7 @@ const NoticeCard = React.forwardRef(
               />
             </div>
           </div>
-        </div>
+        </div>{" "}
       </Link>
     );
   }

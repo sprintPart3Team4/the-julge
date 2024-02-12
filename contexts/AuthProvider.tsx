@@ -3,6 +3,7 @@ import { ReactNode, createContext, useContext, useEffect, useState } from "react
 import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 import { AuthContextType, Shop, UpdateUser, User } from "@/types/apiTypes";
+import { deleteCookie } from "@/lib/deleteCookie";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -16,6 +17,7 @@ type Values = {
 };
 
 export function AuthProvider({ children }: AuthProviderProps) {
+  const router = useRouter();
   const [values, setValues] = useState<Values>({
     user: null,
     shop: null,
@@ -56,8 +58,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
-  const logout = async () => {
-    document.cookie = "";
+  const logout = () => {
+    router.push("/");
+
+    deleteCookie("shopId");
+    deleteCookie("userId");
+    deleteCookie("token");
+
     setValues((prev) => ({
       ...prev,
       user: null,
