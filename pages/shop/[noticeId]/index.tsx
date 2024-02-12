@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 
+import NavBar from "@/components/common/navBar/NavBar";
 import Title from "@/components/common/titleBox/title/Title";
 import NoticeContent from "@/components/shopNoticePage/noticeContent/NoticeContent";
 import NoticeDescription from "@/components/shopNoticePage/noticeDescription/NoticeDescription";
@@ -63,6 +64,7 @@ export default function NoticeDetailPage() {
 
   return (
     <div>
+      <NavBar />
       <div className={cn("sectionWrap")}>
         <section className={cn("noticeWrap")}>
           <div className={cn("noticeTitle")}>

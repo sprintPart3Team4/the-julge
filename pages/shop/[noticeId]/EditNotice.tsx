@@ -45,7 +45,6 @@ export default function EditNotice() {
   const router = useRouter();
   const { shopId, token } = getCookies();
   const { noticeId } = router.query;
-  console.log(typeof noticeId);
 
   useEffect(() => {
     async function reload() {

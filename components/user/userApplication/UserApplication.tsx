@@ -10,7 +10,7 @@ type Props = {
   applicationId: string;
   name?: string;
   startsAt?: string;
-  hourlyPay?: number;
+  hourlyPay?: string;
   status: "pending" | "accepted" | "rejected" | "canceled";
 };
 

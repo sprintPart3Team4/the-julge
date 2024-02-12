@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SelectBox from "./SelectBoxDropDown";
-import { FormValues } from "@/components/register/shopInfo/shopInfoForm/type";
-import { FOOD_CATEGORY } from "@/components/register/shopInfo/shopInfoForm/constants";
+import { FormValues } from "@/components/register/shopInfo/ShopInfoForm/type";
+import { FOOD_CATEGORY } from "@/components/register/shopInfo/ShopInfoForm/constants";
 
 export default function SelectBox_example() {
   // 아래와 같이 객체 형태로 만들어 "선택"을 입력해줍니다.

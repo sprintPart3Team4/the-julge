@@ -8,17 +8,18 @@ import styles from "./MyShopProfile.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function MyShopProfile() {
+type Prop = {
+  handleEditClick?: () => void;
+  handleRegisterClick?: () => void;
+};
+
+export default function MyShopProfile({
+  handleEditClick,
+  handleRegisterClick,
+}: Prop) {
+
   const { shop } = useAuth();
   const router = useRouter();
-
-  function movementToInfo() {
-    router.push("");
-  }
-
-  function movementToNotice() {
-    router.push("shop/NoticeRegister");
-  }
 
   if (!shop) return;
   const { imageUrl, name, category, address1, description } = shop;
@@ -48,8 +49,18 @@ export default function MyShopProfile() {
           </span>
         </div>
         <div className={cn("buttons")}>
-          <Button text="편집하기" size="flexible" color="secondary" handleButtonClick={movementToInfo}></Button>
-          <Button text="공고 등록하기" size="flexible" color="primary" handleButtonClick={movementToNotice}></Button>
+          <Button
+            text="편집하기"
+            size="flexible"
+            color="secondary"
+            handleButtonClick={handleEditClick}
+          ></Button>
+          <Button
+            text="공고 등록하기"
+            size="flexible"
+            color="primary"
+            handleButtonClick={handleRegisterClick}
+          ></Button>
         </div>
       </div>
     </div>

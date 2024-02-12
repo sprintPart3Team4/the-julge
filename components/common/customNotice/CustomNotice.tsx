@@ -39,7 +39,7 @@ export default function CustomNotice() {
         <div className={cn("noticeCardList")}>
           {customList.map((card: any, index: number) => {
             const {
-              item: { id, startsAt, workhour, hourlyPay, closed, shop }
+              item: { id, startsAt, workhour, hourlyPay, closed, shop },
             } = card;
             return (
               <div className={cn("noticeCardBox")} key={index}>
