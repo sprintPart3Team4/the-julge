@@ -121,7 +121,7 @@
     z-index: 1;
   }
 
-  &.active {
+  &.active, &.past {
     position: relative;
     color: $color-gray-30;
 
