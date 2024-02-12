@@ -23,7 +23,6 @@ export default function NoticeDetailPage() {
   const router = useRouter();
   const { noticeId } = router.query;
   const { shop } = useAuth();
-  console.log(router);
 
   const [noticeInfo, setNoticeInfo] = useState<NoticeDetail>();
   const [applicationList, setAppliacationList] = useState<ApplicationList>();
