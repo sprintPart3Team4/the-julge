@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import instance from "@/lib/axiosInstance";
+import NavBar from "@/components/common/navBar/NavBar";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
 import MainTitle from "@/components/common/titleBox/mainTitle/MainTitle";
 import Title from "@/components/common/titleBox/title/Title";
@@ -172,6 +174,8 @@ export default function DetailPage() {
   }, []);
 
   return (
+    <>
+      <NavBar />
     <div className={cn("detailContainer")}>
       <div className={cn("noticeTitle")}>
         <div>
