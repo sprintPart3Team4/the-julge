@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import NavBar from "@/components/common/navBar/NavBar";
+import Footer from "@/components/common/footer/Footer";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
 import MainTitle from "@/components/common/titleBox/mainTitle/MainTitle";
 import Title from "@/components/common/titleBox/title/Title";
@@ -13,7 +15,6 @@ import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 import classNames from "classnames/bind";
 import styles from "@/styles/detail.module.scss";
-import NavBar from "@/components/common/navBar/NavBar";
 
 const cn = classNames.bind(styles);
 
@@ -141,37 +142,35 @@ export default function DetailPage() {
   };
 
   const handleLoadNoticeDetail = async () => {
-    const { token } = getCookies();
-
-    const res = await instance.get(`shops/${s}/notices/${u}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await instance.get(`shops/${s}/notices/${u}`);
     setNoticeInfo(res.data.item);
     setShopInfo(res.data.item.shop.item);
   };
 
   const handleLoadNotice = async () => {
-    const res = await instance.get(`shops/${s}/notices`);
+    const res = await instance.get('notices');
     setCardList(res.data.items);
   };
 
   useEffect(() => {
-    if (s) {
+    if (u) {
       const stored = localStorage.getItem("watched");
       let watched = stored ? JSON.parse(stored) : [];
-      watched.unshift(s);
+      watched.unshift(u);
 
       const uniqueWatched = watched.filter((item: string, index: number) => watched.indexOf(item) === index);
       localStorage.setItem("watched", JSON.stringify(uniqueWatched));
       setWatchedItem(cardList.filter((card) => uniqueWatched.includes(card.item.id)).slice(0, 6));
     }
-  }, [s, cardList]);
+  }, [u, cardList]);
 
   useEffect(() => {
     handleLoadNotice();
     handleLoadNoticeDetail();
   }, []);
 
+  console.log(watchedItem)
+        
   return (
     <>
       <NavBar />
@@ -260,6 +259,7 @@ export default function DetailPage() {
           })}
         </div>
       </div>
+      <Footer />
     </>
   );
 }
