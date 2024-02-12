@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import classNames from "classnames/bind";
 import instance from "@/lib/axiosInstance";
 import Logo from "@/components/common/logo/Logo";
@@ -91,9 +92,9 @@ export default function SignupForm() {
   return (
     <div className={cn("signLayoutWrap")}>
       <div className={cn("signWrap")}>
-        <div className={cn("logoWarp")}>
+        <Link href={"/"} className={cn("logoWarp")}>
           <Logo size="large" />
-        </div>
+        </Link>
         <form onSubmit={handleSubmit(() => onSubmit(userInfo))} className={cn("formWrap")}>
           <div className={cn("inputWrap")}>
             <label htmlFor="email" className={cn("inputLabel")}>

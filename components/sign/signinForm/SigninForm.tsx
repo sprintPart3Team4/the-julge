@@ -3,10 +3,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useAuth } from "@/contexts/AuthProvider";
+import Link from "next/link";
 import Logo from "@/components/common/logo/Logo";
 import Button from "@/components/common/button/Button";
 import SignBottom from "@/components/sign/signBotton/SignBotton";
-
 import classNames from "classnames/bind";
 import Modal from "@/components/common/modal/Modal";
 
@@ -78,9 +78,9 @@ export default function SigninForm() {
   return (
     <div className={cn("signLayoutWrap")}>
       <div className={cn("signWrap")}>
-        <div className={cn("logoWarp")}>
+        <Link href={"/"} className={cn("logoWarp")}>
           <Logo size="large" />
-        </div>
+        </Link>
         <form onSubmit={handleSubmit(() => onSubmit(userInfo))} className={cn("formWrap")}>
           <div className={cn("inputWrap")}>
             <label htmlFor="email" className={cn("inputLabel")}>
