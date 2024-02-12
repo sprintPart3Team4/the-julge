@@ -68,19 +68,11 @@ export default function NoticeRegister() {
     setModal((prevState: ModalType) => ({ ...prevState, postFailModal: false }));
   }
 
-  const formatDate = (original: string) => {
-    return `${original}:00.000Z`;
-  };
-
   function submit(e: FormEvent): void {
     e.preventDefault();
+    console.log(inputState);
 
-    const body: StateType = {
-      ...inputState,
-      startsAt: formatDate(inputState.startsAt),
-    };
-
-    usePostNotice(body, setModal);
+    usePostNotice(inputState, setModal);
   }
 
   return (

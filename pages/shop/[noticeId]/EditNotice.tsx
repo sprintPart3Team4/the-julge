@@ -51,7 +51,7 @@ export default function EditNotice() {
       try {
         const reloadedData = await useReloadNotice(shopId, token, noticeId);
         setInputState((prevState: StateType) => ({ ...prevState, hourlyPay: reloadedData.hourlyPay }));
-        setInputState((prevState: StateType) => ({ ...prevState, startsAt: reformatDate(reloadedData.startsAt) }));
+        setInputState((prevState: StateType) => ({ ...prevState, startsAt: reloadedData.startsAt }));
         setInputState((prevState: StateType) => ({ ...prevState, workhour: reloadedData.workhour }));
         setInputState((prevState: StateType) => ({ ...prevState, description: reloadedData.description }));
       } catch (error) {
@@ -62,15 +62,8 @@ export default function EditNotice() {
     reload();
   }, []);
 
-  //:00.000Z
-
-  const reformatDate = (original: string) => {
-    return original.replace(":00.000Z", "");
-  };
-
   function setState(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     const value = e.target.value;
-    console.log(value);
     const property = e.target.id;
     setInputState((prevState: StateType) => ({ ...prevState, [property]: value }));
   }
@@ -97,6 +90,8 @@ export default function EditNotice() {
 
   function submit(e: FormEvent): void {
     e.preventDefault();
+    console.log(inputState);
+    console.log(`hourlyPay type: ${typeof inputState.hourlyPay}`);
 
     useEditNotice(inputState, shopId, noticeId, token, setModal);
   }
