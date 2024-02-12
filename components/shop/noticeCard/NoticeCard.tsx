@@ -52,7 +52,7 @@ const NoticeCard = React.forwardRef(
               <span>{address1}</span>
             </div>
             <div className={cn("pays")}>
-              <span className={cn("pay")}>{hourlyPay.toLocaleString("ko-KR")}원</span>
+              <span className={cn("pay")}>{Number(hourlyPay).toLocaleString("ko-KR")}원</span>
               <HighPayRateBadge
                 isListedCard
                 closed={closed}
