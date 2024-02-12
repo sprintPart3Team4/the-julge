@@ -127,7 +127,11 @@ export default function Notices({ keyword }: Props) {
           </FilterDropBoxShell>
         </div>
       </div>
-      <NoticeCardList noticeList={noticeList} />
+      {noticeList.length ? (
+        <NoticeCardList noticeList={noticeList} />
+      ) : (
+        <div className={cn("noResult")}>검색 결과가 없습니다</div>
+      )}
       <Pagenation
         numberOfTotalData={count}
         limitPerSinglePage={LIMIT_PER_SINGLE_PAGE}
