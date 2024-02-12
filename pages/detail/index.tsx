@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import NavBar from "@/components/common/navBar/NavBar";
+import Footer from "@/components/common/footer/Footer";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
 import MainTitle from "@/components/common/titleBox/mainTitle/MainTitle";
 import Title from "@/components/common/titleBox/title/Title";
@@ -13,7 +15,6 @@ import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 import classNames from "classnames/bind";
 import styles from "@/styles/detail.module.scss";
-import NavBar from "@/components/common/navBar/NavBar";
 
 const cn = classNames.bind(styles);
 
@@ -260,6 +261,7 @@ export default function DetailPage() {
           })}
         </div>
       </div>
+      <Footer />
     </>
   );
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 
 import NavBar from "@/components/common/navBar/NavBar";
+import Footer from "@/components/common/footer/Footer";
 import Title from "@/components/common/titleBox/title/Title";
 import NoticeContent from "@/components/shopNoticePage/noticeContent/NoticeContent";
 import NoticeDescription from "@/components/shopNoticePage/noticeDescription/NoticeDescription";
@@ -96,6 +97,7 @@ export default function NoticeDetailPage() {
       ) : (
         <div className={cn("noApplication")}>아직 지원자가 없습니다.</div>
       )}
+      <Footer />
     </div>
   );
 }
