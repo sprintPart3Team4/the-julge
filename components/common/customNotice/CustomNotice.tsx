@@ -11,8 +11,11 @@ const cn = classNames.bind(styles);
 interface Item {
   id: string;
   hourlyPay: number;
+  startsAt: string;
   workhour: number;
-  descriptio: string;
+  description: string;
+  closed: boolean;
+  shop: any;
 }
 
 interface Cookie {
@@ -22,15 +25,17 @@ interface Cookie {
 
 export default function CustomNotice() {
   const [customList, setCustomList] = useState<Array<Item>>([]);
-  const [cookie, setCookie] = useState<Cookie>({shopId: undefined, userId: undefined});
+  const [cookie, setCookie] = useState<Cookie>({ shopId: undefined, userId: undefined });
+  const speed = customList.length < 4 ? "active" : "";
 
   useEffect(() => {
     const { shopId, userId } = getCookies();
-    setCookie((prevState: Cookie) => ({...prevState, shopId: shopId, userId: userId}))
+    setCookie((prevState: Cookie) => ({ ...prevState, shopId: shopId, userId: userId }));
 
     async function showCarousel() {
       if (userId && !shopId) {
-        await useDobbyCustomList(setCustomList, userId);
+        const data = await useDobbyCustomList(setCustomList, userId);
+        data.length === 0 ? useNotDobbyCustomList(setCustomList) : {};
       } else {
         await useNotDobbyCustomList(setCustomList);
       }
@@ -43,7 +48,7 @@ export default function CustomNotice() {
     <div className={cn("wrap")}>
       <div className={cn("contentWrap")}>
         <p className={cn("title")}>맞춤 공고</p>
-        <div className={cn("noticeCardList")}>
+        <div className={cn("noticeCardList", { active: speed })}>
           {customList.map((card: any, index: number) => {
             return (
               <div className={cn("noticeCardBox")} key={index}>
