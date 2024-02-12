@@ -62,12 +62,15 @@ export default function EditNotice() {
     reload();
   }, []);
 
+  //:00.000Z
+
   const reformatDate = (original: string) => {
     return original.replace(":00.000Z", "");
   };
 
   function setState(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     const value = e.target.value;
+    console.log(value);
     const property = e.target.id;
     setInputState((prevState: StateType) => ({ ...prevState, [property]: value }));
   }
@@ -113,7 +116,7 @@ export default function EditNotice() {
       {modal.askCloseModal && (
         <Modal>
           <Modal.YesOrNo
-            text="편집을 취소하시겠어요?"
+            text="취소하시겠어요?"
             yesButtonText="취소하기"
             setIsModalOpen={deActivateAskCloseModal}
             handleYesButtonClick={movementToDetail}

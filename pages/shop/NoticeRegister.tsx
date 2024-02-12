@@ -69,7 +69,7 @@ export default function NoticeRegister() {
   }
 
   const formatDate = (original: string) => {
-    return `${original}:00Z`;
+    return `${original}:00.000Z`;
   };
 
   function submit(e: FormEvent): void {
@@ -77,8 +77,8 @@ export default function NoticeRegister() {
 
     const body: StateType = {
       ...inputState,
-      startsAt: formatDate(inputState.startsAt)
-    }
+      startsAt: formatDate(inputState.startsAt),
+    };
 
     usePostNotice(body, setModal);
   }
