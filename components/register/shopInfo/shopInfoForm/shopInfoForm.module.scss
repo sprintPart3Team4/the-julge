@@ -4,7 +4,15 @@
   color: $color-gray-40;
 }
 
-.wrapper { 
+@mixin imageBox {
+  position: static;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  transform: none;
+}
+
+.wrapper {
   padding: 6rem 0;
   background-color: $color-gray-5;
 }
@@ -27,17 +35,17 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  p {
+    line-height: 1.7rem;
+  }
 }
 
 .inputBox {
   width: 100%;
 
-  @include tablet {
-    width: calc(50% - 20px);
-  }
-
   & + & {
-    margin: 2rem 0 0;
+    margin: 2.4rem 0 0;
 
     @include tablet {
       margin: 0;
@@ -50,139 +58,8 @@
     }
   }
 
-  &.active ul {
-    visibility: visible;
-    height: 23rem;
-  }
-
-  &.active .option .dropdownOpen {
-    transform: translateY(-50%) rotate(180deg);
-  }
-
-  .title {
-    display: block;
-    margin-bottom: 0.8rem;
-    color: $color-black;
-    line-height: 2.6rem;
-  }
-
-  input[type="text"],
-  input[type="number"] {
-    width: 100%;
-    padding: 1.6rem 2rem;
-    outline: none;
-    line-height: 2.6rem;
-    color: $color-black;
-    border-radius: 0.6rem;
-    border: 1px solid $color-gray-30;
-
-    &::placeholder {
-      @include placeholder();
-    }
-
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  }
-
-  .wrap {
-    position: relative;
-
-    .floatingText {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 2rem;
-
-      line-height: 2.6rem;
-      color: $color-black;
-    }
-  }
-
-  .option {
-    display: block;
-    position: relative;
-    padding: 1.6rem 2rem;
-    line-height: 2.6rem;
-    color: $color-gray-40;
-    border-radius: 0.6rem;
-    border: 1px solid $color-gray-30;
-    cursor: pointer;
-    background-color: $color-white;
-
-    &.active {
-      color: $color-black;
-    }
-
-    .dropdownOpen {
-      display: block;
-      position: absolute;
-      top: 50%;
-      right: 2rem;
-      transform: translateY(-50%);
-      width: 1.6rem;
-      height: 1.6rem;
-      background: url("~/public/images/dropdown_open.svg") no-repeat center;
-      overflow: hidden;
-      text-indent: 100%;
-      white-space: nowrap;
-      transition: transform 0.5s;
-    }
-  }
-
-  ul {
-    list-style-type: none;
-    margin: 0.8rem 0 0;
-    padding: 0;
-    height: 0;
-    border-radius: 0.6rem;
-    border: 1px solid $color-gray-20;
-    overflow-y: scroll;
-    box-shadow: 0px 4px 25px 0px #0000001a;
-    visibility: hidden;
-    transition: visibility 0.5s, height 0.5s;
-    background-color: $color-white;
-
-    &::-webkit-scrollbar {
-      width: 0.4rem;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      border-radius: 4rem;
-      background-color: $color-gray-50;
-    }
-
-    li {
-      padding: 1.2rem 0;
-      font-size: 1.4rem;
-      line-height: 2.2rem;
-      color: $color-black;
-      text-align: center;
-      border-bottom: 1px solid $color-gray-20;
-      cursor: pointer;
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-  }
-
-  .desc {
-    resize: none;
-    outline: none;
-    width: 100%;
-    height: 15.3rem;
-    padding: 1.6rem 2rem;
-    border-radius: 0.6rem;
-    border: 1px solid $color-gray-30;
-    line-height: 2.6rem;
-    color: $color-black;
-
-    &::placeholder {
-      @include placeholder();
-    }
+  @include tablet {
+    width: calc(50% - 20px);
   }
 }
 
@@ -194,7 +71,12 @@
     margin: 2.4rem 0 0;
   }
 
+  .title {
+    margin: 0 0 0.8rem 0;
+  }
+
   .wrap {
+    position: relative;
     width: 100%;
     height: 27.6rem;
     border-radius: 1.2rem;
@@ -208,21 +90,66 @@
 
     &.active {
       border: none;
+
+      .ImageBox {
+        @include imageBox();
+      }
+
+      .label {
+        img {
+          border-radius: 1.2rem;
+        }
+
+        span {
+          display: none;
+        }
+      }
     }
 
-    &.active .label span {
-      display: none;
-    }
+    &.edit .label {
+      position: relative;
 
-    &.active .cameraImage {
-      position: static;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      transform: none;
-
-      img {
+      &::after {
+        display: block;
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.7;
         border-radius: 1.2rem;
+        background-color: #000000b2;
+      }
+
+      span {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin: 1rem 0 0;
+        z-index: 1;
+        color: $color-white;
+
+        &::after {
+          content: "";
+          display: block;
+          width: 3.2rem;
+          height: 3.2rem;
+          position: absolute;
+          left: 50%;
+          top: -3.9rem;
+          transform: translateX(-50%);
+          background: url("~/public/images/camera_edit.svg") no-repeat;
+        }
+      }
+
+      .ImageBox {
+        @include imageBox();
+
+        img {
+          border-radius: 1.2rem;
+        }
       }
     }
 
@@ -243,7 +170,7 @@
       }
     }
 
-    .cameraImage {
+    .ImageBox {
       position: relative;
       left: 50%;
       transform: translateX(-50%);
@@ -255,15 +182,6 @@
 
   input[type="file"] {
     display: none;
-  }
-}
-
-.inputBox.textarea {
-  width: 100%;
-  margin: 2rem 0 0;
-
-  @include desktop {
-    margin: 2.4rem 0 0;
   }
 }
 

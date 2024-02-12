@@ -46,13 +46,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     });
     const { token, user } = res.data.item;
 
-    const id = await getMe(user.item.id);
-
-    const shopId = id ?? "";
+    const shopId = await getMe(user.item.id);
 
     document.cookie = `token=${token}`;
     document.cookie = `userId=${user.item.id}`;
-    document.cookie = `shopId=${shopId}`;
+
+    if (shopId) {
+      document.cookie = `shopId=${shopId}`;
+    }
   };
 
   const logout = async () => {
@@ -89,6 +90,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       ...prev,
       shop: res.data.item,
     }));
+
+    const shopId = res.data.item.id;
+    document.cookie = `shopId=${shopId}`;
   };
 
   const updateShop = async (formData: Shop) => {

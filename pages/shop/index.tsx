@@ -1,17 +1,18 @@
+import { useRouter } from "next/router";
+import { useState } from "react";
 import Footer from "@/components/common/footer/Footer";
+import NavBar from "@/components/common/navBar/NavBar";
 import NoticeRegister from "@/components/register/notice/NoticeRegister/NoticeRegister";
-import ShopInfoForm from "@/components/register/shopInfo/shopInfoForm/shopInfoForm";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
 import RegisterSuggestion from "@/components/shop/registerSuggestion/RegisterSuggestion";
 import ShopPageLayout from "@/components/shop/shopPageLayout/ShopPageLayout";
-import { useState } from "react";
 
 export default function ShopPage() {
-  const [isInfoRegisterOpen, setIsInfoRegisterOpen] = useState<boolean>(false);
   const [isNoticeRegisterOpen, setIsNoticeRegisterOpen] = useState<boolean>(false);
+  const router = useRouter();
 
-  const toggleInfoOpen = () => {
-    setIsInfoRegisterOpen(!isInfoRegisterOpen);
+  const handleEditClick = () => {
+    router.push("/edit");
   };
 
   const toggleNoticeOpen = () => {
@@ -20,21 +21,8 @@ export default function ShopPage() {
 
   return (
     <>
-      {isInfoRegisterOpen ? (
-        <ShopInfoForm toggleInfoOpen={toggleInfoOpen} />
-      ) : isNoticeRegisterOpen ? (
-        <NoticeRegister toggleNoticeOpen={toggleNoticeOpen} />
-      ) : (
-        <>
-          <ShopPageLayout
-            hasShop
-            hasNotice
-            toggleInfoOpen={toggleInfoOpen}
-            toggleNoticeOpen={toggleNoticeOpen}
-          />
-          <Footer />
-        </>
-      )}
+      <ShopPageLayout hasShop hasNotice handleEditClick={handleEditClick} toggleNoticeOpen={toggleNoticeOpen} />
+      <Footer />
     </>
   );
 }

@@ -15,8 +15,7 @@ export interface InputProps {
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   floatingText?: string;
   placeholder?: string;
-  value?: string;
-}
+  value?: string | number;
 
 export default function Input({ label, title, input, value, onChange, floatingText, placeholder }: InputProps) {
   return (
