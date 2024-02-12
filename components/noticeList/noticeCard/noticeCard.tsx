@@ -33,7 +33,6 @@ export default function NoticeCard({
   workhour,
   hourlyPay,
   closed,
-  isPast,
   noticeShopId,
   myShopId,
   imageUrl,
@@ -43,6 +42,12 @@ export default function NoticeCard({
 }: Props) {
   const query = `?s=${noticeShopId}&u=${noticeId}`;
   const href = noticeShopId === myShopId ? `shop/${noticeId}` : `detail${query}`;
+
+  const registeredDate = new Date(startsAt);
+  const today = new Date();
+  const diff = +today - +registeredDate;
+  const resultDate = Math.floor(+diff / (1000 * 60 * 60 * 24) + 1);
+  const isPast = resultDate > 0 ? true : false;
 
   return (
     <Link href={href}>
