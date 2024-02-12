@@ -22,13 +22,12 @@ export default function NoticeDetailPage() {
   const router = useRouter();
   const { noticeId } = router.query;
   const { shop } = useAuth();
+  console.log(router);
 
   const [noticeInfo, setNoticeInfo] = useState<NoticeDetail>();
   const [applicationList, setAppliacationList] = useState<ApplicationList>();
   const [numberOfTotalApplication, setNumberOfTotalApplication] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-
-  const [isEditPageOpen, setIsEditPageOpen] = useState(false);
 
   const LIMIT_PER_SINGLE_PAGE = 5; // 한 페이지에 보여줄 데이터의 개수
   const LIMIT_PER_PAGE_GROUP = 5; // 한 번에 보여줄 페이지 번호의 개수
@@ -60,7 +59,9 @@ export default function NoticeDetailPage() {
   };
 
   // 나중에 현수님이 작업하신 페이지 가져오기
-  const handleEditPageOpen = () => setIsEditPageOpen(true);
+  const handleEditPageOpen = () => {
+    router.push(`${noticeId}/EditNotice`);
+  };
 
   return (
     <div>
@@ -74,7 +75,7 @@ export default function NoticeDetailPage() {
             </Title>
           </div>
           <NoticeContent shop={shop} noticeInfo={noticeInfo} handleButtonClick={handleEditPageOpen} />
-          <NoticeDescription noticeDescription={shop.description} />
+          <NoticeDescription noticeDescription={noticeInfo.description} />
         </section>
       </div>
       {applicationList ? (

@@ -27,7 +27,8 @@ const NoticeCard = React.forwardRef(
     const { shop } = useAuth();
     const noticeId = id;
 
-    if (!shop) return;
+    if (!shop) return null; // 수정된 부분
+
     const { imageUrl, name, address1, originalHourlyPay } = shop;
 
     return (
@@ -60,9 +61,10 @@ const NoticeCard = React.forwardRef(
               />
             </div>
           </div>
-        </div>
+        </div>{" "}
+        {/* 수정된 부분 */}
       </Link>
-    );
+    ); // 수정된 부분
   }
 );
 

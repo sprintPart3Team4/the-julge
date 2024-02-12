@@ -1,6 +1,6 @@
 @use "@/styles/variables.scss" as *;
 
-.noticeData {
+.box {
   position: relative;
   display: flex;
   width: 100%;
@@ -12,24 +12,18 @@
     -webkit-appearance: none;
     margin: 0;
   }
-
-  .InputBox {
-    position: relative;
-    display: flex;
-    width: 100%;
-    height: 6.2rem;
-    justify-content: space-between;
-    border-radius: 0.6rem;
-    padding: 1.6rem 2rem;
-    border: 1px solid $color-gray-30;
-    background: $color-white;
+  .title {
+    line-height: 2.6rem;
   }
 
-  .noticeInput {
-    display: flex;
-    border: none;
+  .dataInput {
     outline: none;
-    width: 85%;
+    width: 100%;
+    height: 6rem;
+    border-radius: 0.6rem;
+    padding: 1rem 2rem;
+    border: 1px solid $color-gray-30;
+    background: $color-white;
   }
 
   .floatingText {
@@ -37,19 +31,7 @@
     position: absolute;
     width: 3rem;
     height: 2.6rem;
-    right: 1rem;
-    top: 2rem;
-  }
-}
-
-@include tablet {
-  .noticeData {
-    width: 48%;
-  }
-}
-
-@include desktop {
-  .noticeData {
-    width: 30.8rem;
+    right: 1.2rem;
+    top: 4.5rem;
   }
 }
