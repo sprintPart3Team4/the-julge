@@ -14,7 +14,7 @@ type Props = {
 
 type Card = {
   item: {
-    id: string;
+    id?: string;
     hourlyPay: number;
     startsAt: string;
     workhour: number;

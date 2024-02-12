@@ -19,7 +19,7 @@ type Props = {
   hourlyPay: number;
   closed?: boolean;
   isPast?: boolean;
-  noticeShopId: string | undefined;
+  noticeShopId?: string | undefined;
   myShopId?: string;
   imageUrl: string;
   name: string;
@@ -51,7 +51,6 @@ export default function NoticeCard({
           <div className={cn("imageHeight")}>
             {closed && <div className={cn("imgOverlay")}>마감 완료</div>}
             {isPast && <div className={cn("imgOverlay")}>지난 공고</div>}
-
             <Image className={cn("image")} src={imageUrl} alt="가게 이미지" fill />
           </div>
         </div>

@@ -14,7 +14,7 @@ import styles from "./NoticeCard.module.scss";
 const cn = classNames.bind(styles);
 
 type Props = {
-  id: string;
+  id?: string;
   startsAt: string;
   workhour: number;
   hourlyPay: number;
