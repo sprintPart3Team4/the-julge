@@ -42,12 +42,33 @@ export default function NoticeCard({
   const query = `?s=${noticeShopId}&u=${noticeId}`;
   const href = noticeShopId === myShopId ? `shop/${noticeId}` : `detail${query}`;
 
+  const getNoticeList = async (): Promise<NoticeItem[]> => {
+    const res = await instance.get(`shops/${shopId}/notices`);
+    return res.data.items;
+  };
+
+  useEffect(() => {
+    if (!user) {
+      setHref(`detail${query}`); // 로그인 하지 않은 유저
+    } else if (shopId) {
+      getNoticeList().then((res) => {
+        if (res.some((notice) => notice.item.id === noticeId))
+          setHref(`shop/${noticeId}`); // 가게 등록을 한 사장님 자신의 공고일 때
+        else setHref(`detail${query}`); // 가게 등록을 했지만 자신의 공고가 아닐 때
+      });
+    } else {
+      setHref(`detail${query}`);
+    } // 일반 유저 or 가게 등록을 하지 않은 사장님
+  }, []);
+
   return (
     <Link href={href}>
-      <div className={cn("wrap", { closed })}>
+      <div className={cn("wrap", { closed, isPast })}>
         <div className={cn("imageWidth")}>
           <div className={cn("imageHeight")}>
             {closed && <div className={cn("imgOverlay")}>마감 완료</div>}
+            {isPast && <div className={cn("imgOverlay")}>지난 공고</div>}
+
             <Image className={cn("image")} src={imageUrl} alt="가게 이미지" fill />
           </div>
         </div>
@@ -72,6 +93,6 @@ export default function NoticeCard({
           </div>
         </div>
       </div>
-    </Link>
+    </Link>;
   );
 }
