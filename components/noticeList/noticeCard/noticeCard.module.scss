@@ -75,9 +75,12 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 0.2rem;
+    height: 4.7rem;
 
     @include tablet {
       flex-direction: row;
+      align-items: center;
+      height: 4.4rem;
     }
   }
 

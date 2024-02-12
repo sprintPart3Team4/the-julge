@@ -1,4 +1,5 @@
 import classNames from "classnames/bind";
+import { useRouter } from "next/router";
 import { useAuth } from "@/contexts/AuthProvider";
 import Image from "next/image";
 import Button from "@/components/common/button/Button";
@@ -9,15 +10,16 @@ const cn = classNames.bind(styles);
 
 type Prop = {
   handleEditClick?: () => void;
-  toggleNoticeOpen: () => void;
+  handleRegisterClick?: () => void;
 };
 
 export default function MyShopProfile({
   handleEditClick,
-  toggleNoticeOpen,
+  handleRegisterClick,
 }: Prop) {
 
   const { shop } = useAuth();
+  const router = useRouter();
 
   if (!shop) return;
   const { imageUrl, name, category, address1, description } = shop;
@@ -57,7 +59,7 @@ export default function MyShopProfile({
             text="공고 등록하기"
             size="flexible"
             color="primary"
-            handleButtonClick={toggleNoticeOpen}
+            handleButtonClick={handleRegisterClick}
           ></Button>
         </div>
       </div>

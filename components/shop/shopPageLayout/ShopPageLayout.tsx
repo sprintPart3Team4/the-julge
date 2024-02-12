@@ -10,16 +10,21 @@ type ShopPageLayoutProps = {
   hasShop?: boolean;
   hasNotice?: boolean;
   handleEditClick?: () => void;
-  toggleNoticeOpen: () => void;
+  handleRegisterClick?: () => void;
 };
 
-export default function ShopPageLayout({ hasShop, hasNotice, handleEditClick, toggleNoticeOpen }: ShopPageLayoutProps) {
+export default function ShopPageLayout({
+  hasShop,
+  hasNotice,
+  handleEditClick,
+  handleRegisterClick,
+}: ShopPageLayoutProps) {
   return (
     <div className={cn("wrap")}>
       <section>
         <h2>내 가게</h2>
         {hasShop ? (
-          <MyShopProfile handleEditClick={handleEditClick} toggleNoticeOpen={toggleNoticeOpen} />
+          <MyShopProfile handleEditClick={handleEditClick} handleRegisterClick={handleRegisterClick} />
         ) : (
           <RegisterSuggestion type="shop" />
         )}
