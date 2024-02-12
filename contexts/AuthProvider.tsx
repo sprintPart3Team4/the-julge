@@ -17,6 +17,7 @@ type Values = {
 };
 
 export function AuthProvider({ children }: AuthProviderProps) {
+  const router = useRouter();
   const [values, setValues] = useState<Values>({
     user: null,
     shop: null,
@@ -57,7 +58,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   };
 
-  const logout = async () => {
+  const logout = () => {
+    router.push("/");
+
     deleteCookie("shopId");
     deleteCookie("userId");
     deleteCookie("token");

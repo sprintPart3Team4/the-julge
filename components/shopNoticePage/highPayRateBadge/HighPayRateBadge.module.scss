@@ -72,13 +72,15 @@
   }
 }
 
-.closed {
+.closed,
+.isPast {
   .percentage {
     color: $color-gray-20;
   }
 
   @include tablet {
     background-color: $color-gray-20;
+
     .percentage {
       color: $color-white;
     }

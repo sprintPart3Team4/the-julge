@@ -11,3 +11,10 @@ export const MESSAGE_TYPE = {
   user: "내 프로필을 등록하고 원하는 가게에 지원해 보세요.",
   apply: "아직 신청 내역이 없어요.",
 };
+
+export const LINK = {
+  shop: "/shopRegister",
+  notice: "/noticeRegister",
+  user: "/profile/edit",
+  apply: "/",
+};

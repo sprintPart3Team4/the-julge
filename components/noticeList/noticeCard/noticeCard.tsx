@@ -33,7 +33,6 @@ export default function NoticeCard({
   workhour,
   hourlyPay,
   closed,
-  isPast,
   noticeShopId,
   myShopId,
   imageUrl,
@@ -43,6 +42,10 @@ export default function NoticeCard({
 }: Props) {
   const query = `?s=${noticeShopId}&u=${noticeId}`;
   const href = noticeShopId === myShopId ? `shop/${noticeId}` : `detail${query}`;
+
+  const currentDate = new Date();
+  const endDate = new Date(startsAt);
+  const isPast = currentDate > endDate;
 
   return (
     <Link href={href}>
@@ -57,11 +60,11 @@ export default function NoticeCard({
         <div className={cn("contents")}>
           <span className={cn("shopName")}>{name}</span>
           <div className={cn("time")}>
-            <Image src={closed ? GreyClockIcon : ClockIcon} alt="시계 아이콘" width={20} height={20} />
+            <Image src={closed || isPast ? GreyClockIcon : ClockIcon} alt="시계 아이콘" width={20} height={20} />
             <span>{getFullDate(startsAt, workhour)}</span>
           </div>
           <div className={cn("location")}>
-            <Image src={closed ? GreyLocationIcon : LocationIcon} alt="장소 아이콘" width={20} height={20} />
+            <Image src={closed || isPast ? GreyLocationIcon : LocationIcon} alt="장소 아이콘" width={20} height={20} />
             <span>{address1}</span>
           </div>
           <div className={cn("pays")}>
@@ -69,6 +72,7 @@ export default function NoticeCard({
             <HighPayRateBadge
               isListedCard
               closed={closed}
+              isPast={isPast}
               hourlyPay={hourlyPay}
               originalHourlyPay={originalHourlyPay || 0}
             />

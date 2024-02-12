@@ -21,16 +21,18 @@ function getTime(date: Date, workhour: number) {
 
 // 2024-02-14 13:00~18:00 (5시간)
 export function getFullDate(sourceDate: string, workhour: number) {
-  const date = new Date(new Date(sourceDate).getTime() + OFFSET);
+  const date = new Date(new Date(sourceDate).getTime() - OFFSET);
+  const workhourNumber = workhour * 1;
 
-  return `${getDate(date)} ${getTime(date, workhour)} (${workhour}시간)`;
+  return `${getDate(date)} ${getTime(date, workhourNumber)} (${workhourNumber}시간)`;
 }
 
 // 2024-02-14 13:00~18:00
 export function getWorkingDate(sourceDate: string, workhour: number) {
-  const date = new Date(new Date(sourceDate).getTime() + OFFSET);
+  const date = new Date(new Date(sourceDate).getTime() - OFFSET);
+  const workhourNumber = workhour * 1;
 
-  return `${getDate(date)} ${getTime(date, workhour)}`;
+  return `${getDate(date)} ${getTime(date, workhourNumber)}`;
 }
 
 export function getToday() {

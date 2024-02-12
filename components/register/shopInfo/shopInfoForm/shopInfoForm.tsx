@@ -66,7 +66,7 @@ export default function ShopInfoForm({...shop}) {
   };
 
   useEffect(() => {
-    if (!formValues.name && shop.name) {
+    if (!formValues.imageUrl && shop.name) {
       setFormValues(shop as FormValues);
     }
   }, [shop]);

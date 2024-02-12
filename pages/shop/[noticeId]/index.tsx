@@ -9,6 +9,7 @@ import NoticeContent from "@/components/shopNoticePage/noticeContent/NoticeConte
 import NoticeDescription from "@/components/shopNoticePage/noticeDescription/NoticeDescription";
 import Applications from "@/components/shopNoticePage/applications/Applications";
 import Pagenation from "@/components/shopNoticePage/pagenation/Pagenation";
+import Loading from "@/components/common/loading/Loading";
 
 import { useAuth } from "@/contexts/AuthProvider";
 import { getApplicationList, getNotice } from "@/lib/shopNoticePage";
@@ -22,7 +23,6 @@ export default function NoticeDetailPage() {
   const router = useRouter();
   const { noticeId } = router.query;
   const { shop } = useAuth();
-  console.log(router);
 
   const [noticeInfo, setNoticeInfo] = useState<NoticeDetail>();
   const [applicationList, setAppliacationList] = useState<ApplicationList>();
@@ -44,7 +44,7 @@ export default function NoticeDetailPage() {
   }, [shop]);
 
   // 유저가 잘못된 경로로 들어오면, 아래의 로딩 중이 아닌, 에러 발생 -> 나중에 404 페이지 만들기?
-  if (!shop || typeof noticeId !== "string" || isLoading || !noticeInfo) return <div>로딩 중</div>;
+  if (!shop || typeof noticeId !== "string" || isLoading || !noticeInfo || !applicationList) return <Loading />;
 
   const handleChangeData = (pageNumber: number) => {
     if (!shop.id) return;
@@ -78,7 +78,7 @@ export default function NoticeDetailPage() {
           <NoticeDescription noticeDescription={noticeInfo.description} />
         </section>
       </div>
-      {applicationList ? (
+      {applicationList?.length !== 0 ? (
         <section className={cn("applicationWrap")}>
           <Title>
             <Title.MainTitle mainTitle="신청자 목록" />

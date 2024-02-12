@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import NoticeCard from "@/components/noticeList/noticeCard/noticeCard";
 import NavBar from "@/components/common/navBar/NavBar";
 import Footer from "@/components/common/footer/Footer";
-import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
 import MainTitle from "@/components/common/titleBox/mainTitle/MainTitle";
 import Title from "@/components/common/titleBox/title/Title";
 import NoticeDescription from "@/components/shopNoticePage/noticeDescription/NoticeDescription";
@@ -20,6 +20,7 @@ const cn = classNames.bind(styles);
 
 type Card = {
   item: {
+    shop: any;
     id: string;
     hourlyPay: number;
     startsAt: string;
@@ -73,28 +74,18 @@ export default function DetailPage() {
   const router = useRouter();
   const { s } = router.query;
   const { u } = router.query;
+  const { userId } = getCookies();
 
   const isClosed = noticeInfo.closed ? "active" : "";
   const buttonType = isFinished ? "취소하기" : "신청하기";
   const buttonColor = isFinished ? "secondary" : "primary";
-  let isPast: boolean;
-
-  cardList.map((card) => {
-    const registeredDate = new Date(card.item.startsAt);
-    const today = new Date();
-    const diff = +today - +registeredDate;
-
-    const resultDate = Math.floor(+diff / (1000 * 60 * 60 * 24) + 1);
-
-    isPast = resultDate > 0 ? true : false;
-  });
 
   const status = {
     status: "canceled",
   };
 
   const handleRegisterClick = () => {
-    !user ? setIsModalOpen(true) : handleApply();
+    !user?.address ? setIsModalOpen(true) : handleApply();
   };
 
   const handleModalOpen = () => {
@@ -108,20 +99,15 @@ export default function DetailPage() {
   };
 
   const handleButtonClick = () => {
-    const { userId } = getCookies();
-
     if (userType === "employer") {
       handleModalOpen();
     }
 
     if (isUser === undefined) {
       handleModalOpen();
-    } else {
+    } else if (isUser !== undefined && userType === "employee") {
       isFinished ? handleModalOpen() : handleRegisterClick();
     }
-
-    setUserType(user !== null ? user.type : "");
-    setIsUser(userId);
   };
 
   const handleCancelApply = async () => {
@@ -148,7 +134,7 @@ export default function DetailPage() {
   };
 
   const handleLoadNotice = async () => {
-    const res = await instance.get('notices');
+    const res = await instance.get("notices?limit=100");
     setCardList(res.data.items);
   };
 
@@ -167,10 +153,14 @@ export default function DetailPage() {
   useEffect(() => {
     handleLoadNotice();
     handleLoadNoticeDetail();
+    setUserType(user !== null ? user.type : "");
+    setIsUser(userId);
   }, []);
 
-  console.log(watchedItem)
-        
+  const currentDate = new Date();
+  const endDate = new Date(noticeInfo.startsAt);
+  const isPast = currentDate > endDate;
+
   return (
     <>
       <NavBar />
@@ -184,9 +174,9 @@ export default function DetailPage() {
           </div>
           <div className={cn("panelContainer")}>
             <Panel>
-              <div className={cn("imgWrap", { active: isClosed })}>
+              <div className={cn("imgWrap", { active: isClosed , past: isPast})}>
                 <Panel.Thumbnail src={shopInfo.imageUrl} alt={shopInfo.imageUrl} />
-                <span>마감 완료</span>
+                <span>{isPast ? "지난 공고" : "마감 완료"}</span>
               </div>
               <div className={cn("contentContainer")}>
                 <div className={cn("content")}>
@@ -204,7 +194,7 @@ export default function DetailPage() {
                   <Panel.Address address={shopInfo.address1} isClosed={false} />
                   <Panel.shopDescription description={shopInfo.description} />
                 </div>
-                {noticeInfo.closed ? (
+                {noticeInfo.closed || isPast ? (
                   <Button text="신청 불가" size="flexible" color="disabled" />
                 ) : (
                   <Button text={buttonType} size="flexible" color={buttonColor} handleButtonClick={handleButtonClick} />
@@ -253,7 +243,12 @@ export default function DetailPage() {
                 workhour={card.item.workhour}
                 hourlyPay={card.item.hourlyPay}
                 closed={noticeInfo.closed ? true : false}
-                isPast={isPast}
+                noticeId={card.item.id}
+                noticeShopId={card.item.shop.id}
+                imageUrl={card.item.shop.item.imageUrl}
+                name={card.item.shop.item.name}
+                address1={card.item.shop.item.address1}
+                originalHourlyPay={card.item.shop.item.originalHourlyPay}
               />
             );
           })}
