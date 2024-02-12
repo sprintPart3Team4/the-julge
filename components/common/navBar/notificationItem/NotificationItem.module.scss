@@ -17,12 +17,16 @@
   font-size: 1.4rem;
   line-height: 2.2rem;
 
-  .approved {
+  .accepted {
     color: $color-blue-20;
   }
 
   .rejected {
     color: $color-red-40;
+  }
+
+  .canceled {
+    color: $color-gray-40;
   }
 }
 

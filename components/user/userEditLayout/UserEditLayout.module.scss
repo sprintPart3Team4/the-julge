@@ -1,0 +1,32 @@
+@use "@/styles/variables.scss" as *;
+
+.Wrap {
+  padding: 4rem 0;
+
+  @include tablet {
+    padding: 6rem 0;
+  }
+}
+
+.titleWrap {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 $mobile-safezone;
+  margin-bottom: 1.6 rem;
+
+  @include tablet {
+    padding: 0 $tablet-safezone;
+    margin-bottom: 2.4rem;
+  }
+  @include desktop {
+    width: 96.4rem;
+    margin: 0 auto 2.4rem;
+    padding: 0;
+  }
+}
+
+.titleBox {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.056rem;
+}

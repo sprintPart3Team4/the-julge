@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 import ConfirmModal from "./confirmModal/ConfirmModal";
 import WarningModal from "./warningModal/WarningModal";
 import YesOrNoModal from "./yesOrNoModal/YesOrNoModal";
+import WarningConfirmModal from "./warningConfirmModal/warningConfirmModal";
 
 import styles from "./Modal.module.scss";
 
@@ -19,3 +20,4 @@ export default function Modal({ children }: Props) {
 Modal.Confirm = ConfirmModal;
 Modal.Warning = WarningModal;
 Modal.YesOrNo = YesOrNoModal;
+Modal.WarningConfirm = WarningConfirmModal;
