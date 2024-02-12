@@ -8,13 +8,16 @@ import styles from "./ShopInfoForm.module.scss";
 
 const cn = classNames.bind(styles);
 
-export default function FileInput({ setFormValues }: FileInput) {
+export default function FileInput({ setFormValues, value }: FileInput) {
   const [preview, setPreview] = useState<string>(CarmeraIcon);
   const [fileValue, setFileValue] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string>("");
+  const [isChange, setIsChange] = useState<boolean>(false);
 
   const isAddImage = fileValue ? "active" : "";
+  const isDefaultImage = value && !fileValue ? "edit" : "";
   const alt = preview ? fileName : "카메라 아이콘";
+  const imageButton = value ? "이미지 변경하기" : "이미지 등록하기";
 
   const getImgUrl = async (file: File) => {
     const imgUrl = await createPresinedURL(file);
@@ -37,6 +40,7 @@ export default function FileInput({ setFormValues }: FileInput) {
         ...prev,
         imageUrl: imgUrl,
       }));
+      setIsChange(true);
     }
   };
 
@@ -56,12 +60,18 @@ export default function FileInput({ setFormValues }: FileInput) {
     <>
       <div className={cn("inputBox", "file")}>
         <p className={cn("title")}>가게 이미지</p>
-        <div className={cn("wrap", { active: isAddImage })}>
+        <div className={cn("wrap", { active: isAddImage, edit: isDefaultImage })}>
           <label htmlFor="file" className={cn("label")}>
-            <div className={cn("cameraImage")}>
-              <Image fill src={preview} alt={alt} object-fit="cover" />
+            <div className={cn("ImageBox")}>
+              {isChange || !value ? (
+                <Image fill src={preview} alt={alt} object-fit="cover" />
+              ) : (
+                <>
+                  <Image fill src={value} alt={alt} object-fit="cover" />
+                </>
+              )}
             </div>
-            <span>이미지 등록하기</span>
+            <span>{imageButton}</span>
           </label>
         </div>
         <input type="file" id="file" name="file" onChange={handleImageChange} />

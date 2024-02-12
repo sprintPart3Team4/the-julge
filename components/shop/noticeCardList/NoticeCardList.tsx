@@ -14,7 +14,7 @@ type Props = {
 
 type Card = {
   item: {
-    id: string;
+    id?: string;
     hourlyPay: number;
     startsAt: string;
     workhour: number;
@@ -29,7 +29,7 @@ type NoticeListResponse = {
   hasNext: boolean;
 };
 
-const LIMIT = 10;
+const LIMIT = 6;
 
 async function getNoticeList({ offset = 0, limit = LIMIT }: Props): Promise<NoticeListResponse> {
   const { shopId } = getCookies();
@@ -57,14 +57,14 @@ export default function NoticeCardList() {
       });
       if (node) observer.current.observe(node);
     },
-    [isLoading, hasNext]
+    [isLoading, hasNext, offset]
   );
 
   const handleLoad = async (options: Props) => {
     const { items, hasNext } = await getNoticeList(options);
     try {
       setCardList((prevList) => [...prevList, ...items]);
-      setOffset(options.offset + items.length);
+      setOffset((prev) => prev + LIMIT);
       setHasNext(hasNext);
       setIsLoading(false);
     } catch (error) {
@@ -74,7 +74,7 @@ export default function NoticeCardList() {
 
   useEffect(() => {
     handleLoad({ offset, limit: LIMIT });
-  });
+  }, []);
 
   return (
     <>

@@ -1,3 +1,5 @@
+//UserInfoForm.module.scss
+
 @use "@/styles/variables.scss" as *;
 
 @mixin placeholder {
@@ -25,7 +27,6 @@
 
   @include tablet {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
   }
 
   @include desktop {
