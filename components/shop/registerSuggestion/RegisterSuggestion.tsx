@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
+import Link from "next/link";
 import Button from "@/components/common/button/Button";
-import { BUTTON_TYPE, MESSAGE_TYPE } from "./constant";
+import { BUTTON_TYPE, MESSAGE_TYPE, LINK } from "./constant";
 import styles from "./RegisterSuggestion.module.scss";
 
 const cn = classNames.bind(styles);
@@ -13,7 +14,9 @@ export default function RegisterSuggestion({ type }: RegisterSuggestionProps) {
   return (
     <div className={cn("wrap")}>
       <span>{MESSAGE_TYPE[type]}</span>
-      <Button text={BUTTON_TYPE[type]} size="reactive" color="primary" />
+      <Link href={LINK[type]}>
+        <Button text={BUTTON_TYPE[type]} size="reactive" color="primary" />
+      </Link>
     </div>
   );
 }
