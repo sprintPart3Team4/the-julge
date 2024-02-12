@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import NoticeCard from "@/components/noticeList/noticeCard/noticeCard";
 import NavBar from "@/components/common/navBar/NavBar";
 import Footer from "@/components/common/footer/Footer";
-import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
 import MainTitle from "@/components/common/titleBox/mainTitle/MainTitle";
 import Title from "@/components/common/titleBox/title/Title";
 import NoticeDescription from "@/components/shopNoticePage/noticeDescription/NoticeDescription";
@@ -76,7 +75,7 @@ export default function DetailPage() {
   const { s } = router.query;
   const { u } = router.query;
   const { userId } = getCookies();
-  
+
   const isClosed = noticeInfo.closed ? "active" : "";
   const buttonType = isFinished ? "취소하기" : "신청하기";
   const buttonColor = isFinished ? "secondary" : "primary";
