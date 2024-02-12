@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import NoticeCard from "@/components/noticeList/noticeCard/noticeCard";
 import NavBar from "@/components/common/navBar/NavBar";
 import Footer from "@/components/common/footer/Footer";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
@@ -20,6 +21,7 @@ const cn = classNames.bind(styles);
 
 type Card = {
   item: {
+    shop: any;
     id: string;
     hourlyPay: number;
     startsAt: string;
@@ -73,7 +75,8 @@ export default function DetailPage() {
   const router = useRouter();
   const { s } = router.query;
   const { u } = router.query;
-
+  const { userId } = getCookies();
+  
   const isClosed = noticeInfo.closed ? "active" : "";
   const buttonType = isFinished ? "취소하기" : "신청하기";
   const buttonColor = isFinished ? "secondary" : "primary";
@@ -108,20 +111,15 @@ export default function DetailPage() {
   };
 
   const handleButtonClick = () => {
-    const { userId } = getCookies();
-
     if (userType === "employer") {
       handleModalOpen();
     }
 
     if (isUser === undefined) {
       handleModalOpen();
-    } else {
+    } else if (isUser !== undefined && userType === "employee") {
       isFinished ? handleModalOpen() : handleRegisterClick();
     }
-
-    setUserType(user !== null ? user.type : "");
-    setIsUser(userId);
   };
 
   const handleCancelApply = async () => {
@@ -148,7 +146,7 @@ export default function DetailPage() {
   };
 
   const handleLoadNotice = async () => {
-    const res = await instance.get('notices');
+    const res = await instance.get("notices");
     setCardList(res.data.items);
   };
 
@@ -167,10 +165,10 @@ export default function DetailPage() {
   useEffect(() => {
     handleLoadNotice();
     handleLoadNoticeDetail();
+    setUserType(user !== null ? user.type : "");
+    setIsUser(userId);
   }, []);
 
-  console.log(watchedItem)
-        
   return (
     <>
       <NavBar />
@@ -254,6 +252,12 @@ export default function DetailPage() {
                 hourlyPay={card.item.hourlyPay}
                 closed={noticeInfo.closed ? true : false}
                 isPast={isPast}
+                noticeId={card.item.id}
+                noticeShopId={card.item.shop.id}
+                imageUrl={card.item.shop.item.imageUrl}
+                name={card.item.shop.item.name}
+                address1={card.item.shop.item.address1}
+                originalHourlyPay={card.item.shop.item.originalHourlyPay}
               />
             );
           })}
