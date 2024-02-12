@@ -51,7 +51,7 @@ export default function EditNotice() {
       try {
         const reloadedData = await useReloadNotice(shopId, token, noticeId);
         setInputState((prevState: StateType) => ({ ...prevState, hourlyPay: reloadedData.hourlyPay }));
-        setInputState((prevState: StateType) => ({ ...prevState, startsAt: reformatDate(reloadedData.startsAt) }));
+        setInputState((prevState: StateType) => ({ ...prevState, startsAt: reloadedData.startsAt }));
         setInputState((prevState: StateType) => ({ ...prevState, workhour: reloadedData.workhour }));
         setInputState((prevState: StateType) => ({ ...prevState, description: reloadedData.description }));
       } catch (error) {
@@ -61,10 +61,6 @@ export default function EditNotice() {
 
     reload();
   }, []);
-
-  const reformatDate = (original: string) => {
-    return original.replace(":00.000Z", "");
-  };
 
   function setState(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     const value = e.target.value;
@@ -94,6 +90,8 @@ export default function EditNotice() {
 
   function submit(e: FormEvent): void {
     e.preventDefault();
+    console.log(inputState);
+    console.log(`hourlyPay type: ${typeof inputState.hourlyPay}`);
 
     useEditNotice(inputState, shopId, noticeId, token, setModal);
   }
@@ -113,7 +111,7 @@ export default function EditNotice() {
       {modal.askCloseModal && (
         <Modal>
           <Modal.YesOrNo
-            text="편집을 취소하시겠어요?"
+            text="취소하시겠어요?"
             yesButtonText="취소하기"
             setIsModalOpen={deActivateAskCloseModal}
             handleYesButtonClick={movementToDetail}

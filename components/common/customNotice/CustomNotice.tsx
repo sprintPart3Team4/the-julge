@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import NoticeCard from "@/components/noticeList/noticeCard/noticeCard";
 import getCookies from "@/lib/getCookies";
