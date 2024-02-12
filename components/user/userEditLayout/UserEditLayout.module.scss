@@ -5,6 +5,7 @@
 
   @include tablet {
     padding: 6rem 0;
+    height: calc(100vh - 16rem);
   }
 }
 

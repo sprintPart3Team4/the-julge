@@ -36,7 +36,7 @@ export default function UserEditLayout() {
     <div className={cn("Wrap")}>
       <div className={cn("titleWrap")}>
         <MainTitle mainTitle="내 프로필"></MainTitle>
-        <CloseButton stateToggle={toggleState} />
+        <CloseButton buttonClickEvent={toggleState} />
       </div>
       <UserInfoForm />
       {isModalOpen && (
