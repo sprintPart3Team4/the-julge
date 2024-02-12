@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import instance from "@/lib/axiosInstance";
+import NavBar from "@/components/common/navBar/NavBar";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
 import MainTitle from "@/components/common/titleBox/mainTitle/MainTitle";
 import getCookies from "@/lib/getCookies";
@@ -56,6 +57,7 @@ export default function WatchedNotice() {
 
   return (
     <>
+      <NavBar />
       <MainTitle mainTitle="최근에 본 공고" />
       <div className={cn("wrap")}>
         {watchedItem.map((card) => {

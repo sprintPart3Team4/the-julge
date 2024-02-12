@@ -1,4 +1,5 @@
 import Footer from "@/components/common/footer/Footer";
+import NavBar from "@/components/common/navBar/NavBar";
 import NoticeRegister from "@/components/register/notice/NoticeRegister/NoticeRegister";
 import ShopInfoForm from "@/components/register/shopInfo/shopInfoForm/shopInfoForm";
 import NoticeCard from "@/components/shop/noticeCard/NoticeCard";
@@ -20,18 +21,14 @@ export default function ShopPage() {
 
   return (
     <>
+      <NavBar />
       {isInfoRegisterOpen ? (
         <ShopInfoForm toggleInfoOpen={toggleInfoOpen} />
       ) : isNoticeRegisterOpen ? (
         <NoticeRegister toggleNoticeOpen={toggleNoticeOpen} />
       ) : (
         <>
-          <ShopPageLayout
-            hasShop
-            hasNotice
-            toggleInfoOpen={toggleInfoOpen}
-            toggleNoticeOpen={toggleNoticeOpen}
-          />
+          <ShopPageLayout hasShop hasNotice toggleInfoOpen={toggleInfoOpen} toggleNoticeOpen={toggleNoticeOpen} />
           <Footer />
         </>
       )}
