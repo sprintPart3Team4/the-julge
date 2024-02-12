@@ -98,7 +98,7 @@ export default function NoticeRegister() {
       {modal.askCloseModal && (
         <Modal>
           <Modal.YesOrNo
-            text="등록을 취소하시겠어요?"
+            text="취소하시겠어요?"
             yesButtonText="취소하기"
             setIsModalOpen={deActivateAskCloseModal}
             handleYesButtonClick={movementToShop}
