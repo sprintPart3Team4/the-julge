@@ -29,13 +29,12 @@ type NoticeListResponse = {
   hasNext: boolean;
 };
 
-const LIMIT = 10;
+const LIMIT = 6;
 
 async function getNoticeList({ offset = 0, limit = LIMIT }: Props): Promise<NoticeListResponse> {
   const { shopId } = getCookies();
   const query = `offset=${offset}&limit=${limit}`;
   const res = await instance.get<NoticeListResponse>(`shops/${shopId}/notices?${query}`);
-  // console.log(res.data.count);
   return res.data;
 }
 
