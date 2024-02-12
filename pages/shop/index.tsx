@@ -32,7 +32,7 @@ export default function ShopPage() {
     if (shop) {
       checkHasShop(shop.id);
     }
-  }, []);
+  }, [shop]);
 
   return (
     <>
