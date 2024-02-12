@@ -1,23 +1,9 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 export interface CommonProps {
   label: string;
   title: string;
   value: string | number;
-}
-export interface Input extends CommonProps {
-  input?: {
-    type: string;
-    id: string;
-    name: string;
-  };
-  textarea?: {
-    type: string;
-    id: string;
-    name: string;
-  };
-  floatingText?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface SelectBox extends CommonProps {
@@ -26,18 +12,13 @@ export interface SelectBox extends CommonProps {
     name: string;
   }[];
   isSelected?: boolean;
+  value: string;
   setFormValues: Dispatch<SetStateAction<FormValues>>;
-}
-export interface Textarea extends CommonProps {
-  textarea: {
-    id: string;
-    name: string;
-  };
-  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 export interface FileInput {
   setFormValues: Dispatch<SetStateAction<FormValues>>;
+  value: string;
 }
 export interface Item {
   id: string;

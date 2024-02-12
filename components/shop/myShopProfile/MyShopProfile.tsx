@@ -8,11 +8,15 @@ import styles from "./MyShopProfile.module.scss";
 const cn = classNames.bind(styles);
 
 type Prop = {
-  toggleInfoOpen: () => void;
+  handleEditClick?: () => void;
   toggleNoticeOpen: () => void;
 };
 
-export default function MyShopProfile({ toggleInfoOpen, toggleNoticeOpen }: Prop) {
+export default function MyShopProfile({
+  handleEditClick,
+  toggleNoticeOpen,
+}: Prop) {
+
   const { shop } = useAuth();
 
   if (!shop) return;
@@ -43,8 +47,18 @@ export default function MyShopProfile({ toggleInfoOpen, toggleNoticeOpen }: Prop
           </span>
         </div>
         <div className={cn("buttons")}>
-          <Button text="편집하기" size="flexible" color="secondary" handleButtonClick={toggleInfoOpen}></Button>
-          <Button text="공고 등록하기" size="flexible" color="primary" handleButtonClick={toggleNoticeOpen}></Button>
+          <Button
+            text="편집하기"
+            size="flexible"
+            color="secondary"
+            handleButtonClick={handleEditClick}
+          ></Button>
+          <Button
+            text="공고 등록하기"
+            size="flexible"
+            color="primary"
+            handleButtonClick={toggleNoticeOpen}
+          ></Button>
         </div>
       </div>
     </div>
