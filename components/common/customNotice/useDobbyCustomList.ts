@@ -1,27 +1,29 @@
 import instance from "@/lib/axiosInstance";
 
 export default async function useDobbyCustomList(setCustomList: (arg: Array<any>) => void, userId: string) {
-  try {
-    const notices = await instance.get(`notices?sort=time`);
-    console.log(notices);
-    console.log(notices.data.links[2].href);
-    const noticeList = notices.data.items;
+  const userData = await instance.get(`users/${userId}`);
+  const userAddress = userData.data.item.address;
+  const res = (await instance.get(`notices`)).data;
+  const customItems = res.items.filter((i: any) => i.item.shop.item.address1 === userAddress);
+  let customList = [...customItems];
 
-    const userData = await instance.get(`users/${userId}`);
-    const userAddress = userData.data.item.address;
+  const nextUrl = res.links[2].href;
+  const url = nextUrl.substring(nextUrl.indexOf("?"));
 
-    let customList;
+  if (res.hasNext) {
+    recursion(url);
+  }
 
-    const userCustomList = noticeList.filter((i: any) => i.item.shop.address1 === userAddress);
-    if (userCustomList.length < 1) {
-      customList = noticeList;
-      console.log("주소에 해당되는 공고가 없습니다.");
+  async function recursion(url: string) {
+    const res = (await instance.get(`notices${url}`)).data;
+    const customItems = res.items.filter((i: any) => i.item.shop.item.address1 === userAddress);
+    customList.push(...customItems);
+    if (res.hasNext) {
+      const nextUrl = res.links[2].href;
+      const nextUrlParams = nextUrl.substring(nextUrl.indexOf("?"));
+      recursion(nextUrlParams);
     } else {
-      customList = userCustomList;
+      setCustomList(customList);
     }
-
-    setCustomList(customList);
-  } catch (error) {
-    console.log("API 응답 오류 발생", error);
   }
 }

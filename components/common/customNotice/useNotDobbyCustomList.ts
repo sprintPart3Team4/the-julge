@@ -1,11 +1,25 @@
 import instance from "@/lib/axiosInstance";
 
-export default async function useNotDobbyCustomList(setCustomNoticeList: (arg: Array<any>) => void) {
-  try {
-    const noticeList = (await instance.get(`notices?sort=time`)).data.items;
-    const customList = noticeList.filter((a: any) => a.item.closed === false);
-    setCustomNoticeList(customList);
-  } catch (error) {
-    console.log("API 응답 오류 발생", error);
+export default async function useNotDobbyCustomList(setCustomList: (arg: Array<any>) => void) {
+  const res = (await instance.get(`notices`)).data;
+  let customList = [...res.items];
+
+  const nextUrl = res.links[2].href;
+  const url = nextUrl.substring(nextUrl.indexOf("?"));
+
+  if (res.hasNext) {
+    recursion(url);
+  }
+
+  async function recursion(url: string) {
+    const res = (await instance.get(`notices${url}`)).data;
+    customList.push(...res.items);
+    if (res.hasNext) {
+      const nextUrl = res.links[2].href;
+      const nextUrlParams = nextUrl.substring(nextUrl.indexOf("?"));
+      recursion(nextUrlParams);
+    } else {
+      setCustomList(customList);
+    }
   }
 }

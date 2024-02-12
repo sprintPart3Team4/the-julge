@@ -23,7 +23,7 @@
       flex-direction: row;
       gap: 1rem;
       width: max-content;
-      animation: autoPlay 55s linear infinite;
+      animation: autoPlay 500s linear infinite;
 
       @keyframes autoPlay {
         0% {
