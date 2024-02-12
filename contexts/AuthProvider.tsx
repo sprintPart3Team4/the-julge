@@ -3,6 +3,7 @@ import { ReactNode, createContext, useContext, useEffect, useState } from "react
 import instance from "@/lib/axiosInstance";
 import getCookies from "@/lib/getCookies";
 import { AuthContextType, Shop, UpdateUser, User } from "@/types/apiTypes";
+import { deleteCookie } from "@/lib/deleteCookie";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -57,7 +58,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   const logout = async () => {
-    document.cookie = "";
+    deleteCookie("shopId");
+    deleteCookie("userId");
+    deleteCookie("token");
+
     setValues((prev) => ({
       ...prev,
       user: null,
