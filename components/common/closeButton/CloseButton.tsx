@@ -4,24 +4,14 @@ import styles from "./CloseButton.module.scss";
 
 const cn = classNames.bind(styles);
 
-interface Props {
-  stateToggle: (setIsRegisterOpen: boolean)=> void;
+interface Prop {
+  buttonClickEvent: () => void;
 }
 
-export default function CloseButton({ stateToggle }: Props) {
-
-  function judgeRender() {
-    stateToggle(false);
-  }
-
+export default function CloseButton({ buttonClickEvent }: Prop) {
   return (
-    <div className={cn("closeButton")} onClick={judgeRender}>
-      <Image
-        src="/images/close.svg"
-        alt="closeButton"
-        width={32}
-        height={32}
-      />
+    <div className={cn("closeButton")} onClick={buttonClickEvent}>
+      <Image src="/images/close.svg" alt="closeButton" width={32} height={32} />
     </div>
   );
 }

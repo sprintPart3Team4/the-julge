@@ -20,8 +20,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/register/notice/NoticeRegister/NoticeRegister.tsx",
-    "components/register/notice/NoticeRegister/usePostNotice.ts"
+    "pages/shop/NoticeRegister.tsx",
+    "components/register/notice/noticeRegister/usePostNotice.ts"
   ],
   "exclude": ["node_modules"]
 }

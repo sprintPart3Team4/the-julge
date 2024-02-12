@@ -79,7 +79,7 @@ export default function UserPageLayout() {
         )}
       </section>
       {hasProfile && (
-        <section>
+        <section className={cn("sectionMyApply")}>
           <h2>신청 내역</h2>
           {hasApply ? (
             <div className={cn("pagenationWrap")}>
