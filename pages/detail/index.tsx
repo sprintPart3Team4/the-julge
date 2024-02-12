@@ -142,37 +142,35 @@ export default function DetailPage() {
   };
 
   const handleLoadNoticeDetail = async () => {
-    const { token } = getCookies();
-
-    const res = await instance.get(`shops/${s}/notices/${u}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await instance.get(`shops/${s}/notices/${u}`);
     setNoticeInfo(res.data.item);
     setShopInfo(res.data.item.shop.item);
   };
 
   const handleLoadNotice = async () => {
-    const res = await instance.get(`shops/${s}/notices`);
+    const res = await instance.get('notices');
     setCardList(res.data.items);
   };
 
   useEffect(() => {
-    if (s) {
+    if (u) {
       const stored = localStorage.getItem("watched");
       let watched = stored ? JSON.parse(stored) : [];
-      watched.unshift(s);
+      watched.unshift(u);
 
       const uniqueWatched = watched.filter((item: string, index: number) => watched.indexOf(item) === index);
       localStorage.setItem("watched", JSON.stringify(uniqueWatched));
       setWatchedItem(cardList.filter((card) => uniqueWatched.includes(card.item.id)).slice(0, 6));
     }
-  }, [s, cardList]);
+  }, [u, cardList]);
 
   useEffect(() => {
     handleLoadNotice();
     handleLoadNoticeDetail();
   }, []);
 
+  console.log(watchedItem)
+        
   return (
     <>
       <NavBar />
