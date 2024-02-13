@@ -34,7 +34,7 @@ export default async function useEditNotice(
   };
 
   try {
-    const res = await instance.put(`shops/${shopId}/notices/${noticeId}`, requestBody, {
+    await instance.put(`shops/${shopId}/notices/${noticeId}`, requestBody, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setModal((prevState: ModalType) => ({ ...prevState, modalText: "수정되었습니다" }));
