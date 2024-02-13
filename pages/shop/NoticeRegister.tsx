@@ -33,6 +33,7 @@ export default function NoticeRegister() {
     workhour: undefined,
     description: "",
   });
+  
   const [modal, setModal] = useState<ModalType>({
     postSuccessModal: false,
     postFailModal: false,
@@ -70,7 +71,6 @@ export default function NoticeRegister() {
 
   function submit(e: FormEvent): void {
     e.preventDefault();
-
     usePostNotice(inputState, setModal);
   }
 
