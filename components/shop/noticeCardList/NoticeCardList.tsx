@@ -25,8 +25,12 @@ type Card = {
 };
 
 type NoticeListResponse = {
-  items: Card[];
+  offset: number;
+  limit: number;
+  count: number;
   hasNext: boolean;
+  items: Card[];
+  links: [];
 };
 
 const LIMIT = 6;
@@ -77,21 +81,19 @@ export default function NoticeCardList() {
   }, []);
 
   return (
-    <>
-      <div className={cn("wrap")}>
-        {cardList.map(({ item: { id, startsAt, workhour, hourlyPay, closed } }, index) => {
-          const noticeCardProps = {
-            id,
-            startsAt,
-            workhour,
-            hourlyPay,
-            closed,
-          };
-          return (
-            <NoticeCard key={id} ref={index === cardList.length - 1 ? lastCardRef : undefined} {...noticeCardProps} />
-          );
-        })}
-      </div>
-    </>
+    <div className={cn("wrap")}>
+      {cardList.map(({ item: { id, startsAt, workhour, hourlyPay, closed } }, index) => {
+        const noticeCardProps = {
+          id,
+          startsAt,
+          workhour,
+          hourlyPay,
+          closed,
+        };
+        return (
+          <NoticeCard key={id} ref={index === cardList.length - 1 ? lastCardRef : undefined} {...noticeCardProps} />
+        );
+      })}
+    </div>
   );
 }
