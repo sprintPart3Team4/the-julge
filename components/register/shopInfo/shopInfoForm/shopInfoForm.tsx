@@ -61,7 +61,7 @@ export default function ShopInfoForm({...shop}) {
   };
 
   const handleButtonClick = () => {
-    shop.name ? router.push("/shop") : "";
+    router.push("/shop")
     setIsModalOpen(false);
   };
 
