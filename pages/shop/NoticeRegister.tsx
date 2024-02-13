@@ -70,7 +70,6 @@ export default function NoticeRegister() {
 
   function submit(e: FormEvent): void {
     e.preventDefault();
-    console.log(inputState);
 
     usePostNotice(inputState, setModal);
   }

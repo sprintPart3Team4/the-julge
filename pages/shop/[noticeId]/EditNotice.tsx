@@ -90,8 +90,6 @@ export default function EditNotice() {
 
   function submit(e: FormEvent): void {
     e.preventDefault();
-    console.log(inputState);
-    console.log(`hourlyPay type: ${typeof inputState.hourlyPay}`);
 
     useEditNotice(inputState, shopId, noticeId, token, setModal);
   }
