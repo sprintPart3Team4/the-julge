@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 
 import NavBar from "@/components/common/navBar/NavBar";
+import Footer from "@/components/common/footer/Footer";
 import Title from "@/components/common/titleBox/title/Title";
 import NoticeContent from "@/components/shopNoticePage/noticeContent/NoticeContent";
 import NoticeDescription from "@/components/shopNoticePage/noticeDescription/NoticeDescription";
 import Applications from "@/components/shopNoticePage/applications/Applications";
 import Pagenation from "@/components/shopNoticePage/pagenation/Pagenation";
+import Loading from "@/components/common/loading/Loading";
 
 import { useAuth } from "@/contexts/AuthProvider";
 import { getApplicationList, getNotice } from "@/lib/shopNoticePage";
@@ -27,8 +29,6 @@ export default function NoticeDetailPage() {
   const [numberOfTotalApplication, setNumberOfTotalApplication] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [isEditPageOpen, setIsEditPageOpen] = useState(false);
-
   const LIMIT_PER_SINGLE_PAGE = 5; // 한 페이지에 보여줄 데이터의 개수
   const LIMIT_PER_PAGE_GROUP = 5; // 한 번에 보여줄 페이지 번호의 개수
 
@@ -44,7 +44,7 @@ export default function NoticeDetailPage() {
   }, [shop]);
 
   // 유저가 잘못된 경로로 들어오면, 아래의 로딩 중이 아닌, 에러 발생 -> 나중에 404 페이지 만들기?
-  if (!shop || typeof noticeId !== "string" || isLoading || !noticeInfo) return <div>로딩 중</div>;
+  if (!shop || typeof noticeId !== "string" || isLoading || !noticeInfo || !applicationList) return <Loading />;
 
   const handleChangeData = (pageNumber: number) => {
     if (!shop.id) return;
@@ -59,7 +59,9 @@ export default function NoticeDetailPage() {
   };
 
   // 나중에 현수님이 작업하신 페이지 가져오기
-  const handleEditPageOpen = () => setIsEditPageOpen(true);
+  const handleEditPageOpen = () => {
+    router.push(`${noticeId}/EditNotice`);
+  };
 
   return (
     <div>
@@ -73,10 +75,10 @@ export default function NoticeDetailPage() {
             </Title>
           </div>
           <NoticeContent shop={shop} noticeInfo={noticeInfo} handleButtonClick={handleEditPageOpen} />
-          <NoticeDescription noticeDescription={shop.description} />
+          <NoticeDescription noticeDescription={noticeInfo.description} />
         </section>
       </div>
-      {applicationList ? (
+      {applicationList?.length !== 0 ? (
         <section className={cn("applicationWrap")}>
           <Title>
             <Title.MainTitle mainTitle="신청자 목록" />
@@ -96,6 +98,7 @@ export default function NoticeDetailPage() {
       ) : (
         <div className={cn("noApplication")}>아직 지원자가 없습니다.</div>
       )}
+      <Footer />
     </div>
   );
 }

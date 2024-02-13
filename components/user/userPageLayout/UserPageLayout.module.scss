@@ -17,6 +17,7 @@
     @include tablet {
       gap: 3.2rem;
       padding: 6rem 3.2rem;
+      height: calc(100vh - 28rem);
     }
 
     @include desktop {
@@ -26,10 +27,14 @@
   }
 
   .sectionMyProfile {
+    height: auto !important;
     @include desktop {
       flex-direction: row;
       justify-content: space-between;
     }
+  }
+  .sectionMyApply {
+    height: auto;
   }
 
   h2 {
@@ -50,6 +55,8 @@
 
   max-width: 96.4rem;
   width: calc(100% - $mobile-safezone * 2);
+  background-color: $color-white;
+  overflow: hidden;
 }
 
 .pagenation {

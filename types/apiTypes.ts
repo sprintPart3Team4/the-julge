@@ -61,7 +61,7 @@ export type AuthContextType = {
   shop: Shop | null;
   isPending: boolean;
   login: (email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
+  logout: () => void;
   updateMe: (formData: UpdateUser) => Promise<void>;
   registerShop: (FormData: Shop) => Promise<void>;
   updateShop: (formData: Shop) => Promise<void>;

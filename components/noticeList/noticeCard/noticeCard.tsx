@@ -19,7 +19,7 @@ type Props = {
   hourlyPay: number;
   closed?: boolean;
   isPast?: boolean;
-  noticeShopId: string | undefined;
+  noticeShopId?: string | undefined;
   myShopId?: string;
   imageUrl: string;
   name: string;
@@ -33,7 +33,6 @@ export default function NoticeCard({
   workhour,
   hourlyPay,
   closed,
-  isPast,
   noticeShopId,
   myShopId,
   imageUrl,
@@ -44,6 +43,10 @@ export default function NoticeCard({
   const query = `?s=${noticeShopId}&u=${noticeId}`;
   const href = noticeShopId === myShopId ? `shop/${noticeId}` : `detail${query}`;
 
+  const currentDate = new Date();
+  const endDate = new Date(startsAt);
+  const isPast = currentDate > endDate;
+
   return (
     <Link href={href}>
       <div className={cn("wrap", { closed, isPast })}>
@@ -51,25 +54,25 @@ export default function NoticeCard({
           <div className={cn("imageHeight")}>
             {closed && <div className={cn("imgOverlay")}>마감 완료</div>}
             {isPast && <div className={cn("imgOverlay")}>지난 공고</div>}
-
             <Image className={cn("image")} src={imageUrl} alt="가게 이미지" fill />
           </div>
         </div>
         <div className={cn("contents")}>
           <span className={cn("shopName")}>{name}</span>
           <div className={cn("time")}>
-            <Image src={closed ? GreyClockIcon : ClockIcon} alt="시계 아이콘" width={20} height={20} />
+            <Image src={closed || isPast ? GreyClockIcon : ClockIcon} alt="시계 아이콘" width={20} height={20} />
             <span>{getFullDate(startsAt, workhour)}</span>
           </div>
           <div className={cn("location")}>
-            <Image src={closed ? GreyLocationIcon : LocationIcon} alt="장소 아이콘" width={20} height={20} />
+            <Image src={closed || isPast ? GreyLocationIcon : LocationIcon} alt="장소 아이콘" width={20} height={20} />
             <span>{address1}</span>
           </div>
           <div className={cn("pays")}>
-            <span className={cn("pay")}>{hourlyPay.toLocaleString("ko-KR")}원</span>
+            <span className={cn("pay")}>{Number(hourlyPay).toLocaleString("ko-KR")}원</span>
             <HighPayRateBadge
               isListedCard
               closed={closed}
+              isPast={isPast}
               hourlyPay={hourlyPay}
               originalHourlyPay={originalHourlyPay || 0}
             />

@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import classNames from "classnames/bind";
 import instance from "@/lib/axiosInstance";
 import Logo from "@/components/common/logo/Logo";
@@ -58,7 +59,7 @@ export default function SignupForm() {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, errors },
+    formState: { errors },
     watch,
   } = useForm<FormValue>({
     mode: "onBlur",
@@ -81,17 +82,19 @@ export default function SignupForm() {
 
   const handleClickTogglePassword = () => {
     setTogglePassword((prev) => !prev);
+  };
+  const handleClickTogglePasswordConfirm = () => {
     setTogglePasswordCheck((prev) => !prev);
   };
-
-  const source = togglePasswordCheck ? EyeOn : EyeOff;
+  const passwordSource = togglePassword ? EyeOn : EyeOff;
+  const passwordConfirmSource = togglePasswordCheck ? EyeOn : EyeOff;
 
   return (
     <div className={cn("signLayoutWrap")}>
       <div className={cn("signWrap")}>
-        <div className={cn("logoWarp")}>
+        <Link href={"/"} className={cn("logoWarp")}>
           <Logo size="large" />
-        </div>
+        </Link>
         <form onSubmit={handleSubmit(() => onSubmit(userInfo))} className={cn("formWrap")}>
           <div className={cn("inputWrap")}>
             <label htmlFor="email" className={cn("inputLabel")}>
@@ -138,7 +141,7 @@ export default function SignupForm() {
                   handleClickTogglePassword();
                 }}
               >
-                <Image src={source} alt="비밀번호 숨김 표시" width={16} height={16} />
+                <Image src={passwordSource} alt="비밀번호 숨김 표시" width={16} height={16} />
               </button>
             </div>
             <small className={cn("errorMessage")}>{errors.password?.message}</small>
@@ -151,7 +154,7 @@ export default function SignupForm() {
               <input
                 className={cn("input")}
                 id="confirmPassword"
-                type={togglePassword ? "text" : "password"}
+                type={togglePasswordCheck ? "text" : "password"}
                 placeholder="입력"
                 {...register("passwordConfirm", {
                   required: "비밀번호를 입력해주세요.",
@@ -167,10 +170,10 @@ export default function SignupForm() {
               <button
                 type="button"
                 onClick={() => {
-                  handleClickTogglePassword();
+                  handleClickTogglePasswordConfirm();
                 }}
               >
-                <Image src={source} alt="비밀번호 숨김 표시" width={16} height={16} />
+                <Image src={passwordConfirmSource} alt="비밀번호 숨김 표시" width={16} height={16} />
               </button>
             </div>
             <small className={cn("errorMessage")}>{errors.passwordConfirm?.message}</small>

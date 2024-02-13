@@ -24,7 +24,8 @@ export default function UserPageLayout() {
   const router = useRouter();
 
   useEffect(() => {
-    if (user === null) {
+    const isCheck = user?.name == undefined && user?.address === undefined && user?.phone === undefined;
+    if (isCheck) {
       setHasProfile(false);
     } else setHasProfile(true);
     handleChangeData(1);
@@ -56,6 +57,7 @@ export default function UserPageLayout() {
         setHasApply(true);
         setApplyList(applyList);
         setNumberOfTotalApplication(count);
+        console.log(applyList);
       }
     } catch (error) {
       console.error("페이지 변경 중 에러 발생:", error);
@@ -77,7 +79,7 @@ export default function UserPageLayout() {
         )}
       </section>
       {hasProfile && (
-        <section>
+        <section className={cn("sectionMyApply")}>
           <h2>신청 내역</h2>
           {hasApply ? (
             <div className={cn("pagenationWrap")}>

@@ -14,7 +14,7 @@ import styles from "./NoticeCard.module.scss";
 const cn = classNames.bind(styles);
 
 type Props = {
-  id: string;
+  id?: string;
   startsAt: string;
   workhour: number;
   hourlyPay: number;
@@ -27,7 +27,8 @@ const NoticeCard = React.forwardRef(
     const { shop } = useAuth();
     const noticeId = id;
 
-    if (!shop) return;
+    if (!shop) return null;
+
     const { imageUrl, name, address1, originalHourlyPay } = shop;
 
     return (
@@ -51,7 +52,7 @@ const NoticeCard = React.forwardRef(
               <span>{address1}</span>
             </div>
             <div className={cn("pays")}>
-              <span className={cn("pay")}>{hourlyPay.toLocaleString("ko-KR")}원</span>
+              <span className={cn("pay")}>{Number(hourlyPay).toLocaleString("ko-KR")}원</span>
               <HighPayRateBadge
                 isListedCard
                 closed={closed}
@@ -60,7 +61,7 @@ const NoticeCard = React.forwardRef(
               />
             </div>
           </div>
-        </div>
+        </div>{" "}
       </Link>
     );
   }

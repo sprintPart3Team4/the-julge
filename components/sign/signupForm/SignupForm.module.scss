@@ -1,10 +1,10 @@
 @use "@/styles/variables.scss" as *;
 .signLayoutWrap {
-  width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: -10.2rem;
 }
 
 .signWrap {
@@ -27,6 +27,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 0.8rem;
+  margin-bottom: 1rem;
 }
 
 .inputLabel {
@@ -66,7 +67,7 @@
 }
 
 .buttonWrap {
-  margin-top: 1.6rem;
+  margin-top: 2.8rem;
 }
 .signBottomWrap {
   margin-top: 2rem;

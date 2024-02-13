@@ -4,13 +4,14 @@ import classNames from "classnames/bind";
 import SortDropBox from "./sortDropBox/SortDropBox";
 import FilterDropBoxShell from "./filterDropBox/filterDropBoxShell/FilterDropBoxShell";
 import Pagenation from "../shopNoticePage/pagenation/Pagenation";
+import NoticeCardList from "../noticeList/noticeCardList/NoticeCardList";
+import Loading from "../common/loading/Loading";
 
 import { getNotices } from "@/lib/getNotices";
 import { initailFilter, SORT } from "@/lib/NoticesConstants";
 import { Filter, NoticeList } from "@/types/noticesType";
 
 import styles from "./Notices.module.scss";
-import NoticeCardList from "../noticeList/noticeCardList/NoticeCardList";
 
 const cn = classNames.bind(styles);
 
@@ -47,7 +48,7 @@ export default function Notices({ keyword }: Props) {
     }
   }, [keyword]);
 
-  if (isLoading) return <div>로딩 중</div>;
+  if (isLoading) return <Loading />;
 
   // 상세 필터를 적용하면, 키워드는 유지되지만, 정렬, 페이지네이션은 초기화!
   // 시간 포맷을 RFC3339로 바꾸는 것도 아직 미적용해서 시간을 보낼 경우 오류가 남.
@@ -127,7 +128,11 @@ export default function Notices({ keyword }: Props) {
           </FilterDropBoxShell>
         </div>
       </div>
-      <NoticeCardList noticeList={noticeList} />
+      {noticeList.length ? (
+        <NoticeCardList noticeList={noticeList} />
+      ) : (
+        <div className={cn("noResult")}>검색 결과가 없습니다</div>
+      )}
       <Pagenation
         numberOfTotalData={count}
         limitPerSinglePage={LIMIT_PER_SINGLE_PAGE}

@@ -1,0 +1,80 @@
+@use "@/styles/variables.scss" as *;
+
+.wrap {
+  background-color: $color-red-10;
+  box-sizing: content-box;
+  padding: 5rem 1.2rem;
+
+  .contentWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow: hidden;
+
+    .title {
+      color: $color-black;
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .noticeCardList {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      width: max-content;
+      animation: autoPlay 500s linear infinite;
+
+      &.active {
+        animation: autoplay 0s linear infinite;
+      }
+
+      @keyframes autoPlay {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      &:hover {
+        animation-play-state: paused;
+      }
+
+      .scroll::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+}
+
+@include tablet {
+  .contentWrap {
+    width: 95.1%;
+    margin: 0 auto;
+
+    .title {
+      font-size: 2.8rem !important;
+    }
+
+    .noticeCardBox {
+      width: 30.5rem;
+    }
+  }
+}
+
+@include desktop {
+  .contentWrap {
+    margin: 0 auto;
+    width: 96.4rem;
+
+    .title {
+      font-size: 2.8rem !important;
+    }
+
+    .noticeCardBox {
+      width: 31.3rem;
+    }
+  }
+}
