@@ -49,15 +49,15 @@ export default function NoticeRegister() {
     setInputState((prevState: StateType) => ({ ...prevState, [property]: value }));
   }
 
-  function activateAskCloaseModal() {
+  function activateAskCloaseModal(): void {
     setModal((prevState: ModalType) => ({ ...prevState, askCloseModal: true }));
   }
 
-  function deActivateAskCloseModal() {
+  function deActivateAskCloseModal(): void {
     setModal((prevState: ModalType) => ({ ...prevState, askCloseModal: false }));
   }
 
-  function movementToShop() {
+  function movementToShop(): void {
     router.push("/shop");
   }
 

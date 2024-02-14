@@ -18,17 +18,25 @@ interface ModalType {
 export default async function usePostNotice(inputState: StateType, setModal: any) {
   const { token, shopId } = getCookies();
 
+  const formatDate = (original: string) => {
+    return `${original}:00Z`;
+  };
+
+  const formatedDate = formatDate(inputState.startsAt);
+  const requestBody = {
+    ...inputState,
+    startsAt: formatedDate
+  };
+
   try {
-    const res = await instance.post(`shops/${shopId}/notices`, inputState, {
+    await instance.post(`shops/${shopId}/notices`, requestBody, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("API 전송 완료");
-    console.log(res.data);
-    setModal((prevState: ModalType) => ({...prevState, modalText: "등록되었습니다"}));
-    setModal((prevState: ModalType) => ({...prevState, postSuccessModal: true}));
+    setModal((prevState: ModalType) => ({ ...prevState, modalText: "등록되었습니다" }));
+    setModal((prevState: ModalType) => ({ ...prevState, postSuccessModal: true }));
   } catch (error) {
-    console.error("API 전송 중 오류 발생", error);
-    setModal((prevState: ModalType) => ({...prevState, modalText: "등록에 실패했습니다"}));
-    setModal((prevState: ModalType) => ({...prevState, postFailModal: true}));
+    console.error(error);
+    setModal((prevState: ModalType) => ({ ...prevState, modalText: "등록에 실패했습니다" }));
+    setModal((prevState: ModalType) => ({ ...prevState, postFailModal: true }));
   }
 }
