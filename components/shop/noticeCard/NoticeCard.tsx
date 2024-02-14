@@ -61,7 +61,7 @@ const NoticeCard = React.forwardRef(
               />
             </div>
           </div>
-        </div>{" "}
+        </div>
       </Link>
     );
   }

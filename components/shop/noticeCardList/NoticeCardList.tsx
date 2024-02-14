@@ -35,11 +35,22 @@ type NoticeListResponse = {
 
 const LIMIT = 6;
 
-async function getNoticeList({ offset = 0, limit = LIMIT }: Props): Promise<NoticeListResponse> {
-  const { shopId } = getCookies();
-  const query = `offset=${offset}&limit=${limit}`;
-  const res = await instance.get<NoticeListResponse>(`shops/${shopId}/notices?${query}`);
-  return res.data;
+async function getNoticeList({ offset = 0, limit = LIMIT }, controller = null) {
+  try {
+    const { shopId } = getCookies();
+    const query = `offset=${offset}&limit=${limit}`;
+    let res;
+    if (controller) {
+      res = await instance.get<NoticeListResponse>(`shops/${shopId}/notices?${query}`, {
+        signal: controller.signal,
+      });
+    } else {
+      res = await instance.get<NoticeListResponse>(`shops/${shopId}/notices?${query}`);
+    }
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export default function NoticeCardList() {
@@ -64,20 +75,30 @@ export default function NoticeCardList() {
     [isLoading, hasNext, offset]
   );
 
-  const handleLoad = async (options: Props) => {
-    const { items, hasNext } = await getNoticeList(options);
+  const handleLoad = async (options: Props, controller = null) => {
     try {
-      setCardList((prevList) => [...prevList, ...items]);
-      setOffset((prev) => prev + LIMIT);
-      setHasNext(hasNext);
-      setIsLoading(false);
+      const res = await getNoticeList(options, controller);
+      if (res) {
+        const { items, hasNext } = res;
+        setCardList((prevList) => [...prevList, ...items]);
+        setOffset((prev) => prev + LIMIT);
+        setHasNext(hasNext);
+        setIsLoading(false);
+      }
     } catch (error) {
       setIsError(true);
+      console.log(error);
+    } finally {
+      console.log(cardList);
     }
   };
 
   useEffect(() => {
-    handleLoad({ offset, limit: LIMIT });
+    const controller = new AbortController();
+    handleLoad({ offset, limit: LIMIT }, controller);
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   return (
