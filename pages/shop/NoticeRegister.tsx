@@ -33,6 +33,7 @@ export default function NoticeRegister() {
     workhour: undefined,
     description: "",
   });
+  
   const [modal, setModal] = useState<ModalType>({
     postSuccessModal: false,
     postFailModal: false,
@@ -48,15 +49,15 @@ export default function NoticeRegister() {
     setInputState((prevState: StateType) => ({ ...prevState, [property]: value }));
   }
 
-  function activateAskCloaseModal() {
+  function activateAskCloaseModal(): void {
     setModal((prevState: ModalType) => ({ ...prevState, askCloseModal: true }));
   }
 
-  function deActivateAskCloseModal() {
+  function deActivateAskCloseModal(): void {
     setModal((prevState: ModalType) => ({ ...prevState, askCloseModal: false }));
   }
 
-  function movementToShop() {
+  function movementToShop(): void {
     router.push("/shop");
   }
 
@@ -70,7 +71,6 @@ export default function NoticeRegister() {
 
   function submit(e: FormEvent): void {
     e.preventDefault();
-
     usePostNotice(inputState, setModal);
   }
 
